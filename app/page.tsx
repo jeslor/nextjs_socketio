@@ -1,5 +1,4 @@
 import ButtonMain from '@/components/buttons/button1'
-import BackgroundCanvas from '@/components/homeBackground/homeBackground'
 import React from 'react'
 
 const page = () => {
