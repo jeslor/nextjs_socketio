@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-primary: #071201;
   --color-primary1: #f4feed;
@@ -12,9 +16,9 @@
   --color-primary8: #153502;
 }
 
-
 @layer components {
-  .btn {
-    @apply bg-blue-700 text-white font-bold py-3 px-4  rounded-full hover:bg-blue-500 transition duration-200;
+  .mainBtn {
+    @apply bg-primary7 text-white font-bold py-3 px-4  rounded-full hover:bg-primary5 transition duration-200 cursor-pointer;
   }
 }
+
