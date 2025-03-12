@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #071201;
+  --color-primary1: #f4feed;
+  --color-primary2: #c8fca7;
+  --color-primary3: #85f83e;
+  --color-primary4: #5de408;
+  --color-primary5: #409e06;
+  --color-primary6: #327b05;
+  --color-primary7: #245803;
+  --color-primary8: #153502;
+}
+
 
 @layer components {
   .btn {
