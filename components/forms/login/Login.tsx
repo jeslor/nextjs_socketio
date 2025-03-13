@@ -3,6 +3,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 import {
   Form,
   FormControl,
@@ -15,20 +16,63 @@ import {
 import { Input } from "@/components/ui/input"
 import { loginValidator } from "@/lib/validators/loginValidator"
 import Link from "next/link"
+import { signIn } from "next-auth/react"
+import toaster, { toast } from "react-hot-toast"
+import { Icon } from "@iconify/react/dist/iconify.js"
  
 
  
 const LoginForm =()=> {
+    const Router = useRouter()
     const form = useForm({
         resolver: zodResolver(loginValidator),
         defaultValues: {
-            username: "",
+            email: "",
             password: "",
         },
     })
 
 
-    const onSubmit  = async (values:z.infer<typeof loginValidator>) => {}
+    const onSubmit  = async (values:z.infer<typeof loginValidator>) => {
+     try {
+     
+        await signIn("credentials", {
+          email: values.email,
+          password: values.password,
+          redirect: false
+        }).then((res:any)=>{
+        if(res?.error){
+          toast.error('Invalid Email or password.', {
+            style: {
+              boxShadow: '0 4px 12px 0 rgba(0,0,0,0.05)',
+              border: '1px solid #713200',
+              padding: '16px',
+              color: '#8e0707',
+              fontSize: '13px',
+            },
+            iconTheme: {
+              primary: '#713200',
+              secondary: '#FFFAEE',
+            },
+          });
+          form.reset()
+          
+        }
+        if(!res?.error){
+          Router.push("/chat")
+        }
+      })
+        // if(res.ok){
+        //   Router.push("/chat")
+        // }
+        
+      
+     } catch (error) {
+      console.log(error);
+      
+     }
+      
+    }
 
 
  
@@ -40,12 +84,12 @@ const LoginForm =()=> {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="opacity-90">Username</FormLabel>
+              <FormLabel className="opacity-90">Email</FormLabel>
               <FormControl>
-                <Input placeholder="username" {...field} />
+                <Input placeholder="Email" type="email" {...field} />
               </FormControl>
              
               <FormMessage className="text-red-600 text-[9px]" />
@@ -62,7 +106,7 @@ const LoginForm =()=> {
               <Link className="text-blue-500 text-[10px] font-semibold" href={'/forgotpassword'}>Forgot password</Link>
               </div>
               <FormControl>
-                <Input placeholder="password" {...field} type="password"  className="text-[20px]"/>
+                <Input placeholder="password" {...field} type="password"  />
               </FormControl>
              
               <FormMessage className="text-red-600 text-[9px]" />

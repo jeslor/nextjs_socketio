@@ -7,7 +7,6 @@ export const ConnectToDB = async () => {
     return;
   }
   try{
-    console.log("Connecting to database", process.env.MONGODB_URI);
     
     await mongoose.connect(process.env.MONGODB_URI as string,{
       dbName:'NextChat',

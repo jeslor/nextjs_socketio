@@ -35,7 +35,7 @@ const RegisterForm =()=> {
 
     const onSubmit  = async (values:z.infer<typeof registerValidator>) => {
       try {
-        const res:any = await fetch("/api/register", {
+        const res:any = await fetch("/api/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
