@@ -4,11 +4,11 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='flex max-w-[1200px] bg-slate-50 rounded-b-2xl shadow-xl overflow-hidden shadow-primary6/10'>
-        <div className='flex flex-col justify-center items-center w-1/2 p-12'>
+    <div className='flex  w-full mx-4  flex-col tablet:flex-row max-w-[1200px] bg-slate-50 rounded-b-2xl shadow-xl overflow-hidden shadow-primary6/10'>
+        <div className='flex flex-col justify-center items-center tablet:w-1/2 px-6 py-12 tablet:px-14'>
             <LoginForm />
         </div>
-        <div className='w-1/2'>
+        <div className='tablet:w-1/2 hidden tablet:flex'>
             <img src='/images/loginImage.webp' alt='logo' className=' ' />
         </div>
     </div>
