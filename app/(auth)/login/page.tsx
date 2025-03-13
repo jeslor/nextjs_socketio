@@ -9,7 +9,7 @@ const page = () => {
             <LoginForm />
         </div>
         <div className='tablet:w-1/2 hidden tablet:flex'>
-            <img src='/images/loginImage.webp' alt='logo' className=' ' />
+          <img src='/images/authImage.webp' alt='logo' className='object-cover' />
         </div>
     </div>
   )
