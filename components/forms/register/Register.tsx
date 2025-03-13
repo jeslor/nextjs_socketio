@@ -15,10 +15,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { registerValidator } from "@/lib/validators/registerValidator"
 import Link from "next/link"
+import toast from "react-hot-toast"
+import { Icon } from "@iconify/react/dist/iconify.js"
+import { useRouter } from "next/navigation"
  
 
  
 const RegisterForm =()=> {
+  const Router = useRouter()
     const form = useForm({
         resolver: zodResolver(registerValidator),
         defaultValues: {
@@ -29,7 +33,42 @@ const RegisterForm =()=> {
     })
 
 
-    const onSubmit  = async (values:z.infer<typeof registerValidator>) => {}
+    const onSubmit  = async (values:z.infer<typeof registerValidator>) => {
+      try {
+        const res:any = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        })
+        const data = await res.json()
+        console.log(data);
+        
+        
+        if (data.status === 200) {
+          toast.success(data.message)
+          Router.replace("/login")
+        }else{
+          console.log();
+          
+          toast((t) => (
+            <div className="flex gap-x-1 ">
+              <Icon icon="fluent-color:error-circle-16" className="text-red-600  text-[30px]"  />
+             <div className="flex flex-col gap-y-1">
+             <h3 className="text-red-600 font-semibold">{data.message}</h3>
+             <p className="text-red-600 text-[10px]">{data.error}</p>
+             </div>
+            </div>
+          )
+          )
+          
+        }
+      } catch (error) {
+        
+      }
+      
+    }
 
 
  
