@@ -14,7 +14,16 @@
   --color-primary6: #327b05;
   --color-primary7: #245803;
   --color-primary8: #153502;
+  --breakpoint-smallPhone: '320px';
+  --breakpoint-phone: '640px';
+  --breakpoint-tablet: '768px';
+  --breakpoint-laptop: '1024px';
+  --breakpoint-desktop: '1280px';
+  --breakpoint-largeDesktop: '1536px';
+
 }
+
+
 
 @layer components {
   .mainBtn {

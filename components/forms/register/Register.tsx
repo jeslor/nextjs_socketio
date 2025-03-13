@@ -13,29 +13,29 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { loginValidator } from "@/lib/validators/loginValidator"
+import { registerValidator } from "@/lib/validators/registerValidator"
 import Link from "next/link"
  
 
  
-const LoginForm =()=> {
+const RegisterForm =()=> {
     const form = useForm({
-        resolver: zodResolver(loginValidator),
+        resolver: zodResolver(registerValidator),
         defaultValues: {
             username: "",
+            email: "",
             password: "",
         },
     })
 
 
-    const onSubmit  = async (values:z.infer<typeof loginValidator>) => {}
+    const onSubmit  = async (values:z.infer<typeof registerValidator>) => {}
 
 
  
   return (
     <div className="w-full max-w-[400px]">
-    <h2 className="text-3xl font-semibold">Welcome back!</h2>
-    <p className="text-sm font-semibold pb-[4rem]">Enter your credentials to access your account</p>
+    <h2 className="text-3xl font-semibold mb-[4rem]">Get started</h2>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -52,15 +52,26 @@ const LoginForm =()=> {
             </FormItem>
           )}
         />
-                <FormField
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="opacity-90">Your Email</FormLabel>
+              <FormControl>
+                <Input placeholder="email" {...field}  type="email"/>
+              </FormControl>
+             
+              <FormMessage className="text-red-600 text-[9px]" />
+            </FormItem>
+          )}
+        />
+        <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
-              <div className="flex justify-between items-center">
               <FormLabel className="opacity-90">Password</FormLabel>
-              <Link className="text-blue-500 text-[10px] font-semibold" href={'/forgotpassword'}>Forgot password</Link>
-              </div>
               <FormControl>
                 <Input placeholder="password" {...field} type="password"  className="text-[20px]"/>
               </FormControl>
@@ -73,16 +84,16 @@ const LoginForm =()=> {
           type="submit"
             className="mainBtn w-full py-2"
         >
-            Login now
+            Register
         </button>
       </form>
     </Form>
     <div className="text-center pt-10">
-      <p>Don't have an account? <Link href="/sign_up" className="text-primary6 font-semibold">Sign up</Link></p>
+      <p>Have an account already? <Link href="/login" className="text-primary6 font-semibold">Login</Link></p>
     </div>
     </div>
   )
 }
 
 
-export default LoginForm
+export default RegisterForm
