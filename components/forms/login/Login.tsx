@@ -33,7 +33,7 @@ const LoginForm =()=> {
  
   return (
     <div>
-    <h2 className="text-3xl">Welcome back!</h2>
+    <h2 className="text-3xl font-semibold">Welcome back!</h2>
     <p className="text-sm font-semibold pb-[4rem]">Enter your credentials to access your account</p>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -47,7 +47,7 @@ const LoginForm =()=> {
                 <Input placeholder="username" {...field} />
               </FormControl>
              
-              <FormMessage />
+              <FormMessage className="text-red-600 text-[9px]" />
             </FormItem>
           )}
         />
@@ -61,13 +61,13 @@ const LoginForm =()=> {
                 <Input placeholder="password" {...field} type="password"  className="text-[20px]"/>
               </FormControl>
              
-              <FormMessage />
+              <FormMessage className="text-red-600 text-[9px]" />
             </FormItem>
           )}
         />
         <button
           type="submit"
-            className="mainBtn w-full"
+            className="mainBtn w-full py-2"
         >
             Login
         </button>

@@ -18,7 +18,7 @@
 
 @layer components {
   .mainBtn {
-    @apply bg-primary7 text-white font-bold py-3 px-4  rounded-full hover:bg-primary5 transition duration-200 cursor-pointer;
+    @apply bg-primary7 text-white font-bold py-3 px-4  rounded-full hover:bg-primary8 transition duration-200 cursor-pointer;
   }
 }
 
