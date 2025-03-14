@@ -45,10 +45,10 @@ const LoginForm =()=> {
           toast.error('Invalid Email or password.', {
             style: {
               boxShadow: '0 4px 12px 0 rgba(0,0,0,0.05)',
-              border: '1px solid #713200',
               padding: '16px',
               color: '#8e0707',
               fontSize: '13px',
+              fontWeight: '500', 
             },
             iconTheme: {
               primary: '#713200',

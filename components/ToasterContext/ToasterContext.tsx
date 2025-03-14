@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 const ToasterContext = () => {
   return (
     <Toaster
-    position="top-right"
+    position="top-center"
     reverseOrder={false}
     gutter={8}
     containerStyle={{
@@ -29,7 +29,7 @@ const ToasterContext = () => {
       error: {
         style: {
           background: "#fff",
-          color: "red",
+          color: "#333",
         },
       },
     }}
