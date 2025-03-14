@@ -56,6 +56,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
+  secret: process.env.AUTH_SECRET,
   callbacks:{
 async session({ session }: { session: any }) {
   const mongoDBUser = await User.findOne({ email: session.user.email });
@@ -63,7 +64,7 @@ async session({ session }: { session: any }) {
     session.user.id = mongoDBUser._id.toString();
     session.user = { ...session.user, ...mongoDBUser._doc };
     delete session.user.password;
-    
+
   }
   return session;
 }

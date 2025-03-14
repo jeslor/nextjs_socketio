@@ -18,6 +18,7 @@ import Link from "next/link"
 import toast from "react-hot-toast"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
  
 
  
@@ -43,15 +44,37 @@ const RegisterForm =()=> {
           body: JSON.stringify(values),
         })
         const data = await res.json()
-        console.log(data);
-        
-        
         if (data.status === 200) {
           toast.success(data.message)
-          Router.replace("/login")
+          await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            redirect: false,
+          }).then((res:any)=>{
+            console.log(res);
+            
+            if(!res.error){
+              Router.push("/chat")
+            }
+            if(res?.error){
+              toast.error('Invalid Email or password.', {
+                style: {
+                  boxShadow: '0 4px 12px 0 rgba(0,0,0,0.05)',
+                  padding: '16px',
+                  color: '#8e0707',
+                  fontSize: '13px',
+                  fontWeight: '500', 
+                },
+                iconTheme: {
+                  primary: '#713200',
+                  secondary: '#FFFAEE',
+                },
+              });
+              form.reset()
+              
+            }
+        })
         }else{
-          console.log();
-          
           toast((t) => (
             <div className="flex gap-x-1 ">
               <Icon icon="fluent-color:error-circle-16" className="text-red-600  text-[30px]"  />
