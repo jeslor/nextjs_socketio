@@ -3,6 +3,7 @@
 import ChatBar from "@/components/chat/ChatBar/ChatBar"
 import ContactCard from "@/components/chat/ContactCard/ContactCard"
 import ContactSkeleton from "@/components/chat/ContactSkeleton/ContactSkeleton"
+import MessageInput from "@/components/chat/MessageInput/MessageInput"
 import { useCurrentUserStore } from "@/components/providers/userProvider"
 import { useEffect } from "react"
 
@@ -28,9 +29,12 @@ const page = () => {
         :contacts.map((contact: any) => <ContactCard key={contact._id} contact={contact} />)}
         </div>
       </aside>
-      <div className="flex-1">
+      <div className="h-full w-full flex flex-col ">
         {selectedUser &&<ChatBar /> }
-
+        <div className="flex-1 p-4 bg-base-300">
+          message container
+        </div>
+        <MessageInput />
       </div>
     </div>
   )

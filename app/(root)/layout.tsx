@@ -30,13 +30,9 @@ export default function RootLayout({
     }
   }, []);
 
-  
-
-
-  
 
   return (
-    <main data-theme="coffee" className="h-screen flex">
+    <main data-theme="dark" className="h-screen flex">
     <NavSide />
       {children}
     </main>
