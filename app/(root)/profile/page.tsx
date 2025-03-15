@@ -1,11 +1,27 @@
 "use client"
-import { useUserContext } from '@/components/providers/userProvider'
 import { Input } from '@/components/ui/input'
 import { useSession } from 'next-auth/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const page = () => {
-    const {user} = useUserContext()
+    const {data:session} = useSession()
+    const [user, setUser] = useState<any>()
+    console.log(session);
+    
+
+    useEffect(()=>{
+        if(session){
+            setUser(session?.user)
+        }
+    }
+    ,[])
+
+    console.log(user);
+    
+
+
+
+    
   return (
     <div>
         <div>

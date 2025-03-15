@@ -3,18 +3,17 @@
 import { useSession } from "next-auth/react"
 
 const page = () => {
-  const {data:session} = useSession()
 
-  if(!session){
-    return (
-      <div>Not Authenticated</div>
-    )
-  }
-
-  console.log(session);
   
   return (
-    <div>Chate</div>
+    <div className="flex">
+      <aside>
+        <h2>Users</h2>
+      </aside>
+      <div>
+        <h2>Chat</h2>
+      </div>
+    </div>
   )
 }
 

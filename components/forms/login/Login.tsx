@@ -17,10 +17,7 @@ import { Input } from "@/components/ui/input"
 import { loginValidator } from "@/lib/validators/loginValidator"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
-import toaster, { toast } from "react-hot-toast"
-import { Icon } from "@iconify/react/dist/iconify.js"
- 
-
+import { toast } from "react-hot-toast"
  
 const LoginForm =()=> {
     const Router = useRouter()
@@ -31,7 +28,6 @@ const LoginForm =()=> {
             password: "",
         },
     })
-
 
     const onSubmit  = async (values:z.infer<typeof loginValidator>) => {
      try {
