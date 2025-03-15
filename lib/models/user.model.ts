@@ -20,10 +20,11 @@ const userSchema  = new Schema({
         type:String,
         default:""
     },
-    chats:{
-        type:[{type:Schema.Types.ObjectId, ref:"Chat"}],
-        default:[],
-    }
+    contacts:[{
+        type:Schema.Types.ObjectId,
+        ref:"User"
+    }],
+    
 },
 {
     timestamps:true,
