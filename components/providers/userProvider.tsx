@@ -6,14 +6,16 @@ export const useCurrentUserStore = create<any>((set,get) => ({
   currentUser: null,
   contacts: [],
   selectedUser: null,
+  isLoadingContacts: false,
 
   setCurrentUser: async (user:any) => {
     set({ currentUser: user});
   },
   setContacts: async (currentUser: any) => {
-    console.log('user id', currentUser);
+    set({ isLoadingContacts: true });
    const users = await getOtherUsers(currentUser._id);
    set({ contacts: users.data });
+    set({ isLoadingContacts: false });
   },
   setSelectedUser: async (user: any) => {
     set({ selectedUser: user });
