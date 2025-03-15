@@ -23,7 +23,7 @@ const page = () => {
         <div className="bg-base-200 p-4 h-[70px] w-full">
         <h2 className="font-bold px-5">Chats</h2>
         </div>
-        <div className="px-4 flex flex-col gap-y-4 py-4 h-[calc(100vh-70px)] overflow-y-scroll pb-7">
+        <div className="px-4 flex flex-col gap-y-2 py-4 h-[calc(100vh-70px)] overflow-y-scroll pb-7">
         {isLoadingContacts
         ? <ContactSkeleton /> 
         :contacts.map((contact: any) => <ContactCard key={contact._id} contact={contact} />)}
