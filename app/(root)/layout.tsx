@@ -32,7 +32,7 @@ export default function RootLayout({
 
 
   return (
-    <main data-theme="dark" className="h-screen flex">
+    <main data-theme="abyss" className="h-screen flex">
     <NavSide />
       {children}
     </main>

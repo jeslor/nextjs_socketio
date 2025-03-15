@@ -35,3 +35,12 @@
   }
 }
 
+.noScrollBar {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.noScrollBar::-webkit-scrollbar {
+  display: none; 
+  width: 0;
+}
