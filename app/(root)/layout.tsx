@@ -13,13 +13,17 @@ export default function RootLayout({
 }) {
   const Router = useRouter();
   const { data: session } = useSession();
-  const { setCurrentUser } = useCurrentUserStore();
+  const { currentUser,setContacts } = useCurrentUserStore();
+
+  useEffect(() => {
+    if(currentUser){
+      setContacts(currentUser)
+    }
+  }, [currentUser])
 
   useEffect(() => {
     if (session) {
       Router.push("/chat");
-      setCurrentUser(session?.user?.email);
-
     }else{
       Router.push("/login");
     }
@@ -27,8 +31,11 @@ export default function RootLayout({
 
   
 
+
+  
+
   return (
-    <main data-theme="aqua" className="h-screen flex">
+    <main data-theme="dark" className="h-screen flex">
     <NavSide />
       {children}
     </main>

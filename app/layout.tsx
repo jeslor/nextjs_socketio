@@ -4,6 +4,8 @@ import "./globals.css";
 import ToasterContext from "@/components/ToasterContext/ToasterContext";
 import { SessionProvider } from "next-auth/react"
 import { auth } from "@/auth";
+import { getCurrentUser } from "@/lib/actions/user.actions";
+import UserSetter from "@/components/UserSetter";
 
 
 const geistSans = Geist({
@@ -27,7 +29,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const session = await auth();
+  const session:any = await auth();
+  let currentUser = null;
+  if (session) {
+    currentUser = await getCurrentUser(session?.user?.email);
+
+  }
+
 
   return (
     <html lang="en">
@@ -36,6 +44,7 @@ export default async function RootLayout({
       >
         <SessionProvider session={session}>
         <ToasterContext />
+          <UserSetter user ={currentUser.data}/>
         {children}
         </SessionProvider>
       </body>

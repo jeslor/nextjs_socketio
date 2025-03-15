@@ -5,6 +5,7 @@ import UserModel from "@/lib/models/user.model"
 
 
 export const getCurrentUser = async (email: string) => {
+    
     try {
         await ConnectToDB()
         const user = await UserModel.findOne({email}).select("-password")
@@ -16,10 +17,11 @@ export const getCurrentUser = async (email: string) => {
     }
 }
 
-export const getUsers = async (currentUser:any) => {
+export const getOtherUsers = async (userId:string) => {
     try {
         await ConnectToDB()
-        const users = await UserModel.find({_id: {$ne: currentUser._id}})
+        const users = await UserModel.find({_id: {$ne: userId}}).select("-password")
+        
         return JSON.parse(JSON.stringify({status:200, message: "Users Found", data:users}))
     } catch (error) {
         console.log(error);
