@@ -5,6 +5,7 @@ import { create } from 'zustand';
 export const useCurrentUserStore = create<any>((set,get) => ({
   currentUser: null,
   contacts: [],
+  selectedUser: null,
 
   setCurrentUser: async (user:any) => {
     set({ currentUser: user});
@@ -13,6 +14,9 @@ export const useCurrentUserStore = create<any>((set,get) => ({
     console.log('user id', currentUser);
    const users = await getOtherUsers(currentUser._id);
    set({ contacts: users.data });
+  },
+  setSelectedUser: async (user: any) => {
+    set({ selectedUser: user });
   },
 
   logoutUser: async () => {
