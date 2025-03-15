@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import React from 'react'
 
 const ChatBar = () => {
-    const {selectedUser} = useCurrentUserStore()
+    const {selectedUser, setSelectedUser} = useCurrentUserStore()
   return (
     <div className='h-[70px] w-full bg-base-200 p-4 flex justify-between items-center'>
         <div className='flex items-center'>
@@ -12,6 +12,20 @@ const ChatBar = () => {
                 <h3 className='font-bold'>{selectedUser.username}</h3>
                 <p className='opacity-40 text-[10px]'>Online</p>
             </div>
+        </div>
+        <div className='flex gap-x-4'>
+            <button className='text-[17px]'>
+                <Icon icon="akar-icons:phone" className='text-primary text-[22px]' />
+            </button>
+            <button className='text-[17px]'>
+                <Icon icon="akar-icons:video" className='text-primary text-[22px]' />
+            </button>
+            <button className='text-[17px]'>
+                <Icon icon="akar-icons:more-horizontal" className='text-primary text-[22px]' />
+            </button>
+            <button onClick={() => setSelectedUser(null)} className='text-[17px]'>
+            <Icon icon="ic:baseline-close" className='text-primary text-[22px]'/>
+            </button>
         </div>
       
             
