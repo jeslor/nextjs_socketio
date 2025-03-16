@@ -1,8 +1,8 @@
 import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import React from 'react'
+import React, { memo } from 'react'
 
-const ChatBar = () => {
+const ChatBar = memo(() => {
     const {selectedUser, setSelectedUser} = useCurrentUserStore()
   return (
     <div className='h-[70px] w-full bg-base-200 p-4 flex justify-between items-center'>
@@ -31,6 +31,6 @@ const ChatBar = () => {
             
     </div>
   )
-}
+})
 
 export default ChatBar

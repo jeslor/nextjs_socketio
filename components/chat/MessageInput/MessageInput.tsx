@@ -2,9 +2,9 @@
 import { useCurrentUserStore } from '@/components/providers/userProvider';
 import { newMessage } from '@/lib/actions/message.actions';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
-const MessageInput = () => {
+const MessageInput = memo(() => {
     const {currentUser, selectedUser} = useCurrentUserStore();
     const [text, setText] = useState("");
     const [file, setFile] = useState<any>(null);
@@ -92,6 +92,6 @@ const MessageInput = () => {
 
     </div>
   )
-}
+})
 
 export default MessageInput

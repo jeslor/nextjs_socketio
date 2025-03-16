@@ -30,20 +30,6 @@ export default function RootLayout({
     }
   }, [session]);
 
-  useEffect(() => {
-    if (currentUser) {
-      setContacts(currentUser._id);
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    if(contacts){
-      if (!selectedUser) {
-        setSelectedUser(contacts[0]);
-      }
-    }
-  }
-  ,[contacts])
 
 
 
