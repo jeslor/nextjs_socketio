@@ -3,6 +3,7 @@ import React, { memo, useEffect } from "react";
 import {formatTimestamp} from "@/lib/helper/timeHelper"
 import { useMessageStore } from "@/components/providers/messageProvider";
 import { useCurrentUserStore } from "@/components/providers/userProvider";
+import ChatContainerSkeleton from "../ChatContainerSkepeton/ChatContainerSkeleton";
 
 const MessageContainer = memo(() => {
   const { currentUser, selectedUser } = useCurrentUserStore();
@@ -20,7 +21,7 @@ const MessageContainer = memo(() => {
   return (
     <div className="flex-1 p-4 bg-base-300 overflow-y-scroll">
       {isMessagesLoading ? (
-        <div>Loading...</div>
+        <ChatContainerSkeleton />
       ) : 
           messages.map((message:any)=>(
             message.sender._id === currentUser._id?
