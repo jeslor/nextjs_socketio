@@ -30,7 +30,6 @@ export default async function RootLayout({
 }>) {
 
   const session:any = await auth();
-  console.log(session);
   
   let currentUser = null;
   if (session) {
@@ -46,7 +45,7 @@ export default async function RootLayout({
       >
         <SessionProvider session={session}>
         <ToasterContext />
-          {session && <UserSetter user={currentUser.data} />}
+          {/* {session && <UserSetter  />} */}
         {children}
         </SessionProvider>
       </body>

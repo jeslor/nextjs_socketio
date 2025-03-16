@@ -12,15 +12,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const Router = useRouter();
-  const { data: session } = useSession();
-  const { currentUser,setContacts } = useCurrentUserStore();
+  const { data: session }:any = useSession();
+  const { currentUser,setContacts, setCurrentUser,contacts } = useCurrentUserStore();
   
 
-  useEffect(() => {
-    if(currentUser){
-      setContacts(currentUser)
-    }
-  }, [currentUser])
+  console.log(currentUser);
+  console.log(contacts);
+  
+  
+
 
   useEffect(() => {
     if (session) {
@@ -30,9 +30,21 @@ export default function RootLayout({
     }
   }, []);
 
+  useEffect(() => {
+    if (session) {
+      setCurrentUser(session.user.email);
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setContacts(currentUser._id);
+    }
+  }, [currentUser]);
+
 
   return (
-    <main data-theme="abyss" className="h-screen flex">
+    <main data-theme="luxury" className="h-screen flex">
     <NavSide />
       {children}
     </main>

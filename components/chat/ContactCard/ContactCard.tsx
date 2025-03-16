@@ -8,8 +8,6 @@ const ContactCard = ({contact}:any) => {
     const handleSelectUser = () => {
         setSelectedUser(contact)
     }
-
-    console.log(contact._id=== selectedUser?._id);
     
     
   return (

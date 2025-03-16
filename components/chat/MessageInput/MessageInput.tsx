@@ -41,6 +41,14 @@ const MessageInput = () => {
         };
     };
 
+    const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!message.trim() && !file) return;
+        
+        setMessage("");
+        setFile(null);
+      };
+
 
   return (
     <div className=' flex items-center justify-between bg-base-200 p-4 w-full relative'>
@@ -53,20 +61,20 @@ const MessageInput = () => {
         <img src={file} alt="file" className=' object-cover object-center rounded-[10px]' />
       </div>
       }
-    <form className='flex w-full' action="">
+    <form onSubmit={handleMessageSubmit} className='flex w-full' action="">
         <textarea
           ref={textareaRef}
           value={message}
           onChange={handleInput}
           placeholder="Type a message..."
-          className="flex-1 resize-none min-h-[20px] max-h-[150px] overflow-hidden p-2 rounded-[20px] px-5 bg-gray-700  outline-none overflow-y-scroll noScrollBar"
+          className="flex-1 resize-none min-h-[20px] max-h-[150px] overflow-hidden p-2 rounded-[20px] px-5 bg-primary/20  outline-none overflow-y-scroll noScrollBar opacity-70"
         ></textarea>
         <input onChange={handleFileSelected} ref={fileInputRef} type="file" className="hidden" />
         <button className=" text-[22px] px-4 py-2 rounded-lg  opacity-50 hover:opacity-100" type="submit">
         <Icon icon="fa:send-o"   />
         </button>
     </form>
-    <button onClick={handleFileInput} className='opacity-50 hover:opacity-100'>
+    <button onClick={handleFileInput} className='opacity-50 hover:opacity-100 text-red-800'>
         <Icon icon="humbleicons:image" width="24" height="24"  />
     </button>
 

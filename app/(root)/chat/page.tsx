@@ -5,16 +5,11 @@ import ContactCard from "@/components/chat/ContactCard/ContactCard"
 import ContactSkeleton from "@/components/chat/ContactSkeleton/ContactSkeleton"
 import MessageInput from "@/components/chat/MessageInput/MessageInput"
 import { useCurrentUserStore } from "@/components/providers/userProvider"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const page = () => {
   const {setContacts, contacts, currentUser, selectedUser, isLoadingContacts} = useCurrentUserStore()
-  
 
-  
-  useEffect(() => {
-    setContacts(currentUser)
-  }, [currentUser])
 
   
   return (
