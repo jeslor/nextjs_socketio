@@ -3,12 +3,12 @@
 import ChatBar from "@/components/chat/ChatBar/ChatBar"
 import ContactCard from "@/components/chat/ContactCard/ContactCard"
 import ContactSkeleton from "@/components/chat/ContactSkeleton/ContactSkeleton"
+import MessageContainer from "@/components/chat/messageContainer.tsx/MessageContainer"
 import MessageInput from "@/components/chat/MessageInput/MessageInput"
 import { useCurrentUserStore } from "@/components/providers/userProvider"
-import { useEffect, useState } from "react"
 
 const page = () => {
-  const {setContacts, contacts, currentUser, selectedUser, isLoadingContacts} = useCurrentUserStore()
+  const { contacts, selectedUser, isLoadingContacts} = useCurrentUserStore()
 
 
   
@@ -26,9 +26,7 @@ const page = () => {
       </aside>
       <div className="h-full w-full flex flex-col ">
         {selectedUser &&<ChatBar /> }
-        <div className="flex-1 p-4 bg-base-300">
-          message container
-        </div>
+        <MessageContainer />
         <MessageInput />
       </div>
     </div>

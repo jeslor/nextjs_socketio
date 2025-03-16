@@ -1,6 +1,7 @@
 "use client";
 
 import NavSide from "@/components/NavSide/NavSide";
+import { useMessageStore } from "@/components/providers/messageProvider";
 import { useCurrentUserStore } from "@/components/providers/userProvider";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,7 @@ export default function RootLayout({
 }) {
   const Router = useRouter();
   const { data: session }:any = useSession();
-  const { currentUser,setContacts, setCurrentUser,contacts } = useCurrentUserStore();
+  const { currentUser,contacts, setContacts, setCurrentUser,selectedUser, setSelectedUser } = useCurrentUserStore();
 
   useEffect(() => {
     if (session) {
@@ -34,6 +35,16 @@ export default function RootLayout({
       setContacts(currentUser._id);
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if(contacts){
+      if (!selectedUser) {
+        setSelectedUser(contacts[0]);
+      }
+    }
+  }
+  ,[contacts])
+
 
 
   return (

@@ -46,6 +46,7 @@ export const useCurrentUserStore = create<UserStore>((set,get) => ({
   setSelectedUser: (user) => {
     set({ selectedUser: user });
   },
+  
 
   logoutUser: async () => {
     await signOut({ callbackUrl: '/login' });
