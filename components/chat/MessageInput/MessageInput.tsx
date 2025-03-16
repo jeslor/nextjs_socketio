@@ -49,10 +49,16 @@ const MessageInput = () => {
         if (!text.trim() && !file) return;
 
         // Send message
-        await newMessage({ text, file, senderId: currentUser._id, receiverId: selectedUser._id });
+        const savedMessage = await newMessage({ text, file, senderId: currentUser._id, receiverId: selectedUser._id });
+        if (savedMessage.status === 200) {
+          console.log(savedMessage.data);
+          
+          setText("");
+          setFile(null);
+        }else{
+          console.log(savedMessage.data);
+        }
         
-        setText("");
-        setFile(null);
       };
 
 

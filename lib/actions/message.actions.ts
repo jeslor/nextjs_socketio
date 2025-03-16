@@ -1,7 +1,7 @@
 "use server";
 import { ConnectToDB } from "../mongoose";
 import Message  from "@/lib/models/message.model";
-import User from "@/lib/models/user.model";
+import { uploadCloudinary } from "@/lib/helper/cloudinary";
 
 
 export const newMessage = async ({senderId, receiverId, text, file}:{
@@ -9,14 +9,23 @@ export const newMessage = async ({senderId, receiverId, text, file}:{
 }) => {
     try {
         await ConnectToDB();
+        let  image = {secure_url:""};
+       if (file) {
+         await uploadCloudinary(file, "message").then((result:any) => {
+            image = {secure_url:result.secure_url};
+        }).catch((error:any) => {         
+            console.log(error);
+            throw new Error("Error uploading image");
+        });
+       }
         const message = new Message({
             sender:senderId,
             receiver:receiverId,
             text,
-            file,
-        });
-        await message.save();
-        return JSON.parse(JSON.stringify({status:200, message: "Message Sent", data:message}));
+            file:image.secure_url,
+        });        
+        const savedMesage  = await message.save();
+        return JSON.parse(JSON.stringify({status:200, message: "Message Sent", data:savedMesage}));
     } catch (error:any) {
         console.log(error);
         return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
