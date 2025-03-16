@@ -1,9 +1,12 @@
 "use client";
+import { useCurrentUserStore } from '@/components/providers/userProvider';
+import { newMessage } from '@/lib/actions/message.actions';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import React, { useEffect, useRef, useState } from 'react'
 
 const MessageInput = () => {
-    const [message, setMessage] = useState("");
+    const {currentUser, selectedUser} = useCurrentUserStore();
+    const [text, setText] = useState("");
     const [file, setFile] = useState<any>(null);
     const textareaRef = useRef<any>(null);
     const fileInputRef = useRef<any>(null);
@@ -14,11 +17,11 @@ const MessageInput = () => {
           textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 150) + "px"; 
         }
       }
-      , [message]);
+      , [text]);
 
 
     const handleInput = (e:any) => {
-        setMessage(e.target.value);
+        setText(e.target.value);
         if (textareaRef.current) {
         textareaRef.current.style.height = "20px"; 
         textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 150) + "px"; 
@@ -41,11 +44,14 @@ const MessageInput = () => {
         };
     };
 
-    const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!message.trim() && !file) return;
+        if (!text.trim() && !file) return;
+
+        // Send message
+        await newMessage({ text, file, senderId: currentUser._id, receiverId: selectedUser._id });
         
-        setMessage("");
+        setText("");
         setFile(null);
       };
 
@@ -64,7 +70,7 @@ const MessageInput = () => {
     <form onSubmit={handleMessageSubmit} className='flex w-full' action="">
         <textarea
           ref={textareaRef}
-          value={message}
+          value={text}
           onChange={handleInput}
           placeholder="Type a message..."
           className="flex-1 resize-none min-h-[20px] max-h-[150px] overflow-hidden p-2 rounded-[20px] px-5 bg-primary/20  outline-none overflow-y-scroll noScrollBar opacity-70"
@@ -74,7 +80,7 @@ const MessageInput = () => {
         <Icon icon="fa:send-o"   />
         </button>
     </form>
-    <button onClick={handleFileInput} className='opacity-50 hover:opacity-100 text-red-800'>
+    <button onClick={handleFileInput} className={` ${file!==null ?'text-primary5': 'opacity-50 hover:opacity-100'}`}>
         <Icon icon="humbleicons:image" width="24" height="24"  />
     </button>
 

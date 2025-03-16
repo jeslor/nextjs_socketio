@@ -14,13 +14,6 @@ export default function RootLayout({
   const Router = useRouter();
   const { data: session }:any = useSession();
   const { currentUser,setContacts, setCurrentUser,contacts } = useCurrentUserStore();
-  
-
-  console.log(currentUser);
-  console.log(contacts);
-  
-  
-
 
   useEffect(() => {
     if (session) {

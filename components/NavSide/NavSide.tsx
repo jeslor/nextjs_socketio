@@ -11,7 +11,7 @@ const NavSide = () => {
     <aside className="h-full flex flex-col justify-between gap-y-6 py-10 px-1 w-fit border-r-[1px] border-primary/20">
     <div className="flex flex-col gap-y-4">
       <div>
-       {(currentUser &&currentUser.profileImage)? <img src={currentUser.profileImage} className="w-16 h-16 rounded-full" /> : <img src="/images/logo.webp" className="w-16 h-16 rounded-full object-contain" />}
+       {(currentUser &&currentUser.profileImage)? <img src={currentUser.profileImage} className="w-16 h-16 rounded-full" /> : <img src="/images/logo.webp" className="w-16 h-16 rounded-md object-contain" />}
       </div>
       <Link
         className="cursor-pointer p-3.5 rounded hover:bg-base-200 flex justify-center items-center"

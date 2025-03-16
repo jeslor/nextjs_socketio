@@ -34,9 +34,9 @@ export const useCurrentUserStore = create<UserStore>((set,get) => ({
     set({ isLoadingCurrentUser: false });
   },
 
-  setContacts:   async (currentUser:any) => {
+  setContacts:   async (currentUserId:any) => {
     set({ isLoadingContacts: true });
-    const contacts:any = await getOtherUsers(currentUser._id);
+    const contacts:any = await getOtherUsers(currentUserId);
     if(contacts){
       set({ contacts: contacts.data });
     }
