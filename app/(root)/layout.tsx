@@ -24,17 +24,13 @@ export default function RootLayout({
     }
   }, []);
 
-  useEffect(() => {
-    if (session) {
-      setCurrentUser(session.user.email);
-    }
-  }, [session]);
+
 
 
 
 
   return (
-    <main data-theme="luxury" className="h-screen flex">
+    <main data-theme="" className="h-screen flex">
     <NavSide />
       {children}
     </main>

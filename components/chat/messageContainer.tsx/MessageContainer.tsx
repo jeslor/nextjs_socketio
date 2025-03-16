@@ -1,7 +1,8 @@
 "use client";
+import React, { memo, useEffect } from "react";
+import {formatTimestamp} from "@/lib/helper/timeHelper"
 import { useMessageStore } from "@/components/providers/messageProvider";
 import { useCurrentUserStore } from "@/components/providers/userProvider";
-import React, { memo, useEffect } from "react";
 
 const MessageContainer = memo(() => {
   const { currentUser, selectedUser } = useCurrentUserStore();
@@ -34,7 +35,7 @@ const MessageContainer = memo(() => {
                 </div>
               </div>
               <div className="chat-header">
-                <time className="text-xs opacity-50">12:46</time>
+                <time className="text-xs opacity-50">{formatTimestamp(message.createdAt)}</time>
               </div>
               <div className="chat-bubble bg-primary/10">{message.text}</div>
               {/* <div className="chat-footer opacity-50">Seen at 12:46</div> */}
@@ -51,7 +52,7 @@ const MessageContainer = memo(() => {
                 </div>
               </div>
               <div className="chat-header">
-                <time className="text-xs opacity-50">12:45</time>
+                <time className="text-xs opacity-50">{formatTimestamp(message.createdAt)}</time>
               </div>
               <div className="chat-bubble bg-primary">{message.text}</div>
               {/* <div className="chat-footer opacity-50">Delivered</div> */}
