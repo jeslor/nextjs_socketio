@@ -9,7 +9,7 @@ const ChatContainerSkeleton = () => {
          chatSkeletons.map((message:any, index:number)=>(
                     !(index%2 ===0)?
                     (
-                    <div className="chat chat-end bg-primary/10 w-[30%] flex rounded-2xl px-3 mb-3">
+                    <div key={index} className="chat chat-end bg-primary/10 w-[30%] flex rounded-2xl px-3 mb-3">
                     <div className="flex w-full flex-col gap-4">
                     <div className="flex flex-1 items-center gap-4">
                         <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
@@ -22,7 +22,7 @@ const ChatContainerSkeleton = () => {
                     </div>
                     )
                     :(
-                      <div className="chat chat-start bg-primary/10 w-[30%] flex rounded-2xl px-3 mb-3 ml-auto">
+                      <div key={index} className="chat chat-start bg-primary/10 w-[30%] flex rounded-2xl px-3 mb-3 ml-auto">
                         <div className="flex w-full flex-col gap-4">
                         <div className="flex flex-1 items-center gap-4">
                             <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>

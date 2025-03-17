@@ -26,7 +26,7 @@ const MessageContainer = memo(() => {
           messages.map((message:any)=>(
             message.sender._id === currentUser._id?
             (
-              <div className="chat chat-end">
+              <div className="chat chat-end mb-7">
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <img
@@ -38,12 +38,21 @@ const MessageContainer = memo(() => {
               <div className="chat-header">
                 <time className="text-xs opacity-50">{formatTimestamp(message.createdAt)}</time>
               </div>
-              <div className="chat-bubble bg-primary/10">{message.text}</div>
+              <div className="chat-bubble bg-primary/10">
+                {message.file && (
+                    <div className="flex flex-col items-center gap-2 h-[150px]">
+                      <img src={message.file
+                      } alt="file" className="w-full h-full object-cover rounded-[10px]s" />
+                      </div>
+                  )
+                  }
+                <p>{message.text}</p>
+              </div>
               {/* <div className="chat-footer opacity-50">Seen at 12:46</div> */}
             </div>
             )
             :(
-              <div className="chat chat-start">
+              <div className="chat chat-start mb-7">
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <img
@@ -55,7 +64,16 @@ const MessageContainer = memo(() => {
               <div className="chat-header">
                 <time className="text-xs opacity-50">{formatTimestamp(message.createdAt)}</time>
               </div>
-              <div className="chat-bubble bg-primary">{message.text}</div>
+              <div className="chat-bubble bg-primary">
+                {message.file && (
+                  <div className="flex flex-col items-center gap-2 h-[150px]">
+                    <img src={message.file
+                    } alt="file" className="w-full h-full object-cover rounded-[10px]s" />
+                    </div>
+                )
+                }
+                <p>{message.text}</p>
+              </div>
               {/* <div className="chat-footer opacity-50">Delivered</div> */}
             </div>
             )

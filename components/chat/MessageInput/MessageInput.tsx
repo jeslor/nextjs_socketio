@@ -65,12 +65,13 @@ const MessageInput = memo(() => {
   return (
     <div className=' flex items-center justify-between bg-base-200 p-4 w-full relative'>
        {file &&
-      <div className='w-[100px] h-[100px] absolute -top-[60px] left-4'>
-
+      <div className='w-[100px] h-[100px]   absolute -top-[100px] left-4'>
       <button onClick={() => setFile(null)} className='absolute -top-4 -right-4 bg-primary/20 p-1 rounded-full'>
         <Icon icon="si:close-duotone" />
       </button>
-        <img src={file} alt="file" className=' object-cover object-center rounded-[10px]' />
+        <div className='w-full h-full overflow-hidden rounded-[10px]'>
+        <img src={file} alt="file" className=' object-cover object-center ' />
+        </div>
       </div>
       }
     <form onSubmit={handleMessageSubmit} className='flex w-full' action="">
