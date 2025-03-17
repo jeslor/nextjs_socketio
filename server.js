@@ -18,10 +18,21 @@ app.prepare().then(() => {
     },
   });
 
+  const connectedUsersMap = {}; //save{userId:socketId}
+
   io.on("connection", (socket) => {
     console.log(`> Socket connected: ${socket.id}`);
+    const userId = socket.handshake.query.userId;
+    console.log(`> User connected: ${userId}`);
+    connectedUsersMap[userId] = socket.id;
+    console.log(connectedUsersMap);
+    
+    io.emit("connectedUsers", Object.keys(connectedUsersMap));
+    users[userId] = socket.id;
     socket.on("disconnect", () => {
       console.log(`> Socket disconnected: ${socket.id}`);
+      delete connectedUsersMap[userId];
+      io.emit("connectedUsers", Object.keys(connectedUsersMap));
     });
     
   });

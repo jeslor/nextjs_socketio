@@ -31,12 +31,6 @@ export default async function RootLayout({
 
   const session:any = await auth();
   
-  let currentUser = null;
-  if (session) {
-    currentUser = await getCurrentUser(session?.user?.email);
-
-  }
-
 
   return (
     <html lang="en">

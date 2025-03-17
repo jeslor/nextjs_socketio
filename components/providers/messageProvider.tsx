@@ -13,8 +13,6 @@ export const useMessageStore = create<any>((set, get) => ({
         set({ isMessagesLoading: true });
         if(currentUserId && selectedUserId){
             const messages = await getMessages(currentUserId, selectedUserId);
-            console.log(messages);
-            
             if(messages){
                 set({ messages: messages.data });
             }

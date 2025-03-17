@@ -1,6 +1,6 @@
 "use client";
 import { getCurrentUser, getOtherUsers } from '@/lib/actions/user.actions';
-import {socket} from '@/lib/socket/cleint';
+import {io} from 'socket.io-client';
 import { signOut } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { create } from 'zustand';
@@ -12,6 +12,7 @@ interface UserStore {
   isLoadingCurrentUser: boolean;
   isLoadingContacts: boolean;
   mySocket: any | null;
+  onlineContacts: any[];
   setCurrentUser: (email: string) => Promise<void>;
   setContacts: (userId: string) => Promise<void>;
   setSelectedUser: (user: any) => void;
@@ -29,6 +30,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   isLoadingCurrentUser: false,
   isLoadingContacts: false,
   mySocket: null,
+  onlineContacts: [],
 
   setCurrentUser: async (email) => {    
     set({ isLoadingCurrentUser: true });
@@ -76,9 +78,19 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
       return;
       
     }
+    const socket = io(BASE_URL, {
+      query: {
+        userId: currentUser._id,
+      },
+    });
     socket.connect();
     console.log("WebSocket connected");
     set({ mySocket: socket });
+    socket.on('connectedUsers', (data) => {
+      console.log('Connected users:', data);
+      set({ onlineContacts: data });
+    }
+    );
   },
 
   disconnectFromSocket: () => {

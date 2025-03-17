@@ -11,8 +11,6 @@ const MessageContainer = memo(() => {
 
   useEffect(() => {
     if (currentUser && selectedUser) {
-      console.log(currentUser._id, selectedUser._id);
-
       setMessages(currentUser._id, selectedUser._id);
     }
   }, [, selectedUser]);
@@ -26,7 +24,7 @@ const MessageContainer = memo(() => {
           messages.map((message:any)=>(
             message.sender._id === currentUser._id?
             (
-              <div className="chat chat-end mb-7">
+              <div key={message._id} className="chat chat-end mb-7 ">
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <img
@@ -52,7 +50,7 @@ const MessageContainer = memo(() => {
             </div>
             )
             :(
-              <div className="chat chat-start mb-7">
+              <div key={message._id} className="chat chat-start mb-7">
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <img
