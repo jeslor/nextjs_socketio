@@ -2,6 +2,7 @@
 import { getCurrentUser, getOtherUsers } from '@/lib/actions/user.actions';
 import {socket} from '@/lib/socket/cleint';
 import { signOut } from 'next-auth/react';
+import toast from 'react-hot-toast';
 import { create } from 'zustand';
 
 interface UserStore {
@@ -29,15 +30,14 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   isLoadingContacts: false,
   mySocket: null,
 
-  setCurrentUser: async (email) => {
-    console.log(get().mySocket);
-    
+  setCurrentUser: async (email) => {    
     set({ isLoadingCurrentUser: true });
     const currentUser = await getCurrentUser(email);
     if (currentUser) {
       set({ currentUser: currentUser.data });
       get().connectToSocket(); // Connect to WebSocket after user is set
     }
+    toast.success('Logged in successfully');
     set({ isLoadingCurrentUser: false });
   },
 
@@ -62,6 +62,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
       contacts: [],
       selectedUser: null,
     });
+    toast.success('Logged out successfully');
   },
 
   

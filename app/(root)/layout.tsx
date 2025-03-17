@@ -26,9 +26,6 @@ export default function RootLayout({
 
 
 
-
-
-
   return (
     <main data-theme="" className="h-screen flex">
     <NavSide />

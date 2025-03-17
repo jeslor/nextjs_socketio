@@ -12,10 +12,18 @@ const handler = app.getRequestHandler();
 app.prepare().then(() => {
   const httpServer = createServer(handler);
 
-  const io = new Server(httpServer);
+  const io = new Server(httpServer,{
+    cors: {
+      origin: ["http://localhost:3000"],
+    },
+  });
 
   io.on("connection", (socket) => {
-    // ...
+    console.log(`> Socket connected: ${socket.id}`);
+    socket.on("disconnect", () => {
+      console.log(`> Socket disconnected: ${socket.id}`);
+    });
+    
   });
 
   httpServer
