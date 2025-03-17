@@ -8,7 +8,7 @@ import { useCurrentUserStore } from "@/components/providers/userProvider"
 import { useSession } from "next-auth/react"
 import { useEffect, memo } from "react"
 
-const page = () => {
+const page = memo(() => {
   const {data:session}:any = useSession()
   const { currentUser,contacts, setContacts,selectedUser,setCurrentUser, setSelectedUser } = useCurrentUserStore();
 
@@ -50,6 +50,6 @@ const page = () => {
       </div>
     </div>
   )
-}
+})
 
 export default page

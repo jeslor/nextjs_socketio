@@ -8,9 +8,10 @@ import MessageBubble from "../MessageBubble/MessageBubble";
 
 const MessageContainer = () => {
   const { currentUser, selectedUser, mySocket } = useCurrentUserStore();
-  const { messages, setMessages, isMessagesLoading, listenToMesages, unsubscribeToMessages } = useMessageStore();
+  const { messages, setMessages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
   
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
 
   useEffect(() => {
     if (currentUser && selectedUser) {
@@ -25,11 +26,16 @@ const MessageContainer = () => {
       unsubscribeToMessages();
     };
   }, [mySocket]);
+  
 
   useEffect(() => {
     // Scroll to the latest message when messages change
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      if (inputTouched) {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }else{
+        messagesEndRef.current.scrollIntoView();
+      }
     }
   }, [messages]);
 

@@ -7,7 +7,7 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 
 const MessageInput = memo(() => {
     const {currentUser, selectedUser} = useCurrentUserStore();
-    const {subscribeToMessages} = useMessageStore();
+    const {subscribeToMessages, setInputTouched, inputTouched} = useMessageStore();
   
     const [text, setText] = useState("");
     const [file, setFile] = useState<any>(null);
@@ -24,6 +24,7 @@ const MessageInput = memo(() => {
 
 
     const handleInput = (e:any) => {
+        setInputTouched(true);
         setText(e.target.value);
         if (textareaRef.current) {
         textareaRef.current.style.height = "20px"; 
