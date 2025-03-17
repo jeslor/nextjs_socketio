@@ -31,7 +31,7 @@ app.prepare().then(() => {
 
     socket.on('newMessage', (data) => {
       const {receiver} = data;
-      const receiverSocketId = connectedUsersMap[receiver];
+      const receiverSocketId = connectedUsersMap[receiver._id];
       io.to(receiverSocketId).emit('newMessage', data);
      });
 

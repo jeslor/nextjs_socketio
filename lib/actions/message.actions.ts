@@ -32,13 +32,11 @@ export const newMessage = async ({senderId, receiverId, text, file}:{
             text,
             file:image.secure_url,
         });        
-        const savedMesage  = await message.save();
-        // const receiverSocketId = socketReceiverId[receiverId];
-        // if(receiverSocketId){
-        //     io.to(receiverSocketId).emit("newMessage", savedMesage);
-        // }
+        await message.save();
+        const updatedMessage = await Message.findOne({_id:message._id}).populate("sender receiver");
+        
        
-        return JSON.parse(JSON.stringify({status:200, message: "Message Sent", data:savedMesage}));
+        return JSON.parse(JSON.stringify({status:200, message: "Message Sent", data:updatedMessage}));
     } catch (error) {
         console.log(error);
         return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
