@@ -24,7 +24,10 @@ const MessageInput = memo(() => {
 
 
     const handleInput = (e:any) => {
-        setInputTouched(true);
+        if (!inputTouched) {
+          setInputTouched(true);
+          
+        }
         setText(e.target.value);
         if (textareaRef.current) {
         textareaRef.current.style.height = "20px"; 

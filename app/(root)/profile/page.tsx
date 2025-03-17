@@ -54,7 +54,7 @@ const page = () => {
                 <h3 className="opacity-50">{currentUser?.email}</h3>
               </div>
               <div className="flex flex-col items-start justify-center mt-5 w-full">
-                <p>
+                <p className=" text-[13px] opacity-70">
                   Here’s an improved version of your sentence for better clarity
                   and professionalism: "Ms. Nakkungu is employed as the Head of
                   Procurement at Calm Consult Limited in Uganda. She is using
