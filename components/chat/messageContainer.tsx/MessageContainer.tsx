@@ -6,14 +6,21 @@ import { useCurrentUserStore } from "@/components/providers/userProvider";
 import ChatContainerSkeleton from "../ChatContainerSkepeton/ChatContainerSkeleton";
 
 const MessageContainer = memo(() => {
-  const { currentUser, selectedUser } = useCurrentUserStore();
-  const { messages, setMessages, isMessagesLoading } = useMessageStore();
+  const { currentUser, selectedUser, mySocket } = useCurrentUserStore();
+  const { messages, setMessages, isMessagesLoading, listenToMesages,unsubscribeToMessages } = useMessageStore();
 
   useEffect(() => {
     if (currentUser && selectedUser) {
       setMessages(currentUser._id, selectedUser._id);
     }
   }, [, selectedUser]);
+
+  useEffect(() => {
+    listenToMesages ();
+    return () => {
+      unsubscribeToMessages();
+    };
+  }, [messages, mySocket]);
   
 
   return (

@@ -1,19 +1,27 @@
 "use server";
-import { ConnectToDB } from "../mongoose";
+import { ConnectToDB } from "@/lib/mongoose";
 import Message  from "@/lib/models/message.model";
 import { uploadCloudinary } from "@/lib/helper/cloudinary";
 
 
+
 export const newMessage = async ({senderId, receiverId, text, file}:{
-    senderId:string, receiverId:string, text:string, file:string
+    senderId:string,
+    receiverId:string,
+    text:string,
+    file?:any
 }) => {
     try {
         await ConnectToDB();
         let  image = {secure_url:""};
        if (file) {
-         await uploadCloudinary(file, "message").then((result:any) => {
-            image = {secure_url:result.secure_url};
-        }).catch((error:any) => {         
+         await uploadCloudinary(file, "message").then((result) => {
+            if (result && 'secure_url' in result) {
+                image = { secure_url: result.secure_url };
+            } else {
+                throw new Error("Invalid response from uploadCloudinary");
+            }
+        }).catch((error) => {         
             console.log(error);
             throw new Error("Error uploading image");
         });
@@ -25,8 +33,13 @@ export const newMessage = async ({senderId, receiverId, text, file}:{
             file:image.secure_url,
         });        
         const savedMesage  = await message.save();
+        // const receiverSocketId = socketReceiverId[receiverId];
+        // if(receiverSocketId){
+        //     io.to(receiverSocketId).emit("newMessage", savedMesage);
+        // }
+       
         return JSON.parse(JSON.stringify({status:200, message: "Message Sent", data:savedMesage}));
-    } catch (error:any) {
+    } catch (error) {
         console.log(error);
         return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
     }
@@ -42,7 +55,7 @@ export const getMessages = async (loggedInUserId:string, contactId:string) => {
             ]
         }).populate("sender receiver");
         return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
-    } catch (error:any) {
+    } catch (error) {
         console.log(error);
         return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
         

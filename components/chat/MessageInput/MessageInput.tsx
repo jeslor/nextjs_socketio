@@ -1,11 +1,14 @@
 "use client";
 import { useCurrentUserStore } from '@/components/providers/userProvider';
+import { useMessageStore } from '@/components/providers/messageProvider';
 import { newMessage } from '@/lib/actions/message.actions';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import React, { memo, useEffect, useRef, useState } from 'react'
 
 const MessageInput = memo(() => {
     const {currentUser, selectedUser} = useCurrentUserStore();
+    const {subscribeToMessages} = useMessageStore();
+  
     const [text, setText] = useState("");
     const [file, setFile] = useState<any>(null);
     const textareaRef = useRef<any>(null);
@@ -49,15 +52,9 @@ const MessageInput = memo(() => {
         if (!text.trim() && !file) return;
 
         // Send message
-        const savedMessage = await newMessage({ text, file, senderId: currentUser._id, receiverId: selectedUser._id });
-        if (savedMessage.status === 200) {
-          console.log(savedMessage.data);
-          
-          setText("");
-          setFile(null);
-        }else{
-          console.log(savedMessage.data);
-        }
+        subscribeToMessages({text, file, senderId: currentUser._id, receiverId: selectedUser._id});
+        setText("");
+        setFile(null);
         
       };
 

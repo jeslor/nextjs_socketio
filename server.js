@@ -9,22 +9,31 @@ const port = 3000;
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
+
 app.prepare().then(() => {
   const httpServer = createServer(handler);
 
-  const io = new Server(httpServer,{
+   const io = new Server(httpServer,{
     cors: {
       origin: ["http://localhost:3000"],
     },
   });
 
-  const connectedUsersMap = {}; //save{userId:socketId}
+  const connectedUsersMap = {};
+  
+
 
   io.on("connection", (socket) => {
     console.log(`> Socket connected: ${socket.id}`);
     const {userId} = socket.handshake.query;
     connectedUsersMap[userId] = socket.id;
     io.emit("connectedUsers", Object.keys(connectedUsersMap));
+
+    socket.on('newMessage', (data) => {
+      const {receiver} = data;
+      const receiverSocketId = connectedUsersMap[receiver];
+      io.to(receiverSocketId).emit('newMessage', data);
+     });
 
     socket.on("disconnect", () => {
       console.log(`> Socket disconnected: ${socket.id}`);
@@ -33,6 +42,8 @@ app.prepare().then(() => {
     });
     
   });
+
+ 
 
   httpServer
     .once("error", (err) => {

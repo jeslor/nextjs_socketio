@@ -39,7 +39,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
       set({ currentUser: currentUser.data });
       get().connectToSocket(); // Connect to WebSocket after user is set
     }
-    toast.success('Logged in successfully');
+    toast.success('Welcome back!');
     set({ isLoadingCurrentUser: false });
   },
 
@@ -66,8 +66,6 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
     });
     toast.success('Logged out successfully');
   },
-
-  
 
   connectToSocket: () => {
     const currentUser = get().currentUser;
