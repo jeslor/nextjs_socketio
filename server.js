@@ -22,13 +22,10 @@ app.prepare().then(() => {
 
   io.on("connection", (socket) => {
     console.log(`> Socket connected: ${socket.id}`);
-    const userId = socket.handshake.query.userId;
-    console.log(`> User connected: ${userId}`);
+    const {userId} = socket.handshake.query;
     connectedUsersMap[userId] = socket.id;
-    console.log(connectedUsersMap);
-    
     io.emit("connectedUsers", Object.keys(connectedUsersMap));
-    users[userId] = socket.id;
+
     socket.on("disconnect", () => {
       console.log(`> Socket disconnected: ${socket.id}`);
       delete connectedUsersMap[userId];
