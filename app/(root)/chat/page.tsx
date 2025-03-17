@@ -9,14 +9,8 @@ import { useSession } from "next-auth/react"
 import { useEffect, memo } from "react"
 
 const page = () => {
-  const {data:session}:any = useSession()
-  const { currentUser,contacts, setContacts,selectedUser,setCurrentUser, setSelectedUser } = useCurrentUserStore();
+  const { currentUser,contacts, setContacts,selectedUser, setSelectedUser } = useCurrentUserStore();
 
-  useEffect(() => {
-    if (session) {
-      setCurrentUser(session.user.email);
-    }
-  }, [session.user.email]);
 
   useEffect(() => {
     if (currentUser) {

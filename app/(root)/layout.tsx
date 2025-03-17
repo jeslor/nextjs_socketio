@@ -14,15 +14,20 @@ export default function RootLayout({
 }) {
   const Router = useRouter();
   const { data: session }:any = useSession();
-  const { currentUser,contacts, setContacts, setCurrentUser,selectedUser, setSelectedUser } = useCurrentUserStore();
+  const { setCurrentUser } = useCurrentUserStore();
 
   useEffect(() => {
-    if (session) {
-      Router.push("/chat");
-    }else{
+    if (!session) {
       Router.push("/login");
     }
   }, []);
+
+
+  useEffect(() => {
+    if (session) {
+      setCurrentUser(session.user.email);
+    }
+  }, [session.user.email]);
 
 
 

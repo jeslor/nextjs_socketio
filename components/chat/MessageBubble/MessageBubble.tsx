@@ -5,11 +5,6 @@ import React from 'react'
 const MessageBubble = ({message}:any) => {
       const { currentUser } = useCurrentUserStore();
 
-      console.log(message.sender);
-      
-
-      console.log(currentUser._id, message.sender._id);
-      
     
   return (
     <div key={message._id} className={`chat chat-${message.sender._id === currentUser._id ? 'end' : 'start'} mb-7`}>

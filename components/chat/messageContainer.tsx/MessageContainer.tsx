@@ -18,6 +18,7 @@ const MessageContainer = () => {
     }
   }, [selectedUser]);
 
+
   useEffect(() => {
     listenToMesages();
     return () => {
@@ -31,6 +32,8 @@ const MessageContainer = () => {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+
+  
 
   return (
     <div className="flex-1 p-4 bg-base-300 overflow-y-scroll">
