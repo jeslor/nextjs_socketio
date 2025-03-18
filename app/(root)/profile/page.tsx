@@ -22,15 +22,11 @@ const page = () => {
 
 
   return (
-    <div className="flex flex-col items-center justify-start w-full py-10">
+    <div className="flex items-center justify-start w-full py-10">
       <div className="max-w-[1000px] w-full flex flex-col items-start justify-start pl-10 pr-4 pb-8 h-full overflow-y-scroll">
-        <h1 className="text-4xl font-bold pb-5 text-primary7 text-center ">
-          Profile
-        </h1>
-
         {currentUser && (
-          <>
-            <div className=" h-[200px] w-[200px] rounded-[10px] bg-gray-600">
+          <div>
+            <div className=" h-[200px] w-[200px] rounded-[10px] bg-gray-600 flex flex-col items-center justify-center">
               {currentUser.profileImage ? (
                 <img
                   src={currentUser.profileImage}
@@ -45,6 +41,7 @@ const page = () => {
                   />
                 </div>
               )}
+
             </div>
             <div className="flex flex-col items-start justify-center mt-5">
               <div className="flex flex-col gay-y-2 items-start justify-center">
@@ -55,12 +52,7 @@ const page = () => {
               </div>
               <div className="flex flex-col items-start justify-center mt-5 w-full">
                 <p className=" text-[13px] opacity-70">
-                  Here’s an improved version of your sentence for better clarity
-                  and professionalism: "Ms. Nakkungu is employed as the Head of
-                  Procurement at Calm Consult Limited in Uganda. She is using
-                  her approved work leave to visit me, and I assure you that she
-                  will return to Uganda before her visa expires to resume her
-                  professional responsibilities."
+                A passionate software developer with over 5 years of experience in full-stack development. Loves coding, coffee, and solving complex problems. Always eager to learn new technologies and collaborate with like-minded professionals.
                 </p>
               </div>
               <h3 className="text-lg font-bold text-[25px] mt-7 pb-1">
@@ -70,6 +62,13 @@ const page = () => {
                 {currentUser.contacts.length ? (
                   currentUser.contacts.map((contact: any) => (
                     <div className="flex flex-col items-center justify-center">
+                      <div>
+                        <img
+                          src={contact.profileImage}
+                          alt=""
+                          className="w-12 rounded-full"
+                        />
+                      </div>
                       <h1>{contact.username}</h1>
                       <h3>{contact.email}</h3>
                     </div>
@@ -79,15 +78,16 @@ const page = () => {
                     <p className="pb-3">
                       You don't have contacts yet 😞
                     </p>
-                    <div className="avatar-group space-x-2 space-y-3 flex-wrap">
+                    <div className="avatar-group  space-y-3 flex-wrap">
                       {dummyContacts.map((contact: any) => (
-                        <div className="avatar">
-                          <div className="w-12">
+                        <div className=" flex flex-col gap-y-1 items-center mx-3">
+                          <div className="w-12 h-12 bg-base-100 p-2 rounded-full">
                             <Icon
                               icon="icon-park-twotone:user"
                               className="h-full w-full opacity-45"
                             />
                           </div>
+                          <p className="text-[12px]  opacity-55">dummy user</p>
                         </div>
                       ))}
                     </div>
@@ -126,7 +126,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

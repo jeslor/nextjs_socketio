@@ -15,6 +15,7 @@ export default function RootLayout({
 }) {
   const Router = useRouter();
   const { data: session }:any = useSession();
+  const {setCurrentUser} = useCurrentUserStore();
 
   useEffect(() => {
     if (!session) {
@@ -24,6 +25,13 @@ export default function RootLayout({
 
     }
   }, []);
+
+
+  useEffect(() => {
+    if (session) {
+      setCurrentUser(session.user.email);
+    }
+  }, [session.user.email]);
 
 
 
