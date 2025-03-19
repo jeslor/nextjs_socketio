@@ -50,6 +50,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
     }),
   ],
+
   pages: {
     signIn: "/signin", // Custom sign-in page
   },
@@ -57,6 +58,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   secret: process.env.AUTH_SECRET,
+  useSecureCookies: true,
   // callbacks:{
   //   async session({ session }: { session: any }) {
   //     const mongoDBUser = await User.findOne({ email: session.user.email });
