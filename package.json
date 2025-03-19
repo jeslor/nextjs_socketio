@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.6.0",
     "clsx": "^2.1.1",
+    "config": "^3.3.12",
     "daisyui": "^5.0.4",
     "lucide-react": "^0.479.0",
     "mongoose": "^8.12.1",

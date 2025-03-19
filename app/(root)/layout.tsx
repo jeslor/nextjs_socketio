@@ -31,7 +31,7 @@ export default function RootLayout({
     if (session) {
       setCurrentUser(session.user.email);
     }
-  }, [session.user.email]);
+  }, [session]);
 
 
 
