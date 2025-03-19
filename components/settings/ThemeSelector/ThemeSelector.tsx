@@ -34,7 +34,7 @@ const ThemeSelector = () => {
           >
             <div>
                 <span className="bg-primary"></span>
-                <span></span>
+                <span className="bg-base h-3 w-5"></span>
                 <span></span>
                 <span></span>
             </div>
