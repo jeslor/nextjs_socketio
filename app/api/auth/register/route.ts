@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import User from "@/lib/models/user.model";
 import { hash } from "bcryptjs";
 
-export const POST = async (req: Request, res: Response) => {
+export const POST = async (req: Request, res: any) => {
     try {
         await ConnectToDB();
         const {username, email, password} = await req.json();
