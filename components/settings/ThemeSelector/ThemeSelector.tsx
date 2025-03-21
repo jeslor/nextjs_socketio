@@ -20,23 +20,24 @@ const ThemeSelector = () => {
   };
 
   return (
-    <div className="p-4 bg-base-200 min-h-screen">
+    <div className="p-4 bg-base-200  w-full">
       <h2 className="text-2xl font-bold mb-4 text-center">Select a Theme</h2>
-      <div className="grid grid-cols-4 md:grid-cols-6 gap-4">
+      <div className="flex flex-wrap md:grid-cols-6 gap-4">
         {themes.map((theme) => (
           <button
             key={theme}
             onClick={() => changeTheme(theme)}
-            className={`p-3 rounded-lg shadow-md text-center ${
+            className={`p-3 rounded-lg shadow-md text-center m-3 cursor-pointer ${
               selectedTheme === theme ? "border-2 border-primary" : ""
             }`}
             data-theme={theme}
           >
-            <div>
-                <span className="bg-primary"></span>
-                <span></span>
-                <span></span>
-                <span></span>
+            <span className="capitalize inline-block mb-2 font-semibold">{theme}</span>
+            <div className="flex gap-2">
+                <span className="rounded-full bg-primary h-6 w-6"></span>
+                <span className="rounded-full bg-secondary h-6 w-6"></span>
+                <span className="rounded-full bg-accent h-6 w-6"></span>
+                <span className="rounded-full bg-neutral h-6 w-6"></span>
             </div>
           </button>
         ))}

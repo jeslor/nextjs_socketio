@@ -21,7 +21,7 @@ app.prepare().then(() => {
 
    const io = new Server(httpServer,{
     cors: {
-      origin: "*",
+      origin: ["*"],
     },
   });
 

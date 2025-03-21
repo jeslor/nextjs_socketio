@@ -79,8 +79,8 @@ const page = () => {
                       You don't have contacts yet 😞
                     </p>
                     <div className="avatar-group  space-y-3 flex-wrap">
-                      {dummyContacts.map((contact: any) => (
-                        <div className=" flex flex-col gap-y-1 items-center mx-3">
+                      {dummyContacts.map((contact: any, i:number) => (
+                        <div key={i} className=" flex flex-col gap-y-1 items-center mx-3">
                           <div className="w-12 h-12 bg-base-100 p-2 rounded-full">
                             <Icon
                               icon="icon-park-twotone:user"
