@@ -7,6 +7,10 @@ const userSchema  = new Schema({
         type:String,
         required:true,
     },
+    theme:{
+        type:String,
+        default:"dark",
+    },
     email:{
         type:String,
         required:true,
@@ -29,6 +33,8 @@ const userSchema  = new Schema({
 {
     timestamps:true,
 });
+
+mongoose.models = {};
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 

@@ -1,5 +1,5 @@
 "use client";
-import { getCurrentUser, getOtherUsers } from '@/lib/actions/user.actions';
+import { getCurrentUser, getOtherUsers, updateUser } from '@/lib/actions/user.actions';
 import {io} from 'socket.io-client';
 import { signOut } from 'next-auth/react';
 import toast from 'react-hot-toast';
@@ -10,10 +10,12 @@ interface UserStore {
   contacts: any[];
   selectedUser: any | null;
   isLoadingCurrentUser: boolean;
+  isUpdatingTheme: boolean;
   isLoadingContacts: boolean;
   mySocket: any | null;
   onlineContacts: any[];
   setCurrentUser: (email: string) => Promise<void>;
+  setUserTheme: (theme: string) => Promise<void>;
   setContacts: (userId: string) => Promise<void>;
   setSelectedUser: (user: any) => void;
   logoutUser: () => Promise<void>;
@@ -28,11 +30,13 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   contacts: [],
   selectedUser: null,
   isLoadingCurrentUser: false,
+  isUpdatingTheme: false,
   isLoadingContacts: false,
   mySocket: null,
   onlineContacts: [],
 
   setCurrentUser: async (email) => {    
+   try {
     set({ isLoadingCurrentUser: true });
     const currentUser = await getCurrentUser(email);
     if (currentUser) {
@@ -40,15 +44,40 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
       get().connectToSocket(); // Connect to WebSocket after user is set
     }
     set({ isLoadingCurrentUser: false });
+   } catch (error) {
+    console.log(error);
+    
+   }
+  },
+
+  setUserTheme: async (theme:string) => {
+   try {
+    set({ isUpdatingTheme: true });
+    const currentUser = get().currentUser;
+    if (currentUser) {
+      const updatedUser = await updateUser(currentUser._id, { theme });
+      if (updatedUser.status === 200) {
+        set({ currentUser: updatedUser.data });
+      }
+    }
+   } catch (error) {
+    console.log(error);
+    
+   }
   },
 
   setContacts: async (currentUserId: any) => {
+   try {
     set({ isLoadingContacts: true });
     const contacts: any = await getOtherUsers(currentUserId);
     if (contacts) {
       set({ contacts: contacts.data });
     }
     set({ isLoadingContacts: false });
+   } catch (error) {
+    console.log(error);
+    
+   }
   },
 
   setSelectedUser: (user) => {
@@ -56,6 +85,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   },
 
   logoutUser: async () => {
+   try {
     await signOut({ callbackUrl: '/login' });
     get().disconnectFromSocket();
     set({
@@ -64,6 +94,10 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
       selectedUser: null,
     });
     toast.success('Logged out successfully');
+   } catch (error) {
+    console.log(error);
+    
+   }
   },
 
   connectToSocket: () => {

@@ -1,5 +1,6 @@
 "use client"
-import React, { useState } from "react";
+import { useCurrentUserStore } from "@/components/providers/userProvider";
+import React, { useEffect, useState } from "react";
 
 const themes = [
   "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", 
@@ -12,11 +13,21 @@ const themes = [
 
 
 const ThemeSelector = () => {
-  const [selectedTheme, setSelectedTheme] = useState("dark");
+  const {currentUser, setUserTheme, isUpdatingTheme} = useCurrentUserStore();
+  const [selectedTheme, setSelectedTheme] = useState(currentUser?.theme);
 
-  const changeTheme = (theme:any) => {
-    document.documentElement.setAttribute("data-theme", theme);
-    setSelectedTheme(theme);
+  useEffect(() => {
+    if(currentUser) {
+      setSelectedTheme(currentUser.theme);
+    }
+  }
+  , [currentUser?.theme]);
+
+
+
+
+  const changeTheme = async(theme:any) => {
+    await setUserTheme(theme);
   };
 
   return (
