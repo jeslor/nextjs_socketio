@@ -11,7 +11,6 @@ const page = () => {
   const { currentUser } = useCurrentUserStore();
   const { data: session } = useSession();
   const [user, setUser] = useState<any>();
-  console.log(session);
 
   useEffect(() => {
     if (session) {
