@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   const Router = useRouter();
   const { data: session }:any = useSession();
-  const {setCurrentUser, currentUser} = useCurrentUserStore();
+  const {setCurrentUser} = useCurrentUserStore();
 
   useEffect(() => {
     if (!session) {
@@ -37,7 +37,7 @@ export default function RootLayout({
 
 
   return (
-    <main data-theme={currentUser?.theme} className="h-screen flex">
+    <main className="h-screen flex">
     <NavSide />
       {children}
     </main>

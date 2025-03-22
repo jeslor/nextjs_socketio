@@ -48,7 +48,7 @@ const MessageBubble = ({ message }: any) => {
             />
           </div>
         )}
-        <p>{message.text}</p>
+        <pre className=" whitespace-pre-wrap font-sans">{message.text}</pre>
       </div>
     </div>
   );

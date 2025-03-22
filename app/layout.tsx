@@ -30,11 +30,13 @@ export default async function RootLayout({
 }>) {
 
   const session:any = await auth();
+  const user = await getCurrentUser(session?.user.email);
   
 
   return (
     <html lang="en">
       <body
+      data-theme={user?.data?.theme}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider session={session}>
