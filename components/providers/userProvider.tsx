@@ -12,10 +12,12 @@ interface UserStore {
   isLoadingCurrentUser: boolean;
   isUpdatingTheme: boolean;
   isLoadingContacts: boolean;
+  isSettingProfilePhoto: boolean;
   mySocket: any | null;
   onlineContacts: any[];
   setCurrentUser: (email: string) => Promise<void>;
   setUserTheme: (theme: string) => Promise<void>;
+  setNewProfilePhoto: (profileImage:string) => Promise<void>;
   setContacts: (userId: string) => Promise<void>;
   setSelectedUser: (user: any) => void;
   logoutUser: () => Promise<void>;
@@ -32,6 +34,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   isLoadingCurrentUser: false,
   isUpdatingTheme: false,
   isLoadingContacts: false,
+  isSettingProfilePhoto: false,
   mySocket: null,
   onlineContacts: [],
 
@@ -65,6 +68,23 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
     
    }
   },
+
+  setNewProfilePhoto: async (profileImage:string) => {
+    try {
+      set({ isSettingProfilePhoto: true });
+      const currentUser = get().currentUser;
+      if (currentUser) {
+        const updatedUser = await updateUser(currentUser._id, { profileImage });
+        if (updatedUser.status === 200) {
+          set({ currentUser: updatedUser.data });
+        }
+      }
+      set({ isSettingProfilePhoto: false });
+    } catch (error) {
+      console.log(error);
+    } 
+  },
+
 
   setContacts: async (currentUserId: any) => {
    try {
