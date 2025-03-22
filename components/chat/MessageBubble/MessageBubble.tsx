@@ -10,8 +10,8 @@ const MessageBubble = ({ message }: any) => {
     <div
       key={message._id}
       className={`chat chat-${
-        message.sender._id === currentUser._id ? "end" : "start"
-      } mb-7`}
+        message.sender._id === currentUser._id ? "end ml-auto" : "start"
+      } mb-7 max-w-[75%] w-full`}
     >
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
@@ -48,7 +48,7 @@ const MessageBubble = ({ message }: any) => {
             />
           </div>
         )}
-        <pre className=" whitespace-pre-wrap font-sans">{message.text}</pre>
+        <pre className=" whitespace-pre-wrap font-sans break-words">{message.text}</pre>
       </div>
     </div>
   );

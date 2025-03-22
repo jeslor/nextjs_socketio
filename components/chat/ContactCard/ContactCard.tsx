@@ -1,13 +1,16 @@
 import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import React from 'react'
+import React, { memo } from 'react'
 
-const ContactCard = ({contact}:any) => {
+const ContactCard = memo(({contact}:any) => {
     const {setSelectedUser,selectedUser, onlineContacts} = useCurrentUserStore()
 
     const handleSelectUser = () => {
         setSelectedUser(contact)
     }
+
+    console.log('reloaded');
+    
     
     
   return (
@@ -23,6 +26,6 @@ const ContactCard = ({contact}:any) => {
 
     </div>
   )
-}
+})
 
 export default ContactCard

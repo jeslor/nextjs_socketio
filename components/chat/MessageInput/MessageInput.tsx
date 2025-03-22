@@ -23,8 +23,6 @@ const MessageInput = memo(() => {
       }
       , [text]);
 
-
-
       const handleInput = (e: any) => {
         if (e.key === "Enter" && !e.shiftKey) {
           e.preventDefault();
@@ -59,7 +57,6 @@ const MessageInput = memo(() => {
         };
     };
     
-
     const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent) => {
       e.preventDefault();
       if (!text.trim() && !file) return;
