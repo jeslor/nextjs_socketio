@@ -20,7 +20,10 @@ const ChatContacts = memo(() => {
         }
       }
     }
-    ,[])
+    ,[contacts])
+
+    
+
   return (
     <div className="px-4 flex flex-col gap-y-2 py-4 h-[calc(100vh-70px)] overflow-y-scroll pb-7">
     {isLoadingContacts

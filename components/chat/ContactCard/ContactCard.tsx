@@ -9,9 +9,6 @@ const ContactCard = memo(({contact}:any) => {
         setSelectedUser(contact)
     }
 
-    console.log('reloaded');
-    
-    
     
   return (
     <div onClick={handleSelectUser} className={`flex w-full py-2 px-4 items-center gap-x-4  hover:bg-primary/10 cursor-pointer rounded-[10px] ${selectedUser?._id === contact._id ? 'bg-primary/10':'bg-transparent'}`}>

@@ -36,12 +36,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-      data-theme={user?.data?.theme}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider session={session}>
         <ToasterContext />
-          {/* {session && <UserSetter  />} */}
+          {/* {user && <UserSetter currUser={user.data}  />} */}
         {children}
         </SessionProvider>
       </body>

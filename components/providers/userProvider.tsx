@@ -38,12 +38,12 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   mySocket: null,
   onlineContacts: [],
 
-  setCurrentUser: async (email) => {    
+  setCurrentUser: async(email:string) => {
    try {
     set({ isLoadingCurrentUser: true });
-    const currentUser = await getCurrentUser(email);
-    if (currentUser) {
-      set({ currentUser: currentUser.data });
+    const user  = await getCurrentUser(email);
+    if (user) {
+      set({ currentUser: user.data });
       get().connectToSocket(); // Connect to WebSocket after user is set
     }
     set({ isLoadingCurrentUser: false });
@@ -57,12 +57,14 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
    try {
     set({ isUpdatingTheme: true });
     const currentUser = get().currentUser;
+    set({currentUser: {...currentUser, theme}});
     if (currentUser) {
       const updatedUser = await updateUser(currentUser._id, { theme });
       if (updatedUser.status === 200) {
-        set({ currentUser: updatedUser.data });
+        alert('Theme updated successfully');
       }
     }
+    set({ isUpdatingTheme: false });
    } catch (error) {
     console.log(error);
     
@@ -86,7 +88,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   },
 
 
-  setContacts: async (currentUserId: any) => {
+  setContacts: async (currentUserId: string) => {
    try {
     set({ isLoadingContacts: true });
     const contacts: any = await getOtherUsers(currentUserId);
