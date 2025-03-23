@@ -16,6 +16,7 @@ export default function RootLayout({
   const Router = useRouter();
   const { data: session }:any = useSession();
   const { setCurrentUser, currentUser, setContacts, contacts,selectedUser, setSelectedUser } = useCurrentUserStore();
+  const { setMessages } = useMessageStore();
 
   useEffect(() => {
     if (!session) {
@@ -49,6 +50,13 @@ export default function RootLayout({
     }
   }
   ,[contacts])
+
+
+    useEffect(() => {
+      if (currentUser && selectedUser) {
+        setMessages(currentUser._id, selectedUser._id);
+      }
+    }, [selectedUser]);
 
 
   return (

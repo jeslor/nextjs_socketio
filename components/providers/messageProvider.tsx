@@ -26,7 +26,9 @@ export const useMessageStore = create<any>((set, get) => ({
 
     subscribeToMessages: async({text, file, senderId, receiverId }:any)=>{
         try {
-            // optimize to save message immediaetely
+            if(!text && !file){
+                return;
+            }
             await newMessage({text, file, senderId, receiverId})
             .then((savedMessage:any)=>{
                 if(savedMessage.status !== 200){

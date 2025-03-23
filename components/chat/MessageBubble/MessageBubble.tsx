@@ -19,7 +19,12 @@ const MessageBubble = ({ message }: any) => {
             currentUser.profileImage ? (
               <img src={currentUser.profileImage} alt="user" />
             ) : (
-              <img src="/images/avatar.png" alt="user" />
+              <div className="bg-primary/20 h-full w-full flex items-center justify-center rounded-full">
+              <Icon
+              icon="ix:user-profile-filled" 
+              className="h-full w-full text-base-200"
+              />
+            </div>
             )
           ) : message.sender.profileImage ? (
             <img src={message.sender.profileImage} alt="user" />

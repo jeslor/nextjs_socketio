@@ -7,17 +7,11 @@ import ChatContainerSkeleton from "../ChatContainerSkepeton/ChatContainerSkeleto
 import MessageBubble from "../MessageBubble/MessageBubble";
 
 const MessageContainer = () => {
-  const { currentUser, selectedUser, mySocket } = useCurrentUserStore();
-  const { messages, setMessages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
+  const { mySocket } = useCurrentUserStore();
+  const { messages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
   
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-
-  useEffect(() => {
-    if (currentUser && selectedUser) {
-      setMessages(currentUser._id, selectedUser._id);
-    }
-  }, [selectedUser]);
 
 
   useEffect(() => {
