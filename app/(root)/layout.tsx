@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   const Router = useRouter();
   const { data: session }:any = useSession();
-  const { setCurrentUser, currentUser } = useCurrentUserStore();
+  const { setCurrentUser, currentUser, setContacts, contacts,selectedUser, setSelectedUser } = useCurrentUserStore();
 
   useEffect(() => {
     if (!session) {
@@ -29,9 +29,26 @@ export default function RootLayout({
 
   useEffect(() => {
     if (session) {
+      console.log("code in set user ran");
+      
       setCurrentUser(session.user.email);
     }
-  }, [session]);
+  }, [session.user.email]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setContacts(currentUser._id);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if(contacts){
+      if (!selectedUser) {
+        setSelectedUser(contacts[0]);
+      }
+    }
+  }
+  ,[contacts])
 
 
   return (

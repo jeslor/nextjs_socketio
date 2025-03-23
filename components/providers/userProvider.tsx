@@ -61,7 +61,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
     if (currentUser) {
       const updatedUser = await updateUser(currentUser._id, { theme });
       if (updatedUser.status === 200) {
-        alert('Theme updated successfully');
+        // alert('Theme updated successfully');
       }
     }
     set({ isUpdatingTheme: false });

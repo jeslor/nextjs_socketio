@@ -1,13 +1,13 @@
 import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 
 const ContactCard = memo(({contact}:any) => {
     const {setSelectedUser,selectedUser, onlineContacts} = useCurrentUserStore()
 
-    const handleSelectUser = () => {
+    const handleSelectUser = useCallback(() => {
         setSelectedUser(contact)
-    }
+    }, [contact])
 
     
   return (

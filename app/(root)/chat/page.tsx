@@ -5,12 +5,9 @@ import ChatContacts from "@/components/chat/ChatContacts/ChatContacts"
 import MessageContainer from "@/components/chat/messageContainer.tsx/MessageContainer"
 import MessageInput from "@/components/chat/MessageInput/MessageInput"
 import { useCurrentUserStore } from "@/components/providers/userProvider"
-import { useSession } from "next-auth/react"
-import { useEffect, memo } from "react"
 
 const page = () => {
   const { selectedUser } = useCurrentUserStore();
-
   
   return (
     <div className="flex flex-1">
