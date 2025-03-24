@@ -8,6 +8,9 @@ import MessageBubble from "../MessageBubble/MessageBubble";
 
 const MessageContainer = () => {
   const { messages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
+
+  console.log(inputTouched);
+  
   
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -26,7 +29,8 @@ const MessageContainer = () => {
   
 
   return (
-    <div className="flex-1 p-4 bg-base-300 overflow-y-scroll h-fit flex flex-col  justify-end">
+    <div className="flex-1 p-4 bg-base-300 h-full overflow-y-scroll">
+       <div className="  flex flex-col justify-end gap-4 min-h-full">
       {isMessagesLoading ? (
         <ChatContainerSkeleton />
       ) : (
@@ -37,6 +41,8 @@ const MessageContainer = () => {
         </>
       )}
     </div>
+    </div>
+   
   );
 };
 

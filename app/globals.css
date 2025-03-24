@@ -1,8 +1,7 @@
 @import "tailwindcss";
-@plugin "daisyui"{
-    themes: all;
-  };
-
+@plugin "daisyui" {
+  themes: all;
+}
 
 @plugin "tailwindcss-animate";
 
@@ -24,23 +23,48 @@
   --breakpoint-laptop: 1024px;
   --breakpoint-desktop: 1280px;
   --breakpoint-largeDesktop: 1536px;
-
+  --popInMessageAnimation: popInMessage 0.5s ease-in-out;
 }
 
+@layer utilities {
+  @keyframes pop-in {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
 
+@keyframes popInMessage {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 @layer components {
   .mainBtn {
     @apply bg-primary7 text-white font-bold py-3 px-4  rounded-full hover:bg-primary8 transition duration-200 cursor-pointer;
   }
+  .popIn {
+    animation: pop-in 0.2s ease-in-out;
+  }
 }
 
 .noScrollBar {
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .noScrollBar::-webkit-scrollbar {
-  display: none; 
+  display: none;
   width: 0;
 }

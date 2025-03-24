@@ -1,4 +1,5 @@
 "use client";
+import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import {useCurrentUserStore} from  '@/components/providers/userProvider'
 import { getMessages, newMessage } from '@/lib/actions/message.actions';
@@ -31,7 +32,7 @@ export const useMessageStore = create<any>((set, get) => ({
             }
             const currentUser = useCurrentUserStore.getState().currentUser;
             const selectedUser = useCurrentUserStore.getState().selectedUser;
-            set({ messages: [...get().messages, {text,file,sender:currentUser, receiver:selectedUser}] });
+            set({ messages: [...get().messages, {_id:uuidv4(), text,file,sender:currentUser, receiver:selectedUser, createdAt:new Date()}] });
             await newMessage({text, file, senderId, receiverId})
             .then((savedMessage:any)=>{
                 if(savedMessage.status !== 200){
