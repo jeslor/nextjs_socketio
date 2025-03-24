@@ -7,20 +7,10 @@ import ChatContainerSkeleton from "../ChatContainerSkepeton/ChatContainerSkeleto
 import MessageBubble from "../MessageBubble/MessageBubble";
 
 const MessageContainer = () => {
-  const { mySocket } = useCurrentUserStore();
   const { messages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
   
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-
-
-  useEffect(() => {
-    listenToMesages();
-    return () => {
-      unsubscribeToMessages();
-    };
-  }, [mySocket]);
-  
 
   useEffect(() => {
     // Scroll to the latest message when messages change
@@ -36,7 +26,7 @@ const MessageContainer = () => {
   
 
   return (
-    <div className="flex-1 p-4 bg-base-300 overflow-y-scroll">
+    <div className="flex-1 p-4 bg-base-300 overflow-y-scroll h-fit flex flex-col  justify-end">
       {isMessagesLoading ? (
         <ChatContainerSkeleton />
       ) : (

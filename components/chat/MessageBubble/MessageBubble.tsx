@@ -10,7 +10,7 @@ const MessageBubble = ({ message }: any) => {
     <div
       key={message._id}
       className={`chat chat-${
-        message.sender._id === currentUser._id ? "end ml-auto" : "start"
+        message.sender._id === currentUser._id ? "end ml-auto" : "start mr-auto"
       } mb-7 max-w-[75%] w-full`}
     >
       <div className="chat-image avatar">

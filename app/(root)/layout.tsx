@@ -16,7 +16,8 @@ export default function RootLayout({
   const Router = useRouter();
   const { data: session }:any = useSession();
   const { setCurrentUser, currentUser, setContacts, contacts,selectedUser, setSelectedUser } = useCurrentUserStore();
-  const { setMessages } = useMessageStore();
+    const { mySocket } = useCurrentUserStore();
+    const {  setMessages, listenToMesages, unsubscribeToMessages } = useMessageStore();
 
   useEffect(() => {
     if (!session) {
@@ -57,6 +58,15 @@ export default function RootLayout({
         setMessages(currentUser._id, selectedUser._id);
       }
     }, [selectedUser]);
+
+
+      useEffect(() => {
+        listenToMesages();
+        return () => {
+          unsubscribeToMessages();
+        };
+      }, [mySocket]);
+      
 
 
   return (

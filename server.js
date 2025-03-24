@@ -4,25 +4,27 @@ import { Server } from "socket.io";
 import dotenv from "dotenv";
 
 dotenv.config();
-console.log("process.env.PORT", process.env.PORT);
-
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = "next-chat-app-5npg.onrender.com";
-const port = process.env.PORT || 3000;
+const hostname = process.env.NODE_ENV !== "production" ? "localhost" : "next-chat-app-5npg.onrender.com";
+const port = dev ? 3000 : process.env.PORT;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
 
 app.prepare().then(() => {
+  console.log(hostname);
+  
 
   const httpServer = createServer(handler);
 
    const io = new Server(httpServer,{
     cors: {
-      origin: ["*"],
-    },
+      origin: ["http://localhost:3000", "https://next-chat-app-5npg.onrender.com"],
+      methods: ["GET", "POST"],
+    }
+    
   });
 
   const connectedUsersMap = {};
@@ -37,6 +39,8 @@ app.prepare().then(() => {
 
     socket.on('newMessage', (data) => {
       const {receiver} = data;
+      console.log("receiver", receiver);
+      
       const receiverSocketId = connectedUsersMap[receiver._id];
       io.to(receiverSocketId).emit('newMessage', data);
      });

@@ -29,13 +29,14 @@ export const useMessageStore = create<any>((set, get) => ({
             if(!text && !file){
                 return;
             }
+            const currentUser = useCurrentUserStore.getState().currentUser;
+            const selectedUser = useCurrentUserStore.getState().selectedUser;
+            set({ messages: [...get().messages, {text,file,sender:currentUser, receiver:selectedUser}] });
             await newMessage({text, file, senderId, receiverId})
             .then((savedMessage:any)=>{
                 if(savedMessage.status !== 200){
                     throw new Error("Error sending message");
                 }
-                set({ messages: [...get().messages, savedMessage.data] });
-    
                 const socket = useCurrentUserStore.getState().mySocket;
                 socket.emit("newMessage", savedMessage.data);
             })
