@@ -1,10 +1,10 @@
 # Next_chat_app 🗨️💬
 
-Next_chat_app is a **real-time chat app** built with **Next.js**, **Tailwind CSS**, and **Pusher** for instant messaging and seamless user interactions! 🚀⚡
+Next_chat_app is a **real-time chat app** built with **Next.js**, **Tailwind CSS**, and **Socket IO** for instant messaging and seamless user interactions! 🚀⚡
 
 ## 🚀 Features
 
-✅ **Live Messaging** – Instant real-time chat powered by Pusher WebSockets.  
+✅ **Live Messaging** – Instant real-time chat powered by Socket IO.  
 ✅ **Typing Indicators** – Know when someone is typing.  
 ✅ **User Presence** – See who is online.  
 ✅ **Modern UI** – Styled with Tailwind CSS for a sleek look.  
@@ -14,7 +14,7 @@ Next_chat_app is a **real-time chat app** built with **Next.js**, **Tailwind CSS
 
 - **Frontend:** Next.js, React, Tailwind CSS
 - **Backend:** Next.js API Routes
-- **Real-time:** Pusher
+- **Real-time:** Socket IO
 
 ## 📦 Installation
 
@@ -36,12 +36,15 @@ npm install  # or yarn install
 Create a `.env.local` file and add your Pusher credentials:
 
 ```env
-NEXT_PUBLIC_PUSHER_KEY=your_pusher_key
-NEXT_PUBLIC_PUSHER_CLUSTER=your_pusher_cluster
-PUSHER_APP_ID=your_pusher_app_id
-PUSHER_SECRET=your_pusher_secret
-PUSHER_KEY=your_pusher_key
-PUSHER_CLUSTER=your_pusher_cluster
+MONGODB_URI=mongoDb database url
+AUTH_SECRET= next auth secret
+NEXTAUTH_URL=local development
+CLOUDINARY_CLOUD_NAME=cloudinary nae
+CLOUDINARY_API_KEY=cloudinary apikey
+CLOUDINARY_API_SECRET=cloudinary secret
+CLOUDINARY_URL=cloudinary:cloudinary url
+NEXT_PUBLIC_BASE_URL=next auth public url
+PORT=your port
 ```
 
 ## 🚀 Running the App
