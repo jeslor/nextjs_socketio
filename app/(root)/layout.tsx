@@ -22,9 +22,6 @@ export default function RootLayout({
   useEffect(() => {
     if (!session) {
       Router.push("/login");
-    }else{
-      toast.success('Welcome back!');
-
     }
   }, []);
 

@@ -40,6 +40,7 @@ export const useMessageStore = create<any>((set, get) => ({
                 }
                 const socket = useCurrentUserStore.getState().mySocket;
                 socket.emit("newMessage", savedMessage.data);
+               
             })
           
 
