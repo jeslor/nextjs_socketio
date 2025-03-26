@@ -55,6 +55,7 @@ const LoginForm =()=> {
           
         }
         if(!res?.error){
+          toast.success('Logged out successfully');
           Router.push("/chat")
         }
       })
@@ -92,7 +93,7 @@ const LoginForm =()=> {
             </FormItem>
           )}
         />
-                <FormField
+        <FormField
           control={form.control}
           name="password"
           render={({ field }) => (

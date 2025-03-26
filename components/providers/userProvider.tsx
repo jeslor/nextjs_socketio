@@ -2,7 +2,6 @@
 import { getCurrentUser, getOtherUsers, updateUser } from '@/lib/actions/user.actions';
 import {io} from 'socket.io-client';
 import { signOut } from 'next-auth/react';
-import toast from 'react-hot-toast';
 import { create } from 'zustand';
 
 interface UserStore {
@@ -115,7 +114,6 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
       contacts: [],
       selectedUser: null,
     });
-    toast.success('Logged out successfully');
    } catch (error) {
     console.log(error);
     
