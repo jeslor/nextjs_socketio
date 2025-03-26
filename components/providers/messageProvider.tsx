@@ -6,7 +6,7 @@ import { getMessages, newMessage } from '@/lib/actions/message.actions';
 
 export const useMessageStore = create<any>((set, get) => ({
     messages: [],
-    isMessagesLoading: true,
+    isMessagesLoading: false,
     inputTouched: false,
 
     setInputTouched: (value:boolean)=>{
@@ -57,6 +57,10 @@ export const useMessageStore = create<any>((set, get) => ({
             socket.on("newMessage", (message:any) => {
                 if(message.sender._id === useCurrentUserStore.getState().selectedUser._id){
                 set({ messages: [...get().messages, message] });
+                }else{
+                    // get the receiver of the message
+                    // add Notification to true
+                    // add the message in the unread messages
                 }
             });
     

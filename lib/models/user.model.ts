@@ -16,6 +16,16 @@ const userSchema  = new Schema({
         required:true,
         unique:true,
     },
+    messageNotifications:{
+        type:Boolean,
+        default:false,
+    },
+    unreadMessages:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:"Message"
+        }   
+    ],
     password:{
         type:String,
         required:true,
@@ -33,6 +43,8 @@ const userSchema  = new Schema({
 {
     timestamps:true,
 });
+
+mongoose.models = {};
 
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);

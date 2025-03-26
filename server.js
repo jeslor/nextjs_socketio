@@ -38,9 +38,7 @@ app.prepare().then(() => {
     io.emit("connectedUsers", Object.keys(connectedUsersMap));
 
     socket.on('newMessage', (data) => {
-      const {receiver} = data;
-      console.log("receiver", receiver);
-      
+      const {receiver} = data;      
       const receiverSocketId = connectedUsersMap[receiver._id];
       io.to(receiverSocketId).emit('newMessage', data);
      });
