@@ -6,7 +6,7 @@ import { getMessages, newMessage } from '@/lib/actions/message.actions';
 
 export const useMessageStore = create<any>((set, get) => ({
     messages: [],
-    isMessagesLoading: false,
+    isMessagesLoading: true,
     inputTouched: false,
 
     setInputTouched: (value:boolean)=>{

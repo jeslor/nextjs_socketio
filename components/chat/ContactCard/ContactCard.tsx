@@ -17,7 +17,7 @@ const ContactCard = memo(({contact}:any) => {
             {(contact.profileImage &&contact.profileImage) !=='' ? <img src={contact.profileImage} alt="profile" className='h-[70%] w-[70%] object-cover object-center rounded-full' /> : <Icon icon="ix:user-profile-filled"   className='text-base-200 size-[70%]' />}
         </div>
         <div>
-            <h3 className='font-bold capitalize'>{contact.username}</h3>
+            <h3 className='font-bold capitalize text-primary'>{contact.username}</h3>
             <p className='opacity-40 text-[10px]'>{contact.email}</p>
         </div>
 
