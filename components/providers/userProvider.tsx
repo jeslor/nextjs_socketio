@@ -107,13 +107,13 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
 
   logoutUser: async () => {
    try {
-    await signOut({ callbackUrl: '/login' });
-    get().disconnectFromSocket();
-    set({
-      currentUser: null,
-      contacts: [],
-      selectedUser: null,
-    });
+     get().disconnectFromSocket();
+     set({
+       currentUser: null,
+       contacts: [],
+       selectedUser: null,
+      });
+      await signOut({ callbackUrl: '/login' });
    } catch (error) {
     console.log(error);
     

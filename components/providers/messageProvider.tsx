@@ -55,7 +55,9 @@ export const useMessageStore = create<any>((set, get) => ({
         const socket = useCurrentUserStore.getState().mySocket;
         if (socket) {
             socket.on("newMessage", (message:any) => {
+                if(message.sender._id === useCurrentUserStore.getState().selectedUser._id){
                 set({ messages: [...get().messages, message] });
+                }
             });
     
 }
