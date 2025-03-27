@@ -8,7 +8,7 @@ const page = () => {
         <img src='/images/logo.webp' alt='logo' className='w-[100px] ' />
         <h1 className='text-[47px] text-white/60 font-extrabold -m'>Next chat App</h1>
       </div>
-      <ButtonMain title='Get Started' link='/login' />
+      <ButtonMain title='Get Started'  />
     </div>
   )
 }
