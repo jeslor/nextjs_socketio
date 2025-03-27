@@ -40,3 +40,14 @@ export const updateUser = async (userId:string, data:any) => {
         return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}))
     }
 }
+
+export const getNotifications = async (userId:string) => {
+    try {
+        await ConnectToDB()
+        const user = await UserModel.findById(userId).select("unreadMessages")
+        return JSON.parse(JSON.stringify({status:200, message: "Notifications Found", data:user}))
+    } catch (error) {
+        console.log(error);
+        return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}))
+    }
+}

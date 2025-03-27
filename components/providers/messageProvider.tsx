@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import {useCurrentUserStore} from  '@/components/providers/userProvider'
 import { getMessages, newMessage } from '@/lib/actions/message.actions';
-import { updateUser } from '@/lib/actions/user.actions';
 
 export const useMessageStore = create<any>((set, get) => ({
     messages: [],
