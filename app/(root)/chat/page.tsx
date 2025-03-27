@@ -44,7 +44,7 @@ const page = () => {
         </div>
           <div  className=" bg-base-200  mt-5 mx-4  flex items-center border-[0.5px] relative rounded-[5px] border-primary/35">
               <Icon icon="akar-icons:search" className="text-primary/70 absolute ml-1.5 " />
-              <input  type="text" placeholder="Search" className={`search-component h-[30px] bg-transparent text-primary/70 text-[13px] pl-7 pr-4 focus:outline-0 focus:text-primary ${expand?'w-[280px]':'w-full'}`} />
+              <input  type="text" placeholder="Search" className={`search-component h-[30px] bg-transparent text-primary/70 text-[13px] pl-7 pr-4 focus:outline-0 focus:text-primary ${expand?'w-[280px]':'w-full'} transition`} />
           </div>
         <ChatContacts expand={expand} />
       </aside>
