@@ -6,13 +6,23 @@ import ContactSkeleton from '../ContactSkeleton/ContactSkeleton';
 
 const ChatContacts = memo(() => {
     const {contacts, isLoadingContacts} = useCurrentUserStore();
+    const [currContacts, setCurrContacts] = React.useState<any[]>([]);
+
+    useEffect(() => {
+        setCurrContacts(contacts);
+    }
+    ,[contacts])
+
+    console.log(currContacts);
+    
+    
   
 
   return (
     <div className="px-4 flex flex-col gap-y-2 py-4 h-[calc(100vh-70px)] overflow-y-scroll pb-7">
     {isLoadingContacts
     ? <ContactSkeleton /> 
-    :contacts.map((contact: any) => <ContactCard key={contact._id} contact={contact} />)}
+    :currContacts.map((contact: any) => <ContactCard key={contact._id} contact={contact} />)}
     </div>
   )
 })

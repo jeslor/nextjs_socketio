@@ -3,6 +3,7 @@ import { getCurrentUser, getOtherUsers, updateUser } from '@/lib/actions/user.ac
 import {io} from 'socket.io-client';
 import { signOut } from 'next-auth/react';
 import { create } from 'zustand';
+import toast from 'react-hot-toast';
 
 interface UserStore {
   currentUser: any | null;
@@ -18,6 +19,7 @@ interface UserStore {
   setUserTheme: (theme: string) => Promise<void>;
   setNewProfilePhoto: (profileImage:string) => Promise<void>;
   setContacts: (userId: string) => Promise<void>;
+  updateContacts: (newContact: any) => void;
   setSelectedUser: (user: any) => void;
   logoutUser: () => Promise<void>;
   connectToSocket: () => void;
@@ -99,6 +101,22 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
     console.log(error);
     
    }
+  },
+
+  // Revisit code to improve
+  updateContacts: (newContact: any) => {
+    const contacts = get().contacts;
+    const updatedContacts = contacts.map((contact) => {
+      if (contact._id === newContact._id) {
+        console.log(newContact);
+        
+        return newContact;
+      }
+      return contact;
+    });
+    set({ contacts: updatedContacts });
+    toast.success("Contact updated successfully");
+    
   },
 
   setSelectedUser: (user) => {

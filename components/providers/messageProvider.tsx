@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import {useCurrentUserStore} from  '@/components/providers/userProvider'
 import { getMessages, newMessage } from '@/lib/actions/message.actions';
+import { updateUser } from '@/lib/actions/user.actions';
 
 export const useMessageStore = create<any>((set, get) => ({
     messages: [],
@@ -54,13 +55,11 @@ export const useMessageStore = create<any>((set, get) => ({
     listenToMesages : ()=>{
         const socket = useCurrentUserStore.getState().mySocket;
         if (socket) {
-            socket.on("newMessage", (message:any) => {
+            socket.on("newMessage", async (message:any) => {
                 if(message.sender._id === useCurrentUserStore.getState().selectedUser._id){
                 set({ messages: [...get().messages, message] });
                 }else{
-                    // get the receiver of the message
-                    // add Notification to true
-                    // add the message in the unread messages
+
                 }
             });
     
