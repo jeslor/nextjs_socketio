@@ -12,9 +12,9 @@ const page = () => {
   
   return (
     <div className="flex flex-1">
-      <aside className="max-w-[340px] w-full border-r-[1px] border-primary/20 bg-base-200">
+      <aside className="tablet:max-w-[340px] tablet:w-full border-r-[1px] border-primary/20 bg-base-200">
         <div className="bg-base-200 p-4 h-[30px] w-full">
-        <h2 className="font-bold px-5">Chats</h2>
+        <h2 className="font-bold tablet:px-5">Chats</h2>
         </div>
         <div className="bg-base-200  mt-5 mx-4  flex items-center border-[0.5px] relative rounded-[5px] border-primary/35">
               <Icon icon="akar-icons:search" className="text-primary/70 absolute ml-1.5 " />

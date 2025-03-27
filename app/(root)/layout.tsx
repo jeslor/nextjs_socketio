@@ -67,7 +67,7 @@ export default function RootLayout({
 
 
   return (
-    <main className="h-screen flex" data-theme={currentUser?.theme}>
+    <main className="h-screen flex pb-[52px] tablet:pb-0" data-theme={currentUser?.theme}>
     <NavSide />
       {children}
     </main>

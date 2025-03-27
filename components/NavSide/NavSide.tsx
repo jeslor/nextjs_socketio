@@ -8,7 +8,7 @@ const NavSide = () => {
     const { logoutUser, currentUser } = useCurrentUserStore();
 
   return (
-    <aside className="tablet:h-full absolute bottom-0 w-full z-500  bg-base-100 tablet:bg-transparent  tablet:relative flex tablet:flex-col justify-between gap-y-6 tablet:py-10 px-4 tablet:px-1 tablet:w-fit border-r-[1px] border-primary/20 ">
+    <aside className="h-[50px] tablet:h-full fixed bottom-0 w-full z-500  bg-base-100 tablet:bg-transparent  tablet:relative flex tablet:flex-col justify-between gap-y-6 tablet:py-10 px-4 tablet:px-1 tablet:w-fit border-r-[1px] border-primary/20 ">
     <div className="flex justify-center items-center tablet:flex-col gap-y-4">
       <div className='flex justify-center items-center p-1 border-2 bg-white border-base-300 h-fit w-fit rounded-full'>
        {(currentUser &&currentUser.profileImage)? <img src={currentUser.profileImage} className="size-7 tablet:size-16 rounded-full" /> : <img src="/images/logo.webp" className="size-7 tablet:size-16 rounded-md object-contain" />}
@@ -42,8 +42,8 @@ const NavSide = () => {
         onClick={logoutUser} // Call logout function properly
         className="self-end tablet:mb-8 p-3.5 rounded hover:bg-base-200 flex justify-center items-center cursor-pointer font-bold"
       >
-        {/* <span>Logout</span> */}
-        <Icon icon="material-symbols:logout" className='size-7' />
+        <span className='hidden tablet:block'>Logout</span>
+        <Icon icon="material-symbols:logout" className='size-7 tablet:hidden' />
       </button>
    
   </aside>
