@@ -59,7 +59,9 @@ export const useMessageStore = create<any>((set, get) => ({
                 if(message.sender._id === useCurrentUserStore.getState().selectedUser._id){
                 set({ messages: [...get().messages, message] });
                 }else{
-
+                    console.log("new message from another user");
+      
+                    
                 }
             });
     

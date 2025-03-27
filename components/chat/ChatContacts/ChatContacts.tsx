@@ -12,10 +12,6 @@ const ChatContacts = memo(() => {
         setCurrContacts(contacts);
     }
     ,[contacts])
-
-    console.log(currContacts);
-    
-    
   
 
   return (
