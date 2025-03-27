@@ -8,10 +8,10 @@ const NavSide = () => {
     const { logoutUser, currentUser } = useCurrentUserStore();
 
   return (
-    <aside className="h-full flex flex-col justify-between gap-y-6 py-10 px-1 w-fit border-r-[1px] border-primary/20">
-    <div className="flex flex-col gap-y-4">
-      <div>
-       {(currentUser &&currentUser.profileImage)? <img src={currentUser.profileImage} className="w-16 h-16 rounded-full" /> : <img src="/images/logo.webp" className="w-16 h-16 rounded-md object-contain" />}
+    <aside className="tablet:h-full absolute bottom-0 w-full z-500  bg-base-100 tablet:bg-transparent  tablet:relative flex tablet:flex-col justify-between gap-y-6 tablet:py-10 px-4 tablet:px-1 tablet:w-fit border-r-[1px] border-primary/20 ">
+    <div className="flex justify-center items-center tablet:flex-col gap-y-4">
+      <div className='flex justify-center items-center p-1 border-2 bg-white border-base-300 h-fit w-fit rounded-full'>
+       {(currentUser &&currentUser.profileImage)? <img src={currentUser.profileImage} className="size-7 tablet:size-16 rounded-full" /> : <img src="/images/logo.webp" className="size-7 tablet:size-16 rounded-md object-contain" />}
       </div>
       <Link
         className="cursor-pointer p-3.5 rounded hover:bg-base-200 flex justify-center items-center"
@@ -40,9 +40,10 @@ const NavSide = () => {
     </div>
       <button
         onClick={logoutUser} // Call logout function properly
-        className="self-end mb-8 p-3.5 rounded hover:bg-base-200 flex justify-center items-center cursor-pointer font-bold"
+        className="self-end tablet:mb-8 p-3.5 rounded hover:bg-base-200 flex justify-center items-center cursor-pointer font-bold"
       >
-        Logout
+        {/* <span>Logout</span> */}
+        <Icon icon="material-symbols:logout" className='size-7' />
       </button>
    
   </aside>

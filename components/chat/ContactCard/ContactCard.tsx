@@ -36,7 +36,7 @@ const ContactCard = memo(({contact}:any) => {
         <div className='w-full flex-1'>
             <h3 className='font-bold capitalize text-primary relative w-full'>
                 {contact.username} 
-                {notifications.length?<span className='absolute right-1 top-0 h-6 w-6 rounded-full flex justify-center items-center bg-primary3 text-secondary text-[9px]'>{notifications.length}</span>:''}
+                {notifications.length?<span className='absolute right-1 top-0 h-6 w-6 rounded-full flex justify-center items-center bg-black border-[1px] border-gray-100/50 text-white text-[9px]'>{notifications.length}</span>:''}
                 </h3>
             <p className='opacity-40 text-[10px]'>{contact.email}</p>
         </div>
