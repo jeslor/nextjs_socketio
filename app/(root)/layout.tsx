@@ -6,7 +6,6 @@ import { useCurrentUserStore } from "@/components/providers/userProvider";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 
 export default function RootLayout({
   children,

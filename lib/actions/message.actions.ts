@@ -31,7 +31,8 @@ export const newMessage = async ({senderId, receiverId, text, file}:{
             receiver:receiverId,
             text,
             file:image.secure_url,
-        });        
+        });
+
         await message.save();
         const updatedMessage = await Message.findOne({_id:message._id}).populate("sender receiver");
         
@@ -52,6 +53,23 @@ export const getMessages = async (loggedInUserId:string, contactId:string) => {
                 {sender:contactId, receiver:loggedInUserId},
             ]
         }).populate("sender receiver");
+        return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
+    } catch (error) {
+        console.log(error);
+        return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
+        
+    }
+}
+
+export const getMostRecentMessage = async (loggedInUserId:string, contactId:string) => {
+    try {
+        await ConnectToDB();
+        const messages = await Message.find({
+            $or:[
+                {sender:loggedInUserId, receiver:contactId},
+                {sender:contactId, receiver:loggedInUserId},
+            ]
+        }).populate("sender receiver").sort({createdAt:-1}).limit(1);
         return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
     } catch (error) {
         console.log(error);

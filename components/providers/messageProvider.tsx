@@ -2,10 +2,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import {useCurrentUserStore} from  '@/components/providers/userProvider'
-import { getMessages, newMessage } from '@/lib/actions/message.actions';
+import { getMessages, getMostRecentMessage, newMessage } from '@/lib/actions/message.actions';
 
 export const useMessageStore = create<any>((set, get) => ({
-    messages: [],
+    messages: localStorage.getItem("messages") ? JSON.parse(localStorage.getItem("messages") as string) : [],
     isMessagesLoading: false,
     inputTouched: false,
 
@@ -16,9 +16,15 @@ export const useMessageStore = create<any>((set, get) => ({
     setMessages: async (currentUserId:string,selectedUserId:string) => {
         
         set({ isMessagesLoading: true });
+        const mostRecentMessage = await getMostRecentMessage(currentUserId, selectedUserId);
+        if(mostRecentMessage.status !== 200){
+            set({ isMessagesLoading: false });
+            return;
+        }
         if(currentUserId && selectedUserId){
             const messages = await getMessages(currentUserId, selectedUserId);
             if(messages){
+                localStorage.setItem("messages", JSON.stringify(messages.data));
                 set({ messages: messages.data });
             }
         }
