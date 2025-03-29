@@ -5,7 +5,8 @@ import {useCurrentUserStore} from  '@/components/providers/userProvider'
 import { getMessages, getMostRecentMessage, newMessage } from '@/lib/actions/message.actions';
 
 export const useMessageStore = create<any>((set, get) => ({
-    messages: localStorage.getItem("messages") ? JSON.parse(localStorage.getItem("messages") as string) : [],
+    // load first th local mssages before fetching from the server
+    messages:  localStorage.getItem("messages") ? JSON.parse(localStorage.getItem("messages") as string) : [],
     isMessagesLoading: false,
     inputTouched: false,
 
@@ -14,13 +15,20 @@ export const useMessageStore = create<any>((set, get) => ({
     },
 
     setMessages: async (currentUserId:string,selectedUserId:string) => {
+        const localMessages = localStorage.getItem("messages");
+        if(localMessages){
+            set({ messages: JSON.parse(localMessages) });
+            return;
+        }
         
         set({ isMessagesLoading: true });
         const mostRecentMessage = await getMostRecentMessage(currentUserId, selectedUserId);
-        if(mostRecentMessage.status !== 200){
+        if(mostRecentMessage.status !== 200  ){
             set({ isMessagesLoading: false });
             return;
         }
+        console.log("most recent message", mostRecentMessage);
+        
         if(currentUserId && selectedUserId){
             const messages = await getMessages(currentUserId, selectedUserId);
             if(messages){

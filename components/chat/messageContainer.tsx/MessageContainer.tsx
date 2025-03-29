@@ -10,6 +10,8 @@ const MessageContainer = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
 
+
+
   useEffect(() => {
     // Scroll to the latest message when messages change
     if (messagesEndRef.current) {
