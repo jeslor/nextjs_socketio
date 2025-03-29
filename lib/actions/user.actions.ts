@@ -51,3 +51,16 @@ export const getNotifications = async (userId:string) => {
         return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}))
     }
 }
+
+export const addToContacts = async (userId:string, contactId:string) => {
+    try {
+        const addedToContacts = await UserModel.findByIdAndUpdate(userId, {$addToSet:{contacts:contactId}}, {new:true}).select("-password")
+        if(addedToContacts){
+            return JSON.parse(JSON.stringify({status:200, message: "Contact Added", data:addedToContacts}))
+        }else{
+            throw new Error("Error adding contact")
+        }
+    } catch (error) {
+        return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}))
+    }
+}

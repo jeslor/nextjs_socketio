@@ -23,10 +23,6 @@ const MessageContainer = () => {
     }
   }, [messages]);
 
-  console.log("messages", messages.length === 0);
-  
-
-  
 
   return (
     <div className="flex-1 p-4 bg-base-300 h-full overflow-y-scroll w-screen  tablet:w-full">
