@@ -16,6 +16,7 @@ interface UserStore {
   mySocket: any | null;
   onlineContacts: any[];
   setCurrentUser: (email: string) => Promise<void>;
+  updateCurrentUser: (updatedUser: any) => void;
   setUserTheme: (theme: string) => Promise<void>;
   setNewProfilePhoto: (profileImage:string) => Promise<void>;
   setContacts: (userId: string) => Promise<void>;
@@ -52,6 +53,10 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
     console.log(error);
     
    }
+  },
+
+  updateCurrentUser:  (updatedUser:any) => {
+    set({ currentUser: updatedUser });
   },
 
   setUserTheme: async (theme:string) => {

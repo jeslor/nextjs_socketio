@@ -1,11 +1,28 @@
 import { useCurrentUserStore } from '@/components/providers/userProvider'
+import { addToContacts } from '@/lib/actions/user.actions'
+
 import { Icon } from '@iconify/react/dist/iconify.js'
 import React, { memo } from 'react'
 
 const ChatBar = memo(() => {
     const [adding, setAdding] = React.useState(false)
-    const {selectedUser, setSelectedUser, onlineContacts} = useCurrentUserStore()
-    const addToContacts = async () => {
+    const {selectedUser, setSelectedUser, onlineContacts, currentUser, updateCurrentUser} = useCurrentUserStore()
+    const addContact = async () => {
+        try {
+            setAdding(true)
+            const updatedUser = await addToContacts(currentUser._id, selectedUser._id)
+            if (updatedUser.status === 200) {
+                updateCurrentUser(updatedUser.data)
+            }
+            if (updatedUser.status !== 200) {
+                throw new Error('Error adding contact')
+                
+            }
+        } catch (error) {
+            console.log('Error in updating current user with contacts', error);
+        }finally{
+            setAdding(false)
+        }
 
     }
   return (
@@ -25,7 +42,7 @@ const ChatBar = memo(() => {
             <button className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
                 <Icon icon="akar-icons:video" className='text-primary text-[22px]' />
             </button>
-            <button onClick={addToContacts} className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
+            <button onClick={addContact} className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
                 <Icon icon="mi:user-add" className='text-primary text-[22px]' />
             </button>
             <button onClick={() => setSelectedUser(null)} className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
