@@ -6,7 +6,7 @@ import { getMessages, getMostRecentMessage, newMessage } from '@/lib/actions/mes
 
 export const useMessageStore = create<any>((set, get) => ({
     // load first th local mssages before fetching from the server
-    messages:  localStorage.getItem("messages") ? JSON.parse(localStorage.getItem("messages") as string) : [],
+    messages:   [],
     isMessagesLoading: false,
     inputTouched: false,
 
@@ -16,29 +16,21 @@ export const useMessageStore = create<any>((set, get) => ({
 
     setMessages: async (currentUserId:string,selectedUserId:string) => {
         
+       try {
         set({ isMessagesLoading: true });
-        const mostRecentMessage = await getMostRecentMessage(currentUserId, selectedUserId);
-        if(mostRecentMessage.status !== 200  ){
-            set({ isMessagesLoading: false });
-            return;
-        }
         
         if(currentUserId && selectedUserId){
-            const localMessages = JSON.parse(localStorage.getItem("messages") as string);
-            console.log("local messages", localMessages);
-            alert("local messages" + typeof localMessages);
-            if(localMessages){
-                set({ messages: localMessages });
-                set({ isMessagesLoading: false });
-                return;
-            }
             const messages = await getMessages(currentUserId, selectedUserId);
             if(messages){
-                localStorage.setItem("messages", JSON.stringify(messages.data));
                 set({ messages: messages.data });
             }
         }
+       } catch (error) {
+        console.log(error);
+        
+       }finally{
         set({ isMessagesLoading: false });
+       }
     },
 
     subscribeToMessages: async({text, file, senderId, receiverId }:any)=>{

@@ -14,7 +14,7 @@ const MessageBubble = ({ message }: any) => {
       } mb-7 max-w-[75%] w-full popIn`}
     >
       <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
+        <div className="w-10 rounded-full bg-primary/40">
           {message.sender._id == currentUser._id ? (
             currentUser.profileImage ? (
               <img src={currentUser.profileImage} alt="user" />

@@ -23,6 +23,9 @@ const MessageContainer = () => {
     }
   }, [messages]);
 
+  console.log("messages", messages.length === 0);
+  
+
   
 
   return (
@@ -31,13 +34,15 @@ const MessageContainer = () => {
       {
       isMessagesLoading ? (
         <ChatContainerSkeleton />
-      ) : (
-        <>
-          {messages.map((message: any) => <MessageBubble key={message._id} message={message} />)}
-          {/* Empty div to track the end of the messages */}
+      ) : 
+        <>{
+          messages.length === 0 ? (
+            <div className="flex items-center justify-center h-full">
+              <h1 className="text-2xl text-primary/60">No messages yet</h1>
+            </div>
+          ) :messages.map((message: any) => <MessageBubble key={message._id} message={message} />)}
           <div ref={messagesEndRef} />
         </>
-      )
       }
     </div>
     </div>

@@ -21,7 +21,7 @@ const ChatBar = memo(() => {
                 <Icon icon="akar-icons:video" className='text-primary text-[22px]' />
             </button>
             <button className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
-                <Icon icon="akar-icons:more-horizontal" className='text-primary text-[22px]' />
+                <Icon icon="mi:user-add" className='text-primary text-[22px]' />
             </button>
             <button onClick={() => setSelectedUser(null)} className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
             <Icon icon="ic:baseline-close" className='text-primary text-[22px]'/>
