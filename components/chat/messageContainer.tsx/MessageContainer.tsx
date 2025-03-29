@@ -28,7 +28,8 @@ const MessageContainer = () => {
   return (
     <div className="flex-1 p-4 bg-base-300 h-full overflow-y-scroll w-screen  tablet:w-full">
        <div className="  flex flex-col justify-end gap-4 min-h-full ">
-      {isMessagesLoading ? (
+      {
+      isMessagesLoading ? (
         <ChatContainerSkeleton />
       ) : (
         <>
@@ -36,7 +37,8 @@ const MessageContainer = () => {
           {/* Empty div to track the end of the messages */}
           <div ref={messagesEndRef} />
         </>
-      )}
+      )
+      }
     </div>
     </div>
    

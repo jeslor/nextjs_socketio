@@ -15,11 +15,6 @@ export const useMessageStore = create<any>((set, get) => ({
     },
 
     setMessages: async (currentUserId:string,selectedUserId:string) => {
-        const localMessages = localStorage.getItem("messages");
-        if(localMessages){
-            set({ messages: JSON.parse(localMessages) });
-            return;
-        }
         
         set({ isMessagesLoading: true });
         const mostRecentMessage = await getMostRecentMessage(currentUserId, selectedUserId);
@@ -27,9 +22,16 @@ export const useMessageStore = create<any>((set, get) => ({
             set({ isMessagesLoading: false });
             return;
         }
-        console.log("most recent message", mostRecentMessage);
         
         if(currentUserId && selectedUserId){
+            const localMessages = JSON.parse(localStorage.getItem("messages") as string);
+            console.log("local messages", localMessages);
+            alert("local messages" + typeof localMessages);
+            if(localMessages){
+                set({ messages: localMessages });
+                set({ isMessagesLoading: false });
+                return;
+            }
             const messages = await getMessages(currentUserId, selectedUserId);
             if(messages){
                 localStorage.setItem("messages", JSON.stringify(messages.data));
