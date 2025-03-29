@@ -44,21 +44,32 @@ export const newMessage = async ({senderId, receiverId, text, file}:{
     }
 }
 
-export const getMessages = async (loggedInUserId:string, contactId:string) => {
-    try {
-        await ConnectToDB();
-        const messages = await Message.find({
-            $or:[
-                {sender:loggedInUserId, receiver:contactId},
-                {sender:contactId, receiver:loggedInUserId},
-            ]
-        }).populate("sender receiver");
-        return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
-    } catch (error) {
-        console.log(error);
-        return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
+// export const getMessages = async (loggedInUserId:string, contactId:string) => {
+//     try {
+//         await ConnectToDB();
+//         const messages = await Message.find({
+//             $or:[
+//                 {sender:loggedInUserId, receiver:contactId},
+//                 {sender:contactId, receiver:loggedInUserId},
+//             ]
+//         }).populate("sender receiver");
+//         return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
+//     } catch (error) {
+//         console.log(error);
+//         return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
         
-    }
+//     }
+// }
+
+export const getMessages = async (loggedInUserId:string) => {
+   try {
+    const foundMessages = await Message.find({ $or: [{ sender: loggedInUserId }, { receiver: loggedInUserId }] })
+    .populate("sender receiver")
+    .sort({ createdAt: -1 });
+    return JSON.parse(JSON.stringify({status: 200, message: "Messages Found", data: foundMessages }));
+   } catch (error) {
+    return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
+   }
 }
 
 export const getMostRecentMessage = async (loggedInUserId:string, contactId:string) => {
