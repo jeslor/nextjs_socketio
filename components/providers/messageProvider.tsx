@@ -6,7 +6,7 @@ import { getMessages, getMostRecentMessage, newMessage } from '@/lib/actions/mes
 
 export const useMessageStore = create<any>((set, get) => ({
     // load first th local mssages before fetching from the server
-    messages:   [],
+    messages:   localStorage.getItem("messages") ? JSON.parse(localStorage.getItem("messages") as string) : [],
     isMessagesLoading: false,
     inputTouched: false,
 
@@ -20,8 +20,9 @@ export const useMessageStore = create<any>((set, get) => ({
         set({ isMessagesLoading: true });
         
         if(currentUserId && selectedUserId){
-            const messages = await getMessages(currentUserId, selectedUserId);
+            const messages = await getMessages(currentUserId);
             if(messages){
+                localStorage.setItem("messages", JSON.stringify(messages.data));
                 set({ messages: messages.data });
             }
         }
