@@ -4,6 +4,7 @@ import {io} from 'socket.io-client';
 import { signOut } from 'next-auth/react';
 import { create } from 'zustand';
 import toast from 'react-hot-toast';
+import { useMessageStore } from './messageProvider';
 
 interface UserStore {
   currentUser: any | null;
@@ -125,6 +126,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   },
 
   setSelectedUser: (user) => {
+    useMessageStore.getState().inputTouched = false;
     set({ selectedUser: user });
   },
 

@@ -4,7 +4,6 @@ import Message  from "@/lib/models/message.model";
 import { uploadCloudinary } from "@/lib/helper/cloudinary";
 
 
-
 export const newMessage = async ({senderId, receiverId, text, file}:{
     senderId:string,
     receiverId:string,
@@ -62,21 +61,36 @@ export const getMessages = async (loggedInUserId:string, contactId:string) => {
 }
 
 
+interface UnreadMessage {
+    sender: string;
+    receiver: string;
+    text: string;
+    file?: string;
+    _id?: string;
+}
 
-export const getMostRecentMessage = async (loggedInUserId:string, contactId:string) => {
+interface UnreadMessagesResponse {
+    status: number;
+    message: string;
+    data: any;
+}
+
+export const unReadMessages = async (loggedInUserId: string, message: any)  => {
     try {
         await ConnectToDB();
-        const messages = await Message.find({
-            $or:[
-                {sender:loggedInUserId, receiver:contactId},
-                {sender:contactId, receiver:loggedInUserId},
-            ]
-        }).populate("sender receiver").sort({createdAt:-1}).limit(1);
-        return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
+        const updatedLoggedInUser = await Message.findOneAndUpdate(
+            { _id: loggedInUserId },
+            {
+                $push: {
+                    unreadMessages: message
+                }
+            },
+            { new: true }
+        ).populate("unreadMessages");
+        return JSON.parse(JSON.stringify({ status: 200, message: "Message added to unread", data: updatedLoggedInUser }));
     } catch (error) {
         console.log(error);
-        return JSON.parse(JSON.stringify({status:500, message: "Internal Server Error", data:error}));
-        
+        return JSON.parse(JSON.stringify({ status: 500, message: "error in adding message to unread", data: error }));
     }
 }
 

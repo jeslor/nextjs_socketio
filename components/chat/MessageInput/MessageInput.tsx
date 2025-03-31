@@ -7,7 +7,7 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 
 const MessageInput = memo(() => {
     const {currentUser, selectedUser} = useCurrentUserStore();
-    const {subscribeToMessages, setInputTouched, inputTouched} = useMessageStore();
+    const {subscribeToMessages,setInPutTouched} = useMessageStore();
   
     const submitButtonRef = useRef<HTMLButtonElement>(null);
     const [text, setText] = useState("");
@@ -24,14 +24,12 @@ const MessageInput = memo(() => {
       , [text]);
 
       const handleInput = (e: any) => {
+        setInPutTouched(true);
         if (e.key === "Enter" && !e.shiftKey) {
           e.preventDefault();
           return submitButtonRef.current?.click();
         }        
         
-        if (!inputTouched) {
-            setInputTouched(true);
-        }
         if (textareaRef.current) {
             textareaRef.current.style.height = "20px";
             textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 150) + "px";

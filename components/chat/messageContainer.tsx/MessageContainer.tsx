@@ -6,12 +6,8 @@ import MessageBubble from "../MessageBubble/MessageBubble";
 
 const MessageContainer = () => {
   const { messages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
-
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  console.log("messages", messages);
-
-
+  
 
   useEffect(() => {
     // Scroll to the latest message when messages change
@@ -23,6 +19,8 @@ const MessageContainer = () => {
       }
     }
   }, [messages]);
+
+  
 
 
   return (

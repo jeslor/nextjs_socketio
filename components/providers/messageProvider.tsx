@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import {useCurrentUserStore} from  '@/components/providers/userProvider'
-import { getMessages, getMostRecentMessage, newMessage } from '@/lib/actions/message.actions';
+import { getMessages, newMessage, unReadMessages } from '@/lib/actions/message.actions';
 
 export const useMessageStore = create<any>((set, get) => ({
     // load first th local mssages before fetching from the server
@@ -10,14 +10,15 @@ export const useMessageStore = create<any>((set, get) => ({
     isMessagesLoading: false,
     inputTouched: false,
 
-    setInputTouched: (value:boolean)=>{
-        set({inputTouched: value});
+    setInPutTouched: (touched:boolean) => {
+        set({ inputTouched: touched });
     },
 
     setMessages: async (currentUserId:string, selectedUserId:string) => {
         
        try {
         set({ isMessagesLoading: true });
+        set({inputTouched: false});
         if(currentUserId && selectedUserId){
             const  messages = await getMessages(currentUserId, selectedUserId);
              
@@ -30,6 +31,7 @@ export const useMessageStore = create<any>((set, get) => ({
         
        }finally{
         set({ isMessagesLoading: false });
+        // set({inputTouched: true});
        }
     },
 
@@ -66,8 +68,10 @@ export const useMessageStore = create<any>((set, get) => ({
                 if(message.sender._id === useCurrentUserStore.getState().selectedUser._id){
                 set({ messages: [...get().messages, message] });
                 }else{
-                    console.log("new message from another user");
-      
+                    const addedToUnread =  await unReadMessages(useCurrentUserStore.getState().currentUser._id, message);
+                    if(addedToUnread.status !== 200){
+                        useCurrentUserStore.getState().currentUser.unreadMessages = [...useCurrentUserStore.getState().currentUser.unreadMessages, message];
+                    }
                     
                 }
             });
