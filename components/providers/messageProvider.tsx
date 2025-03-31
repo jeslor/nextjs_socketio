@@ -7,6 +7,7 @@ import { getMessages, newMessage, unReadMessages } from '@/lib/actions/message.a
 export const useMessageStore = create<any>((set, get) => ({
     // load first th local mssages before fetching from the server
     messages:   [],
+    messageNotification: [],
     isMessagesLoading: false,
     inputTouched: false,
 
@@ -33,6 +34,11 @@ export const useMessageStore = create<any>((set, get) => ({
         set({ isMessagesLoading: false });
         // set({inputTouched: true});
        }
+    },
+
+    setNotifications:(currentUser:any)=>{
+        const unreadMessages = currentUser.unreadMessages;
+      set({ messageNotification: unreadMessages });
     },
 
     subscribeToMessages: async({text, file, senderId, receiverId }:any)=>{
@@ -68,9 +74,10 @@ export const useMessageStore = create<any>((set, get) => ({
                 if(message.sender._id === useCurrentUserStore.getState().selectedUser._id){
                 set({ messages: [...get().messages, message] });
                 }else{
+                    useCurrentUserStore.getState().currentUser.unreadMessages = [...useCurrentUserStore.getState().currentUser.unreadMessages, message];
                     const addedToUnread =  await unReadMessages(useCurrentUserStore.getState().currentUser._id, message);
                     if(addedToUnread.status !== 200){
-                        useCurrentUserStore.getState().currentUser.unreadMessages = [...useCurrentUserStore.getState().currentUser.unreadMessages, message];
+                        console.log("Error adding to unread messages server error");
                     }
                     
                 }

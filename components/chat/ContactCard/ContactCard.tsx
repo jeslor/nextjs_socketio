@@ -1,30 +1,29 @@
 import { useCurrentUserStore } from '@/components/providers/userProvider'
-import { getNotifications } from '@/lib/actions/user.actions'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import React, { memo, use, useCallback, useEffect } from 'react'
+import React, { memo, useCallback, useEffect } from 'react'
 
 const ContactCard = memo(({contact, expand}:any) => {
-    const {setSelectedUser,selectedUser, onlineContacts} = useCurrentUserStore()
+    const {setSelectedUser,selectedUser, onlineContacts, currentUser} = useCurrentUserStore()
     const [notifications, setNotifications] = React.useState([]);
+    
 
-    const userNotifications = useCallback(async()=>{
-        const response = await getNotifications(contact._id)
-
-        if(response.status === 200){
-            setNotifications(response.data.unreadMessages)
-        }
-    }
-    ,[contact])
 
     const handleSelectUser = useCallback(() => {
         setSelectedUser(contact)
     }, [contact])
 
+    
+
 
     useEffect(() => {
-        userNotifications()
+        if(currentUser.unreadMessages && currentUser.unreadMessages.length > 0){
+            const filteredNotifications = currentUser.unreadMessages.filter((notification:any) => contact._id === notification.sender._id && notification.receiver._id === currentUser._id);
+            setNotifications(filteredNotifications);
+        }
     }
-    ,[])
+    ,[currentUser.unreadMessages, contact._id, currentUser._id])
+
+    
 
     
   return (

@@ -5,8 +5,9 @@ import ContactCard from '../ContactCard/ContactCard';
 import ContactSkeleton from '../ContactSkeleton/ContactSkeleton';
 
 const ChatContacts = memo(({expand}:{expand:boolean}) => {
-    const {contacts, isLoadingContacts} = useCurrentUserStore();
+    const {contacts, isLoadingContacts, currentUser} = useCurrentUserStore();
     const [currContacts, setCurrContacts] = React.useState<any[]>([]);
+    
 
     useEffect(() => {
         setCurrContacts(contacts);

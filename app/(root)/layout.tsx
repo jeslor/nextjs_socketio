@@ -16,7 +16,7 @@ export default function RootLayout({
   const { data: session }:any = useSession();
   const { setCurrentUser, currentUser, setContacts, contacts,selectedUser, setSelectedUser } = useCurrentUserStore();
     const { mySocket } = useCurrentUserStore();
-    const {  setMessages, listenToMesages, unsubscribeToMessages } = useMessageStore();
+    const {  setMessages, listenToMesages, unsubscribeToMessages,setNotifications } = useMessageStore();
 
   useEffect(() => {
     if (!session) {
@@ -53,6 +53,12 @@ export default function RootLayout({
       }
     }, [selectedUser]);
 
+    useEffect(() => {
+        if (currentUser) {
+          setNotifications(currentUser);
+        }
+      }, [mySocket]);
+
 
       useEffect(() => {
         listenToMesages();
@@ -60,6 +66,9 @@ export default function RootLayout({
           unsubscribeToMessages();
         };
       }, [mySocket]);
+
+      console.log("currentUser", currentUser);
+      
       
 
 

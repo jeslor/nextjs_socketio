@@ -76,6 +76,8 @@ interface UnreadMessagesResponse {
 }
 
 export const unReadMessages = async (loggedInUserId: string, message: any)  => {
+    console.log("Adding to unread messages", message);
+    
     try {
         await ConnectToDB();
         const updatedLoggedInUser = await Message.findOneAndUpdate(
