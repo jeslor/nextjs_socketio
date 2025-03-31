@@ -21,15 +21,18 @@ export const useMessageStore = create<any>((set, get) => ({
 
         ]
         set({ isMessagesLoading: true });
-        
+        let messages;
         if(currentUserId && selectedUserId){
-            const messages = await getMessages(currentUserId);
+            messages = localStorage.getItem("messages");
             if(messages){
-                
-            
+                set({ messages: JSON.parse(messages) });
+            }else{
+             messages = await getMessages(currentUserId);
+            if(messages){
                 localStorage.setItem("messages", JSON.stringify(messages.data));
                 set({ messages: messages.data });
             }
+        }
         }
        } catch (error) {
         console.log(error);
