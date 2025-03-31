@@ -68,3 +68,9 @@
   display: none;
   width: 0;
 }
+
+.myTextElipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

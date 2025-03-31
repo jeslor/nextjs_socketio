@@ -1,6 +1,7 @@
 "use server";
 import { ConnectToDB } from "@/lib/mongoose";
 import Message  from "@/lib/models/message.model";
+import UserModel from "@/lib/models/user.model";
 import { uploadCloudinary } from "@/lib/helper/cloudinary";
 
 
@@ -47,10 +48,16 @@ export const getMessages = async (loggedInUserId:string, contactId:string) => {
     try {
         await ConnectToDB();
         const messages = await Message.find({
-            $or:[
-                {sender:loggedInUserId, receiver:contactId},
-                {sender:contactId, receiver:loggedInUserId},
-            ]
+            $and: [
+                { 
+                  $or: [
+                    { sender: loggedInUserId, receiver: contactId },
+                    { sender: contactId, receiver: loggedInUserId }
+                  ]
+                },
+                { deleted: false },
+                { seen: true }
+              ]
         }).populate("sender receiver");
         return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
     } catch (error) {
@@ -61,26 +68,11 @@ export const getMessages = async (loggedInUserId:string, contactId:string) => {
 }
 
 
-interface UnreadMessage {
-    sender: string;
-    receiver: string;
-    text: string;
-    file?: string;
-    _id?: string;
-}
-
-interface UnreadMessagesResponse {
-    status: number;
-    message: string;
-    data: any;
-}
-
 export const unReadMessages = async (loggedInUserId: string, message: any)  => {
-    console.log("Adding to unread messages", message);
-    
+
     try {
         await ConnectToDB();
-        const updatedLoggedInUser = await Message.findOneAndUpdate(
+        const updatedLoggedInUser = await UserModel.findOneAndUpdate(
             { _id: loggedInUserId },
             {
                 $push: {
@@ -93,6 +85,49 @@ export const unReadMessages = async (loggedInUserId: string, message: any)  => {
     } catch (error) {
         console.log(error);
         return JSON.parse(JSON.stringify({ status: 500, message: "error in adding message to unread", data: error }));
+    }
+}
+
+export const updateReadMessages = async (loggedInUserId: string, messageIds: string[]) => {
+    try {
+        await ConnectToDB();
+        const updateReadMessages = await Message.updateMany(
+            { _id: { $in: messageIds } },
+            { $set: { seen: true } },
+            { new: true }
+        );
+
+        
+
+        const updatedLoggedInUser = await UserModel.findOneAndUpdate(
+            { _id: loggedInUserId },
+            {
+                $pull: {
+                    unreadMessages: { $in: messageIds }
+                }
+            },
+            { new: true }
+        ).populate("unreadMessages");
+        
+
+        if (!updatedLoggedInUser) {
+            return JSON.parse(JSON.stringify({ status: 404, message: "User not found", data: null }));
+        }
+        if (updateReadMessages.modifiedCount === 0) {
+            return JSON.parse(JSON.stringify({ status: 404, message: "No messages found", data: null }));
+        }
+        if (updateReadMessages.modifiedCount !== messageIds.length) {
+            return JSON.parse(JSON.stringify({ status: 404, message: "Some messages not found", data: null }));
+        }
+        if (updateReadMessages.modifiedCount === messageIds.length) {
+            return JSON.parse(JSON.stringify({ status: 200, message: "All messages updated to seen", data: updatedLoggedInUser }));
+        }
+        if (updateReadMessages.modifiedCount > 0) {
+            return JSON.parse(JSON.stringify({ status: 200, message: "Some messages updated to seen", data: updatedLoggedInUser }));
+        }
+    } catch (error) {
+        console.log(error);
+        return JSON.parse(JSON.stringify({ status: 500, message: "Internal Server Error", data: error }));
     }
 }
 

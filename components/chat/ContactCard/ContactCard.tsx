@@ -1,10 +1,14 @@
+import { useMessageStore } from '@/components/providers/messageProvider'
 import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import React, { memo, useCallback, useEffect } from 'react'
+import { set } from 'mongoose'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 
 const ContactCard = memo(({contact, expand}:any) => {
     const {setSelectedUser,selectedUser, onlineContacts, currentUser} = useCurrentUserStore()
-    const [notifications, setNotifications] = React.useState([]);
+    const {messageNotification, messages} = useMessageStore();
+    const [notifications, setNotifications] = useState<any>([]);
+    const [recentMessage, setRecentMessage] = useState<any>('');
     
 
 
@@ -12,32 +16,44 @@ const ContactCard = memo(({contact, expand}:any) => {
         setSelectedUser(contact)
     }, [contact])
 
-    
+
+    useEffect(() => {
+        const unreadMessages = messageNotification.filter((message:any) => message.sender._id === contact._id);
+        setNotifications(unreadMessages);
+    }
+    ,[messageNotification, contact._id])
 
 
     useEffect(() => {
-        if(currentUser.unreadMessages && currentUser.unreadMessages.length > 0){
-            const filteredNotifications = currentUser.unreadMessages.filter((notification:any) => contact._id === notification.sender._id && notification.receiver._id === currentUser._id);
-            setNotifications(filteredNotifications);
+        if(notifications.length > 0){
+            setRecentMessage(notifications[0].text);
+        }else{
+            if(messages && messages.length > 0){
+                setRecentMessage(messages.filter((message:any) => message.sender._id === contact._id)[0].text);
+            }else{
+                setRecentMessage(contact.email);
+            }
         }
-    }
-    ,[currentUser.unreadMessages, contact._id, currentUser._id])
+        },[notifications, contact._id])
 
     
+
 
     
   return (
     <div onClick={handleSelectUser} className={`flex w-full py-2 tablet:px-4 items-center gap-x-4  hover:bg-primary/10 cursor-pointer rounded-[10px] ${selectedUser?._id === contact._id ? 'bg-primary/10':'bg-transparent'}`}>
-        <div className='h-12 w-12 rounded-full flex justify-center items-center bg-primary/20 relative'>
+        <div className='h-12 w-12 rounded-full flex justify-center items-center bg-primary/20 relative flex-shrink-0'>
             {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
             {(contact.profileImage &&contact.profileImage) !=='' ? <img src={contact.profileImage} alt="profile" className='h-[85%] w-[85%] object-cover object-center rounded-full' /> : <Icon icon="ix:user-profile-filled"   className='text-base-200 size-[70%]' />}
         </div>
-        <div className={`w-full flex-1 ${expand?'':'hidden'} tablet:flex flex-col`}>
+        <div className={` w-[80%] ${expand?'':'hidden'} tablet:flex flex-col`}>
             <h3 className='font-bold capitalize text-primary relative w-full'>
                 {contact.username} 
-                {notifications.length?<span className='absolute right-1 top-0 h-6 w-6 rounded-full flex justify-center items-center bg-black border-[1px] border-gray-100/50 text-white text-[9px]'>{notifications.length}</span>:''}
                 </h3>
-            <p className='opacity-40 text-[10px]'>{contact.email}</p>
+            <p className=' text-[12px] myTextElipsis pr-9 relative h-6 text-semibold'>
+                <span className='opacity-60 '>{recentMessage}</span>
+                {notifications.length?<span className='absolute right-1 top-0 h-5 min-w-5 rounded-full flex justify-center items-center bg-green-700 border-[1px] border-gray-100/50 text-white text-[10px]'>{notifications.length}</span>:''}
+            </p>
         </div>
 
     </div>

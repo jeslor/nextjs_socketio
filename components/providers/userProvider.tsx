@@ -128,6 +128,10 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   setSelectedUser: (user) => {
     useMessageStore.getState().inputTouched = false;
     set({ selectedUser: user });
+    // update the unread messages
+    if (user) {
+      useMessageStore.getState().getUnreadMessages(user._id);
+    }
   },
 
   logoutUser: async () => {

@@ -38,6 +38,12 @@ export default function RootLayout({
   }, [currentUser]);
 
   useEffect(() => {
+    if(currentUser){
+      setNotifications(currentUser);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
     if(contacts){
       if (!selectedUser) {
         setSelectedUser(contacts[0]);
@@ -66,10 +72,6 @@ export default function RootLayout({
           unsubscribeToMessages();
         };
       }, [mySocket]);
-
-      console.log("currentUser", currentUser);
-      
-      
 
 
   return (
