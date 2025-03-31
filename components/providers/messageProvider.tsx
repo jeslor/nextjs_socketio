@@ -14,25 +14,16 @@ export const useMessageStore = create<any>((set, get) => ({
         set({inputTouched: value});
     },
 
-    setMessages: async (currentUserId:string,selectedUserId:string) => {
+    setMessages: async (currentUserId:string, selectedUserId:string) => {
         
        try {
-        const userMessages = [
-
-        ]
         set({ isMessagesLoading: true });
-        let messages;
         if(currentUserId && selectedUserId){
-            messages = localStorage.getItem("messages");
+            const  messages = await getMessages(currentUserId, selectedUserId);
+             
             if(messages){
-                set({ messages: JSON.parse(messages) });
-            }else{
-             messages = await getMessages(currentUserId);
-            if(messages){
-                localStorage.setItem("messages", JSON.stringify(messages.data));
                 set({ messages: messages.data });
             }
-        }
         }
        } catch (error) {
         console.log(error);

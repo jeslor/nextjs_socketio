@@ -27,8 +27,6 @@ export default function RootLayout({
 
   useEffect(() => {
     if (session) {
-      console.log("code in set user ran");
-      
       setCurrentUser(session.user.email);
     }
   }, [session.user.email]);

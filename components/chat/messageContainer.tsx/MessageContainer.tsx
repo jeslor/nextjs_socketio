@@ -9,6 +9,7 @@ const MessageContainer = () => {
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
+  console.log("messages", messages);
 
 
 
