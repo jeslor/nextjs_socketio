@@ -6,20 +6,11 @@ import MessageContainer from "@/components/chat/messageContainer.tsx/MessageCont
 import MessageInput from "@/components/chat/MessageInput/MessageInput"
 import { useCurrentUserStore } from "@/components/providers/userProvider"
 import { Icon } from "@iconify/react/dist/iconify.js"
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const page = () => {
   const [expand, setExpand] = useState(false);
-  const { selectedUser, currentUser } = useCurrentUserStore();
-  const Router  = useRouter();
-
-  // useEffect(() => {
-  //   if (!currentUser) {
-  //     Router.push("/login");
-  //   }
-  // },[]);
+  const { selectedUser } = useCurrentUserStore();
 
 
   useEffect(() => {
