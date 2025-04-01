@@ -108,8 +108,8 @@ export const useMessageStore = create<any>((set, get) => ({
           if (savedMessage.status !== 200) {
             throw new Error("Error sending message");
           }
-          const socket = useCurrentUserStore.getState().mySocket;
-          socket.emit("newMessage", savedMessage.data);
+          const socket = useCurrentUserStore.getState().mySocket;          
+          socket.emit("newMessage", savedMessage.data);          
         }
       );
     } catch (error) {
@@ -120,7 +120,7 @@ export const useMessageStore = create<any>((set, get) => ({
   listenToMesages: () => {
     const socket = useCurrentUserStore.getState().mySocket;
     if (socket) {
-      socket.on("newMessage", async (message: any) => {
+      socket.on("newMessage", async (message: any) => {        
         if (
           message.sender._id === useCurrentUserStore.getState().selectedUser._id
         ) {
@@ -136,13 +136,7 @@ export const useMessageStore = create<any>((set, get) => ({
             console.log(MessageRead.message);
           }
         } else {
-          console.log("not the selected user", message.sender.username);
-
           set({ messageNotification: [message, ...get().messageNotification] });
-          console.log(get().messageNotification);
-
-          console.log("added to unread messages", message.sender.username);
-
           const addedToUnread = await unReadMessages(
             useCurrentUserStore.getState().currentUser._id,
             message

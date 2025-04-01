@@ -36,6 +36,7 @@ export const newMessage = async ({senderId, receiverId, text, file}:{
         await message.save();
         const updatedMessage = await Message.findOne({_id:message._id}).populate("sender receiver");
         
+        
        
         return JSON.parse(JSON.stringify({status:200, message: "Message Sent", data:updatedMessage}));
     } catch (error) {

@@ -27,9 +27,14 @@ export default function RootLayout({
 
   useEffect(() => {
     if (session) {
-      setCurrentUser(session.user.email);
+      let user = session.user;
+      if(user && user.email){
+        setCurrentUser(session.user.email);
+      }else{
+        Router.push("/login");
+      }
     }
-  }, [session.user.email]);
+  }, [session?.user?.email]);
 
   useEffect(() => {
     if (currentUser) {
