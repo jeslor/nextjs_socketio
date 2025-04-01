@@ -57,7 +57,10 @@ export const getMessages = async (loggedInUserId:string, contactId:string) => {
                   ]
                 },
                 { deleted: false },
-                { seen: true }
+                {$or:[
+                    { sender: loggedInUserId },
+                    { seen: true }
+                ]}
               ]
         }).populate("sender receiver");
         return JSON.parse(JSON.stringify({status:200, message: "Messages Found", data:messages}));
