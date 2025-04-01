@@ -49,11 +49,15 @@ export default function RootLayout({
   }, [currentUser]);
 
   useEffect(() => {
-    if(contacts){
-      if (!selectedUser) {
-        setSelectedUser(contacts[0]);
-      }
+   if(typeof window !== "undefined" && contacts.length > 0){
+    let selectedUser = localStorage.getItem("selectedUser");
+    if (selectedUser) {
+      selectedUser = JSON.parse(selectedUser);
+      setSelectedUser(selectedUser);
+    } else {
+      setSelectedUser(contacts[0]); 
     }
+   }
   }
   ,[contacts])
 

@@ -199,7 +199,7 @@ const page = () => {
                     <label className="ml-2" htmlFor="private">
                       Find me by my email
                     </label>
-                  </div>                
+                  </div>
                 </div>
               </div>
             </div>

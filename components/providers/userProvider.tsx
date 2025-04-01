@@ -128,7 +128,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   setSelectedUser: (user) => {
     useMessageStore.getState().inputTouched = false;
     set({ selectedUser: user });
-    // update the unread messages
+    localStorage.setItem("selectedUser", JSON.stringify(user));
     if (user) {
       useMessageStore.getState().getUnreadMessages(user._id);
     }
