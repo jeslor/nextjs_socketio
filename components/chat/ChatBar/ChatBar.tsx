@@ -2,17 +2,22 @@ import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { addToContacts } from '@/lib/actions/user.actions'
 
 import { Icon } from '@iconify/react/dist/iconify.js'
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 const ChatBar = memo(() => {
     const [adding, setAdding] = React.useState(false)
     const {selectedUser, setSelectedUser, onlineContacts, currentUser, updateCurrentUser} = useCurrentUserStore()
+    const [alreadyAContact, setAlreadyAContact] = useState<boolean>(false);
+    
+    
     const addContact = async () => {
         try {
             setAdding(true)
             const updatedUser = await addToContacts(currentUser._id, selectedUser._id)
             if (updatedUser.status === 200) {
                 updateCurrentUser(updatedUser.data)
+                toast.success('Contact added successfully')
             }
             if (updatedUser.status !== 200) {
                 throw new Error('Error adding contact')
@@ -25,6 +30,13 @@ const ChatBar = memo(() => {
         }
 
     }
+
+    useEffect(() => {
+        if(selectedUser){
+            currentUser.contacts.map((user:any)=>user._id).includes(selectedUser._id)?setAlreadyAContact(true):setAlreadyAContact(false)
+        }
+    }, [currentUser.contacts, selectedUser])
+
   return (
     <div className='h-[70px] w-full bg-base-200 p-4 flex justify-between items-center'>
         {}
@@ -42,9 +54,9 @@ const ChatBar = memo(() => {
             <button className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
                 <Icon icon="akar-icons:video" className='text-primary text-[22px]' />
             </button>
-            <button onClick={addContact} className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
+            {!alreadyAContact&&<button onClick={addContact} className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
                 <Icon icon="mi:user-add" className='text-primary text-[22px]' />
-            </button>
+            </button>}
             <button onClick={() => setSelectedUser(null)} className='text-[17px] hover:bg-primary/10 rounded-full p-2 cursor-pointer'>
             <Icon icon="ic:baseline-close" className='text-primary text-[22px]'/>
             </button>

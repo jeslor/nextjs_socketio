@@ -1,8 +1,7 @@
 import { useMessageStore } from '@/components/providers/messageProvider'
 import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import { set } from 'mongoose'
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, use, useCallback, useEffect, useState } from 'react'
 
 const ContactCard = memo(({contact, expand}:any) => {
     const {setSelectedUser,selectedUser, onlineContacts, currentUser} = useCurrentUserStore()
@@ -19,6 +18,8 @@ const ContactCard = memo(({contact, expand}:any) => {
 
     useEffect(() => {
         if(messageNotification.length > 0){
+            console.log('messageNotification', messageNotification);
+            
         const unreadMessages = messageNotification.filter((message:any) => message.sender._id === contact._id);
         setNotifications(unreadMessages);
         }
