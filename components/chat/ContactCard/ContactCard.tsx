@@ -18,8 +18,10 @@ const ContactCard = memo(({contact, expand}:any) => {
 
 
     useEffect(() => {
+        if(messageNotification.length > 0){
         const unreadMessages = messageNotification.filter((message:any) => message.sender._id === contact._id);
         setNotifications(unreadMessages);
+        }
     }
     ,[messageNotification, contact._id])
 

@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from "react";
 const dummyContacts = Array.from({ length: 7 });
 
 const page = () => {
-  const { currentUser, setNewProfilePhoto } = useCurrentUserStore();
+  const { currentUser, setNewProfilePhoto, onlineContacts } = useCurrentUserStore();
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const proFileImageRef = useRef<any>(null);
 
@@ -42,6 +42,7 @@ const page = () => {
         {currentUser && (
           <div>
             <div className="flex items-center justify-start gap-x-5 w-full">
+              
               <div className=" h-[200px] w-[200px] rounded-[10px] bg-gray-600 flex flex-col items-center justify-center relative">
                 <input
                   ref={proFileImageRef}
@@ -102,19 +103,34 @@ const page = () => {
               </h3>
               <div className="bg-primary/10 w-full  mb-5 py-5 px-6 rounded-[10px]">
                 {currentUser.contacts.length ? (
-                  currentUser.contacts.map((contact: any) => (
-                    <div className="flex flex-col items-center justify-center">
-                      <div>
+                 <div className="flex items-center justify-start gap-x-5 flex-wrap">
+                  { currentUser.contacts.map((contact: any) => (
+                    <div key={contact._id} className="flex flex-col items-center justify-center">
+                      {contact.profileImage ? (
+                      <div className="w-12 h-12 bg-base-100 p-2 rounded-full flex items-center justify-center relative">
+                          {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
                         <img
                           src={contact.profileImage}
                           alt=""
-                          className="w-12 rounded-full"
+                          className="size-[90%] rounded-full"
                         />
                       </div>
-                      <h1>{contact.username}</h1>
-                      <h3>{contact.email}</h3>
+                      ):(
+                        <div className="w-12 h-12 bg-base-100 p-2 rounded-full relative">
+                          {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
+
+                        <Icon
+                          icon="icon-park-twotone:user"
+                          className="h-full w-full opacity-45"
+                        />
+                      </div>
+                      )
+                    }
+                      <h1 className="font-semibold text-[13px]">{contact.username}</h1>
+                      <h3 className="text-[10px] text-primary/50">{contact.email}</h3>
                     </div>
-                  ))
+                  ))}
+                 </div>
                 ) : (
                   <div>
                     <p className="pb-3">You don't have contacts yet 😞</p>
