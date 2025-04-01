@@ -46,7 +46,7 @@ const ContactCard = memo(({contact, expand}:any) => {
                 {notifications.length?<span className='absolute right-1 top-0 h-5 min-w-5 rounded-full flex justify-center items-center bg-green-700 border-[1px] border-gray-100/50 text-white text-[10px]'>{notifications.length}</span>:''}
                 </h3>
             <p className=' text-[12px] myTextElipsis pr-2 relative h-6 text-semibold'>
-                <span className='opacity-60 '>{recentMessage}</span>
+                <span className='opacity-60 '>{recentMessage!==''?recentMessage:<Icon icon="material-symbols:photo-camera-rounded"  className='text-[22px]' />}</span>
             </p>
         </div>
 
