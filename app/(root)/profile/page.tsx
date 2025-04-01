@@ -167,7 +167,7 @@ const page = () => {
                       className="toggle toggle-md"
                     />
                     <label className="ml-2" htmlFor="public">
-                      Public
+                      Show my profile photo
                     </label>
                   </div>
                   <div className="flex items-center  px-2">
@@ -177,7 +177,7 @@ const page = () => {
                       className="toggle toggle-md"
                     />
                     <label className="ml-2" htmlFor="private">
-                      Private
+                      Show online status
                     </label>
                   </div>
                   <div className="flex items-center  px-2">
@@ -187,7 +187,7 @@ const page = () => {
                       className="toggle toggle-md"
                     />
                     <label className="ml-2" htmlFor="private">
-                      Private
+                      Show my last seen
                     </label>
                   </div>
                   <div className="flex items-center  px-2">
@@ -197,29 +197,9 @@ const page = () => {
                       className="toggle toggle-md"
                     />
                     <label className="ml-2" htmlFor="private">
-                      Private
+                      Find me by my email
                     </label>
-                  </div>
-                  <div className="flex items-center  px-2">
-                    <input
-                      type="checkbox"
-                      defaultChecked
-                      className="toggle toggle-md"
-                    />
-                    <label className="ml-2" htmlFor="private">
-                      Private
-                    </label>
-                  </div>
-                  <div className="flex items-center  px-2">
-                    <input
-                      type="checkbox"
-                      defaultChecked
-                      className="toggle toggle-md"
-                    />
-                    <label className="ml-2" htmlFor="private">
-                      Private
-                    </label>
-                  </div>
+                  </div>                
                 </div>
               </div>
             </div>
