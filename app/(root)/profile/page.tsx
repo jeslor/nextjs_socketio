@@ -78,8 +78,8 @@ const page = () => {
   }
 
   return (
-    <div className="flex items-center justify-start w-full py-10">
-      <div className="max-w-[1000px] w-full flex flex-col items-start justify-start pl-10 pr-4 pb-8 h-full overflow-y-scroll">
+    <div className=" w-full py-10 overflow-y-scroll noScrollBar h-screen">
+      <div className="max-w-[1000px] w-full flex flex-col items-start justify-start pl-10 pt-8 pr-4 pb-8 h-fit ">
         {currentUser && (
           <div>
             <div className="flex items-center justify-start gap-x-5 w-full">
