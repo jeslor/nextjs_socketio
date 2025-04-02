@@ -39,7 +39,7 @@ const MessageBubble = ({ message }: any) => {
         </div>
       </div>
       <div className="chat-header">
-        <time className="text-xs opacity-50">
+        <time className="text-xs opacity-30">
           {formatTimestamp(message.createdAt)}
         </time>
       </div>

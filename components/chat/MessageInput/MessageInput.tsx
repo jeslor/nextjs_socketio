@@ -7,7 +7,7 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 
 const MessageInput = memo(() => {
     const {currentUser, selectedUser} = useCurrentUserStore();
-    const {subscribeToMessages,setInPutTouched} = useMessageStore();
+    const {subscribeToMessages,inputTouched,setInPutTouched} = useMessageStore();
   
     const submitButtonRef = useRef<HTMLButtonElement>(null);
     const [text, setText] = useState("");
@@ -24,7 +24,9 @@ const MessageInput = memo(() => {
       , [text]);
 
       const handleInput = (e: any) => {
-        setInPutTouched(true);
+        if(!inputTouched){
+          setInPutTouched(true);
+        }
         if (e.key === "Enter" && !e.shiftKey) {
           e.preventDefault();
           return submitButtonRef.current?.click();

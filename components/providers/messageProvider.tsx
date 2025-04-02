@@ -23,7 +23,9 @@ export const useMessageStore = create<any>((set, get) => ({
   setMessages: async (currentUserId: string, selectedUserId: string) => {
     try {
       set({ isMessagesLoading: true });
-      set({ inputTouched: false });
+      if(get().inputTouched){
+        set({ inputTouched: false });
+      }
       if (currentUserId && selectedUserId) {
         const messages = await getMessages(currentUserId, selectedUserId);
 

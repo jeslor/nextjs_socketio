@@ -14,15 +14,18 @@ const ContactCard = ({contact, expand}:any) => {
     const handleSelectUser = useCallback(() => {
         setSelectedUser(contact)
         setNotifications([]);
-    }, [contact])
+    }, [contact, setSelectedUser])
 
     useEffect(() => {
-        if(messageNotification.length > 0){
+        if(messageNotification.length ){
         const unreadMessages = messageNotification.filter((message:any) => message.sender._id === contact._id);
         setNotifications(unreadMessages);
         }
     }
-    ,[messageNotification, contact._id, selectedUser._id ])
+    ,[messageNotification, contact._id,selectedUser?._id])
+
+    console.log('reran on typing');
+    
 
     useEffect(() => {
         if(notifications.length > 0){
@@ -37,7 +40,7 @@ const ContactCard = ({contact, expand}:any) => {
     <div onClick={handleSelectUser} className={`flex w-full py-2 tablet:px-4 items-center gap-x-4  hover:bg-primary/10 cursor-pointer rounded-[10px] ${selectedUser?._id === contact._id ? 'bg-primary/20':'bg-primary/2'}`}>
         <div className='h-12 w-12 rounded-full flex justify-center items-center bg-primary/20 relative flex-shrink-0'>
             {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
-            {(contact.profileImage &&contact.profileImage) !=='' ? <img src={contact.profileImage} alt="profile" className='h-[85%] w-[85%] object-cover object-center rounded-full' /> : <Icon icon="ix:user-profile-filled"   className='text-base-200 size-[70%]' />}
+            {contact.profileImage  ? <img src={contact.profileImage} alt="profile" className='h-[85%] w-[85%] object-cover object-center rounded-full' /> : <Icon icon="ix:user-profile-filled"   className='text-base-200 size-[70%]' />}
         </div>
         <div className={` w-[80%] ${expand?'':'hidden'} tablet:flex flex-col`}>
             <h3 className='font-bold capitalize text-primary relative w-full'>
