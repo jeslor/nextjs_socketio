@@ -40,13 +40,13 @@ export default function RootLayout({
     if (currentUser) {
       setContacts(currentUser._id);
     }
-  }, [currentUser._id]);
+  }, [currentUser?._id]);
 
   useEffect(() => {
     if(currentUser){
       setNotifications(currentUser);
     }
-  }, [currentUser._id]);
+  }, [currentUser?._id]);
 
   useEffect(() => {
    if(typeof window !== "undefined" && contacts.length > 0){
@@ -61,12 +61,11 @@ export default function RootLayout({
   }
   ,[contacts])
 
-
     useEffect(() => {
       if (currentUser && selectedUser) {
         setMessages(currentUser._id, selectedUser._id);
       }
-    }, [selectedUser._id]);
+    }, [selectedUser?._id]);
 
     useEffect(() => {
         if (currentUser) {

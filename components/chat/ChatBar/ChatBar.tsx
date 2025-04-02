@@ -1,5 +1,5 @@
 import { useCurrentUserStore } from "@/components/providers/userProvider";
-import { addToContacts } from "@/lib/actions/user.actions";
+import { updateUser } from "@/lib/actions/user.actions";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { memo, useEffect, useState } from "react";
@@ -20,7 +20,7 @@ const ChatBar = memo(() => {
     try {
       setAdding(true);
       const updatedCurrentUser = {...currentUser, contacts: [...currentUser.contacts, selectedUser]};
-      const updatedUser = await addToContacts(
+      const updatedUser = await updateUser(
         currentUser._id,
         updatedCurrentUser
       );
