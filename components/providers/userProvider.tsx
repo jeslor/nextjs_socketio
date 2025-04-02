@@ -57,7 +57,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
   },
 
   updateCurrentUser:  (updatedUser:any) => {
-    set({ currentUser: updatedUser });
+    set({ currentUser: {...updatedUser} });
   },
 
   setUserTheme: async (theme:string) => {
@@ -86,11 +86,12 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
         const updatedUser = await updateUser(currentUser._id, { profileImage });
         if (updatedUser.status === 200) {
           set({ currentUser: updatedUser.data });
+          return updatedUser
         }
       }
       set({ isSettingProfilePhoto: false });
     } catch (error) {
-      console.log(error);
+      return error;
     } 
   },
 

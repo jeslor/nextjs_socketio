@@ -9,6 +9,7 @@ const dummyContacts = Array.from({ length: 7 });
 
 const page = () => {
   const { currentUser, setNewProfilePhoto, onlineContacts } = useCurrentUserStore();
+  const[isSavingImage, setIsSavingImage] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const proFileImageRef = useRef<any>(null);
 
@@ -31,9 +32,25 @@ const page = () => {
   };
 
   const saveProfileImage = async () => {
-    if (profileImage) {
-      await setNewProfilePhoto(profileImage);
+    try {
+      setIsSavingImage(true);
+      if (profileImage) {
+        await setNewProfilePhoto(profileImage).then((res: any) => {
+          if (res.status === 200) {
+            setProfileImage(null);
+            alert("Profile image updated successfully");
+          } else {
+            throw new Error("Error updating profile image");
+          }
+        }
+        );
+      }
+    } catch (error) {
+      alert("Error saving profile image");
+    }finally {
+      setIsSavingImage(false);
     }
+  
   };
 
   return (
@@ -73,11 +90,11 @@ const page = () => {
               </div>
               {
                 profileImage && (
-                  <button onClick={saveProfileImage} className="bg-primary/50 hover:bg-primary/75 p-2 rounded-md text-[13px] text-[#fff] cursor-pointer">
+                  <button onClick={saveProfileImage} className="bg-primary/50 hover:bg-primary/75 p-2 rounded-md text-[13px] text-[#fff] cursor-pointer flex items-center justify-center">
                   save profile image
-                  <span className="ml-2">
-
-                  </span>
+                  {isSavingImage&&(
+                    <span className="ml-2 h-4 w-4 rounded-full animate-spin border-2 border-base border-t-transparent "></span>
+                  )}
                 </button>
                 )
               }
