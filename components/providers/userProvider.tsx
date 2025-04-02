@@ -164,7 +164,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
       },
     });
     socket.connect();
-    console.log("WebSocket connected");
+    // console.log("WebSocket connected");
     set({ mySocket: socket });
     socket.on('connectedUsers', (data) => {
       set({ onlineContacts: data });
@@ -176,7 +176,7 @@ export const useCurrentUserStore = create<UserStore>((set, get) => ({
     const socket = get().mySocket;
     if (socket) {
       socket.disconnect();
-      console.log("WebSocket disconnected");
+      // console.log("WebSocket disconnected");
       socket.on('connectedUsers', (data:any) => {
         set({ onlineContacts: data });
       });

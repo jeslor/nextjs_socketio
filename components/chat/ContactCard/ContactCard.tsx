@@ -3,8 +3,8 @@ import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import React, { memo, use, useCallback, useEffect, useState } from 'react'
 
-const ContactCard = memo(({contact, expand}:any) => {
-    const {setSelectedUser,selectedUser, onlineContacts, currentUser} = useCurrentUserStore()
+const ContactCard = ({contact, expand}:any) => {
+    const {setSelectedUser,selectedUser, onlineContacts} = useCurrentUserStore()
     const {messageNotification, messages} = useMessageStore();
     const [notifications, setNotifications] = useState<any>([]);
     const [recentMessage, setRecentMessage] = useState<any>('');
@@ -13,26 +13,22 @@ const ContactCard = memo(({contact, expand}:any) => {
 
     const handleSelectUser = useCallback(() => {
         setSelectedUser(contact)
+        setNotifications([]);
     }, [contact])
-
 
     useEffect(() => {
         if(messageNotification.length > 0){
-            console.log('messageNotification', messageNotification);
-            
         const unreadMessages = messageNotification.filter((message:any) => message.sender._id === contact._id);
         setNotifications(unreadMessages);
         }
     }
-    ,[messageNotification, contact._id])
-
+    ,[messageNotification, contact._id, selectedUser._id ])
 
     useEffect(() => {
         if(notifications.length > 0){
             setRecentMessage(notifications[0].text);
         }else{
                 setRecentMessage(contact.email);
-            
         }
         },[notifications, contact._id, messages])
 
@@ -46,7 +42,7 @@ const ContactCard = memo(({contact, expand}:any) => {
         <div className={` w-[80%] ${expand?'':'hidden'} tablet:flex flex-col`}>
             <h3 className='font-bold capitalize text-primary relative w-full'>
                 {contact.username} 
-                {notifications.length?<span className='absolute right-1 top-0 h-5 min-w-5 rounded-full flex justify-center items-center bg-green-700 border-[1px] border-gray-100/50 text-white text-[10px]'>{notifications.length}</span>:''}
+                {(notifications.length>0)&&<span className='absolute right-1 top-0 h-5 min-w-5 rounded-full flex justify-center items-center bg-green-700 border-[1px] border-gray-100/50 text-white text-[10px]'>{notifications.length}</span>}
                 </h3>
             <p className=' text-[12px] myTextElipsis pr-2 relative h-6 text-semibold'>
                 <span className='opacity-60 '>{recentMessage!==''?recentMessage:<Icon icon="material-symbols:photo-camera-rounded"  className='text-[22px]' />}</span>
@@ -55,6 +51,6 @@ const ContactCard = memo(({contact, expand}:any) => {
 
     </div>
   )
-})
+}
 
 export default ContactCard

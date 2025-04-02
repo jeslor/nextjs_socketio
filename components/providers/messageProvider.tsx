@@ -130,10 +130,10 @@ export const useMessageStore = create<any>((set, get) => ({
             [message._id]
           );
           if (MessageRead.status !== 200) {
-            console.log(MessageRead.message);
+            // console.log(MessageRead.message);
           }
           if (MessageRead.status === 200) {
-            console.log(MessageRead.message);
+            // console.log(MessageRead.message);
           }
         } else {
           set({ messageNotification: [message, ...get().messageNotification] });
