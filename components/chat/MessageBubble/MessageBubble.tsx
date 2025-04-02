@@ -45,7 +45,7 @@ const MessageBubble = ({ message }: any) => {
       </div>
       <div className={`chat-bubble ${message.sender._id === currentUser._id ?'bg-base-200 text-primary/90':'bg-primary/60 text-base-200'}`}>
         {message.file && (
-          <div className="flex flex-col items-center gap-2 h-[150px]">
+          <div className="flex flex-col items-center gap-2 h-[150px] bg-white rounded-[10px] mb-2">
             <img
               src={message.file}
               alt="file"
