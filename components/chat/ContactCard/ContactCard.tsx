@@ -24,9 +24,6 @@ const ContactCard = ({contact, expand}:any) => {
     }
     ,[messageNotification, contact._id,selectedUser?._id])
 
-    console.log('reran on typing');
-    
-
     useEffect(() => {
         if(notifications.length > 0){
             setRecentMessage(notifications[0].text);
