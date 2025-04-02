@@ -1,9 +1,9 @@
 import { useMessageStore } from '@/components/providers/messageProvider'
 import { useCurrentUserStore } from '@/components/providers/userProvider'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import React, { memo, use, useCallback, useEffect, useState } from 'react'
+import React, { memo,  useCallback, useEffect, useState } from 'react'
 
-const ContactCard = ({contact, expand}:any) => {
+const ContactCard = memo(({contact, expand}:any) => {
     const {setSelectedUser,selectedUser, onlineContacts} = useCurrentUserStore()
     const {messageNotification, messages} = useMessageStore();
     const [notifications, setNotifications] = useState<any>([]);
@@ -14,7 +14,7 @@ const ContactCard = ({contact, expand}:any) => {
     const handleSelectUser = useCallback(() => {
         setSelectedUser(contact)
         setNotifications([]);
-    }, [contact, setSelectedUser])
+    }, [contact._id, setSelectedUser])
 
     useEffect(() => {
         if(messageNotification.length ){
@@ -51,6 +51,6 @@ const ContactCard = ({contact, expand}:any) => {
 
     </div>
   )
-}
+})
 
 export default ContactCard

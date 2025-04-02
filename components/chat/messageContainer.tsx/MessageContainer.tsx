@@ -4,7 +4,7 @@ import { useMessageStore } from "@/components/providers/messageProvider";
 import ChatContainerSkeleton from "../ChatContainerSkepeton/ChatContainerSkeleton";
 import MessageBubble from "../MessageBubble/MessageBubble";
 
-const MessageContainer = () => {
+const MessageContainer = memo(() => {
   const { messages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   
@@ -43,6 +43,6 @@ const MessageContainer = () => {
     </div>
    
   );
-};
+});
 
 export default MessageContainer;

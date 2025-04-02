@@ -10,7 +10,9 @@ const ChatContacts = memo(({expand}:{expand:boolean}) => {
     
 
     useEffect(() => {
-        setCurrContacts(contacts);
+        if(contacts.length>0){
+          setCurrContacts(contacts);
+        }
     }
     ,[contacts])
   
