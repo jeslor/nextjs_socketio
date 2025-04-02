@@ -146,7 +146,7 @@ const page = () => {
                 {myContacts.length ? (
                   <div className="flex items-center justify-start gap-x-5 flex-wrap">
                   { myContacts.map((contact: any) => (
-                    <div key={contact._id} className="flex flex-col items-center justify-center relative group  w-[200px] h-[200px] bg-white/10 rounded-[10px] p-2">
+                    <div key={contact._id} className="flex flex-col items-center justify-center relative group border-[1px] border-black/5  w-[200px] h-[200px] bg-white/10 rounded-[10px] p-2">
                       {contact.profileImage ? (
                         <div className="w-12 h-12 bg-base-100 p-2 rounded-full flex items-center justify-center relative">
                           <div className="absolute  h-full w-full border-3  border-primary  rounded-full opacity-0 group-hover:opacity-75"></div>
