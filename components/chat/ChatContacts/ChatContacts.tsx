@@ -30,7 +30,7 @@ const ChatContacts = memo(({expand, searchQuery}:{expand:boolean, searchQuery:st
          }
         }
     }
-    ,[contacts, searchQuery])
+    ,[contacts, searchQuery, currentUser, currentUser?.contacts])
   
 
   return (
