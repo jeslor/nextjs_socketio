@@ -89,3 +89,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.chat-bubble ::before {
+  bottom: 0 !important;
+}
