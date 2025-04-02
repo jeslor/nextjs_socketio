@@ -60,7 +60,7 @@ const handleClearSearchQuery=(e:any)=>{
                 <Icon icon="material-symbols:close-rounded" className={`text-primary/70 ${searchQuery.length>0?'':'hidden'} transition`}  />
               </button>
           </div>
-        <ChatContacts expand={expand} />
+        <ChatContacts expand={expand} searchQuery={searchQuery} />
       </aside>
       <div className="h-full w-full flex flex-col ">
         {selectedUser &&<ChatBar /> }

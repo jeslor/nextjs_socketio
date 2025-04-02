@@ -4,17 +4,27 @@ import React, { memo, useEffect } from 'react'
 import ContactCard from '../ContactCard/ContactCard';
 import ContactSkeleton from '../ContactSkeleton/ContactSkeleton';
 
-const ChatContacts = memo(({expand}:{expand:boolean}) => {
+const ChatContacts = memo(({expand, searchQuery}:{expand:boolean, searchQuery:string}) => {
     const {contacts, isLoadingContacts, currentUser} = useCurrentUserStore();
     const [currContacts, setCurrContacts] = React.useState<any[]>([]);
     
 
     useEffect(() => {
         if(contacts.length>0){
+          if(searchQuery.length>0){
+            searchQuery = searchQuery.toLowerCase();
+            const filteredContacts = contacts.filter((contact:any) => {
+              const contactName = contact.username.toLowerCase();
+              const contactEmail = contact.email.toLowerCase();
+              return contactName.includes(searchQuery) || contactEmail.includes(searchQuery);
+            });
+            setCurrContacts(filteredContacts);
+          }else{
           setCurrContacts(contacts);
+          }
         }
     }
-    ,[contacts])
+    ,[contacts, searchQuery])
   
 
   return (
