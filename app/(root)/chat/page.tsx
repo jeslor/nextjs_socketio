@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 
 const page = () => {
   const [expand, setExpand] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { selectedUser } = useCurrentUserStore();
 
 
@@ -36,6 +37,15 @@ const page = () => {
   
 
 },[])
+
+const handleSearchQueryChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+  e.stopPropagation();
+  setSearchQuery(e.target.value);
+}
+const handleClearSearchQuery=(e:any)=>{
+  e.preventDefault();
+  e.stopPropagation();
+  setSearchQuery('');}
   
   return (
     <div className="flex flex-1">
@@ -45,7 +55,10 @@ const page = () => {
         </div>
           <div  className=" bg-base-200  mt-5 mx-4  flex items-center border-[0.5px] relative rounded-[5px] border-primary/35">
               <Icon icon="akar-icons:search" className="text-primary/70 absolute ml-1.5 " />
-              <input  type="text" placeholder="Search" className={`search-component h-[30px] bg-transparent text-primary/70 text-[13px] pl-7 pr-4 focus:outline-0 focus:text-primary ${expand?'w-[280px]':'w-full'} transition`} />
+              <input onChange={handleSearchQueryChanged} value={searchQuery}  type="text" placeholder="Search" className={`search-component h-[30px] bg-transparent text-primary/70 text-[13px] pl-7 pr-4 focus:outline-0 focus:text-primary ${expand?'w-[280px]':'w-full'} transition`} />
+              <button onClick={handleClearSearchQuery} className={`size-[18px] text-[11px] rounded-full flex justify-center items-center bg-primary/10 hover:bg-primary/20 transition ${searchQuery.length>0?'':'hidden'}`}>
+                <Icon icon="material-symbols:close-rounded" className={`text-primary/70 ${searchQuery.length>0?'':'hidden'} transition`}  />
+              </button>
           </div>
         <ChatContacts expand={expand} />
       </aside>

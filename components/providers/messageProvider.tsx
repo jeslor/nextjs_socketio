@@ -63,9 +63,9 @@ export const useMessageStore = create<any>((set, get) => ({
     ];
     set({ messages: [...get().messages, ...setMessagesToSelectedUserUnread] });
     set({
-      messageNotification: unreadMessages.filter(
+      messageNotification: [...unreadMessages.filter(
         (message: any) => message.sender._id !== selectedContactID
-      ),
+      ),]
     });
     if (setMessagesToSelectedUserUnread.length === 0) {
       return;
