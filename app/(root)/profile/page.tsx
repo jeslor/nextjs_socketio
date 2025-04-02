@@ -141,6 +141,7 @@ const page = () => {
               </div>
               <h3 className="text-lg font-bold text-[25px] mt-7 pb-1">
                 Your contacts
+                <span className="ml-1">({myContacts.length})</span>
               </h3>
               <div className="bg-primary/10 w-full  mb-5 py-5 px-6 rounded-[10px]">
                 {myContacts.length ? (
@@ -149,7 +150,7 @@ const page = () => {
                     <div key={contact._id} className="flex flex-col items-center justify-center relative group border-[1px] border-black/5  w-[200px] h-[200px] bg-white/10 rounded-[10px] p-2">
                       {contact.profileImage ? (
                         <div className="w-12 h-12 bg-base-100 p-2 rounded-full flex items-center justify-center relative">
-                          <div className="absolute  h-full w-full border-3  border-primary  rounded-full opacity-0 group-hover:opacity-75"></div>
+                          <div className="absolute  h-full w-full border-3  border-primary  rounded-full opacity-0 group-hover:opacity-75 transition-all"></div>
                           {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
                         <img
                           src={contact.profileImage}
@@ -171,7 +172,7 @@ const page = () => {
                     }
                       <h1 className="font-semibold text-[13px]">{contact.username}</h1>
                       <h3 className="text-[10px] text-primary/50">{contact.email}</h3>
-                      <button onClick={()=>handleRemoveContacts(contact)} className="py-1 px-2 bg-primary/80 hover:bg-primary mt-2 rounded-[5px] text-[11px] text-base-100 font-semibold cursor-pointer">unfriend</button>
+                      <button onClick={()=>handleRemoveContacts(contact)} className="py-1 px-2 bg-primary/80 hover:bg-primary mt-2 rounded-[5px] text-[11px] text-base-100 font-semibold cursor-pointer">remove</button>
                     </div>
                   ))}
                  </div>
