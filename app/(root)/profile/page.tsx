@@ -1,14 +1,15 @@
 "use client";
 import { useCurrentUserStore } from "@/components/providers/userProvider";
-import { Input } from "@/components/ui/input";
+import { updateUser } from "@/lib/actions/user.actions";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 const dummyContacts = Array.from({ length: 7 });
 
 const page = () => {
-  const { currentUser, setNewProfilePhoto, onlineContacts } = useCurrentUserStore();
+  const { currentUser, setNewProfilePhoto, onlineContacts, updateCurrentUser } = useCurrentUserStore();
+  const [myContacts, setMyContacts] = useState<any[]>([])
   const[isSavingImage, setIsSavingImage] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const proFileImageRef = useRef<any>(null);
@@ -52,6 +53,29 @@ const page = () => {
     }
   
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      setMyContacts(currentUser.contacts);
+    }
+  }
+  , [currentUser]);
+
+  const handleRemoveContacts = async (contact:any) => {
+    try {
+      const updatedCurrUser = {...currentUser, contacts: currentUser.contacts.filter((c:any) => c._id !== contact._id) }
+      updateCurrentUser(updatedCurrUser);
+      const updatedUser = await updateUser(currentUser._id, { contacts: updatedCurrUser });
+      if(updatedUser.status === 200){
+       toast.success("Contact removed successfully");
+      }
+    } catch (error) {
+      console.log("Error removing contact", error);
+      alert("Error removing contact");
+    } finally{     
+      setMyContacts((prev) => prev.filter((c) => c._id !== contact._id));
+    }
+  }
 
   return (
     <div className="flex items-center justify-start w-full py-10">
@@ -119,13 +143,13 @@ const page = () => {
                 Your contacts
               </h3>
               <div className="bg-primary/10 w-full  mb-5 py-5 px-6 rounded-[10px]">
-                {currentUser.contacts.length ? (
+                {myContacts.length ? (
                   <div className="flex items-center justify-start gap-x-5 flex-wrap">
-                  { currentUser.contacts.map((contact: any) => (
-                    <div key={contact._id} className="flex flex-col items-center justify-center relative group cursor-pointer">
+                  { myContacts.map((contact: any) => (
+                    <div key={contact._id} className="flex flex-col items-center justify-center relative group  w-[200px] h-[200px] bg-white/10 rounded-[10px] p-2">
                       {contact.profileImage ? (
                         <div className="w-12 h-12 bg-base-100 p-2 rounded-full flex items-center justify-center relative">
-                        <div className="absolute  h-full w-full  bg-primary group-hover:animate-ping  rounded-full opacity-0 group-hover:opacity-750"></div>
+                          <div className="absolute  h-full w-full border-3  border-primary  rounded-full opacity-0 group-hover:opacity-75"></div>
                           {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
                         <img
                           src={contact.profileImage}
@@ -135,7 +159,7 @@ const page = () => {
                       </div>
                       ):(
                         <div className="w-12 h-12 bg-base-100 p-2 rounded-full relative flex items-center justify-center">
-                          <div className="absolute  h-full w-full  bg-primary group-hover:animate-ping rounded-full opacity-0 group-hover:opacity-75"></div>
+                          <div className="absolute  h-full w-full border-3  border-primary  rounded-full opacity-0 group-hover:opacity-75"></div>
                           {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
 
                         <Icon
@@ -147,6 +171,7 @@ const page = () => {
                     }
                       <h1 className="font-semibold text-[13px]">{contact.username}</h1>
                       <h3 className="text-[10px] text-primary/50">{contact.email}</h3>
+                      <button onClick={()=>handleRemoveContacts(contact)} className="py-1 px-2 bg-primary/80 hover:bg-primary mt-2 rounded-[5px] text-[11px] text-base-100 font-semibold cursor-pointer">unfriend</button>
                     </div>
                   ))}
                  </div>

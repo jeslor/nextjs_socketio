@@ -24,6 +24,7 @@
   --breakpoint-desktop: 1280px;
   --breakpoint-largeDesktop: 1536px;
   --popInMessageAnimation: popInMessage 0.5s ease-in-out;
+  --ping2: ping2 0.5s ease-in-out;
 }
 
 @layer utilities {
@@ -36,6 +37,20 @@
       transform: scale(1);
       opacity: 1;
     }
+  }
+  @keyframes fade-in-scale {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fade-in-scale {
+    animation: fade-in-scale 0.3s ease-in-out;
   }
 }
 

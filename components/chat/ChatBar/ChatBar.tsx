@@ -19,15 +19,17 @@ const ChatBar = memo(() => {
   const addContact = async () => {
     try {
       setAdding(true);
+      const updatedCurrentUser = {...currentUser, contacts: [...currentUser.contacts, selectedUser]};
       const updatedUser = await addToContacts(
         currentUser._id,
-        selectedUser._id
+        updatedCurrentUser
       );
       if (updatedUser.status === 200) {
-        updateCurrentUser(updatedUser.data);
+        updateCurrentUser(updatedCurrentUser)
         toast.success("Contact added successfully");
       }
       if (updatedUser.status !== 200) {
+        toast.error("Error adding contact");
         throw new Error("Error adding contact");
       }
     } catch (error) {
