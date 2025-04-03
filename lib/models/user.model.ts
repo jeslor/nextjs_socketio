@@ -38,7 +38,29 @@ const userSchema  = new Schema({
         type:Schema.Types.ObjectId,
         ref:"User"
     }],
-    
+    privacySettings:{
+        hideProfilePhoto:{
+            type:Boolean,
+            default:false,  
+        },
+        hideOnlineStatus:{
+            type:Boolean,
+            default:false,
+        },
+        hideLastSeen:{
+            type:Boolean,
+            default:false,
+        },
+        noFindingMe:{
+            type:Boolean,
+            default:false,
+        },
+        hideOtherContacts:{
+            type:Boolean,
+            default:false,
+        },
+    },
+
 },
 {
     timestamps:true,

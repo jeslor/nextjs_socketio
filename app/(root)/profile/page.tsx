@@ -1,4 +1,5 @@
 "use client";
+import PrivacyOption from "@/components/profile/privacyOption/privacyOption";
 import UserContacts from "@/components/profile/userContacts/userContacts";
 import { useCurrentUserStore } from "@/components/providers/userProvider";
 import { updateUser } from "@/lib/actions/user.actions";
@@ -150,16 +151,7 @@ const page = () => {
                   Privacy settings
                 </h3>
                 <div className="flex flex-col items-start gap-y-7 mt-3 justify-between w-full">
-                  <div className="flex items-center  px-2">
-                    <input
-                      type="checkbox"
-                      
-                      className="toggle toggle-md"
-                    />
-                    <label className="ml-2" htmlFor="public">
-                      Show my profile photo
-                    </label>
-                  </div>
+                  <PrivacyOption />
                   <div className="flex items-center  px-2">
                     <input
                       type="checkbox"
