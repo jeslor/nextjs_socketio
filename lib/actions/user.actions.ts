@@ -36,7 +36,12 @@ export const getCurrentUser = async (email: string) => {
 export const getOtherUsers = async (userId:string) => {
     try {
         await ConnectToDB()
-        const users = await UserModel.find({_id: {$ne: userId}}).select("-password")
+        const users = await UserModel.find({ _id: { $ne: userId }, 
+            $or: [
+                { "privacySettings.noFindingMe": false }, // Users who have noFindingMe set to false
+                { "privacySettings.noFindingMe": { $exists: false } } // Users where noFindingMe is undefined
+            ]
+    }).select("-password")
         
         return JSON.parse(JSON.stringify({status:200, message: "Users Found", data:users}))
     } catch (error) {
