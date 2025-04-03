@@ -66,6 +66,8 @@ const userSchema  = new Schema({
     timestamps:true,
 });
 
+mongoose.models = {}; // Clear the models to avoid Overwrite error
+
 
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
