@@ -51,8 +51,6 @@ export default function RootLayout({
   useEffect(() => {
    if(typeof window !== "undefined" && contacts.length > 0){
     let selectedUser = localStorage.getItem("selectedUser");
-    console.log("selectedUser", selectedUser);
-    
     if (selectedUser) {
       selectedUser = JSON.parse(selectedUser);
       setSelectedUser(selectedUser);

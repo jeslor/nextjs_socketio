@@ -60,6 +60,8 @@ const ChatBar = memo(() => {
     }
   }, [currentUser.contacts, selectedUser]);
 
+
+
   return (
     <div className="h-[70px] w-full bg-base-200 p-4 flex justify-between items-center">
       {adding && (
@@ -78,9 +80,9 @@ const ChatBar = memo(() => {
               <div className="text-primary">
                 <h3 className="font-bold">{selectedUser.username}</h3>
                 <p className="opacity-70 text-[10px]">
-                  {onlineContacts.includes(selectedUser._id)
+                  {!selectedUser?.privacySettings?.hideOnlineStatus&&(onlineContacts.includes(selectedUser._id)
                     ? "online"
-                    : "offline"}
+                    : "offline")}
                 </p>
                 <p className="opacity-50 text-[10px] text-black">
                   {selectedUser.email}
@@ -108,7 +110,7 @@ const ChatBar = memo(() => {
         <div>
           <h3 className="font-bold">{selectedUser.username}</h3>
           <p className="opacity-40 text-[10px]">
-            {onlineContacts.includes(selectedUser._id) ? "online" : "offline"}
+            {!selectedUser?.privacySettings?.hideOnlineStatus&&(onlineContacts.includes(selectedUser._id) ? "online" : "offline")}
           </p>
         </div>
       </div>
