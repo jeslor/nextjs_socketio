@@ -93,7 +93,7 @@ const ChatBar = memo(() => {
         </div>
       )}
       <div className="flex items-center">
-        {selectedUser.profileImage && selectedUser.profileImage.length > 0 ? (
+        {(selectedUser.profileImage && selectedUser.profileImage.length > 0) &&!selectedUser?.privacySettings?.hideProfilePhoto ? (
           <img
             src={selectedUser.profileImage}
             alt=""
