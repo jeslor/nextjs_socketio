@@ -46,7 +46,7 @@ const PrivacyOption = ({privacyTitle, privacyValue }:{privacyTitle:string, priva
 
   return (
     <div className="flex items-center  px-2">
-      <input onChange={handleSettingChange} type="checkbox" className="toggle toggle-md" checked ={isChecked} name={privacyValue} />
+      <input onChange={handleSettingChange} type="checkbox" className={`toggle toggle-md checked:bg-primary checked:border-primary/2`} checked ={isChecked} name={privacyValue} />
       <label className="ml-2" htmlFor="public">
         {privacyTitle}
       </label>
