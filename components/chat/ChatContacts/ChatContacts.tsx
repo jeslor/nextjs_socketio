@@ -40,8 +40,14 @@ const ChatContacts = memo(({expand, searchQuery}:{expand:boolean, searchQuery:st
     :<>
     <h3 className='font-bold'>YourContacts</h3>
     {yourContacts.length > 0 ? yourContacts.map((contact: any) => <ContactCard key={contact._id} contact={contact} expand={expand} />) : <p className='text-gray-500'>No contacts found</p>}
-    <h3 className='font-bold'>Other users</h3>
-    {otherContacts.length > 0 ? otherContacts.map((contact: any) => <ContactCard key={contact._id} contact={contact} expand={expand} />) : <p className='text-gray-500'>No contacts found</p>}
+    {
+        !currentUser?.privacySettings?.hideOtherContacts&&(
+         <>
+          <h3 className='font-bold'>Other users</h3>
+          {otherContacts.length > 0 ? otherContacts.map((contact: any) => <ContactCard key={contact._id} contact={contact} expand={expand} />) : <p className='text-gray-500'>No contacts found</p>}
+         </>
+        )
+      }
     </>}
     </div>
   )
