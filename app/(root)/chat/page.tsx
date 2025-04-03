@@ -4,6 +4,7 @@ import ChatBar from "@/components/chat/ChatBar/ChatBar"
 import ChatContacts from "@/components/chat/ChatContacts/ChatContacts"
 import MessageContainer from "@/components/chat/messageContainer.tsx/MessageContainer"
 import MessageInput from "@/components/chat/MessageInput/MessageInput"
+import NoChat from "@/components/chat/noChat/noChat"
 import { useCurrentUserStore } from "@/components/providers/userProvider"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { useEffect, useState } from "react"
@@ -63,9 +64,13 @@ const handleClearSearchQuery=(e:any)=>{
         <ChatContacts expand={expand} searchQuery={searchQuery} />
       </aside>
       <div className="h-full w-full flex flex-col ">
-        {selectedUser &&<ChatBar /> }
+        {selectedUser ?<>
+        <ChatBar /> 
         <MessageContainer />
         <MessageInput />
+        </>
+        :  <NoChat />
+      }
       </div>
     </div>
   )

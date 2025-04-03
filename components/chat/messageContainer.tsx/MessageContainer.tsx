@@ -1,11 +1,12 @@
 "use client";
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useMessageStore } from "@/components/providers/messageProvider";
 import ChatContainerSkeleton from "../ChatContainerSkepeton/ChatContainerSkeleton";
 import MessageBubble from "../MessageBubble/MessageBubble";
+import { useCurrentUserStore } from "@/components/providers/userProvider";
 
 const MessageContainer = memo(() => {
-  const { messages, isMessagesLoading, listenToMesages, unsubscribeToMessages, inputTouched } = useMessageStore();
+  const { messages, isMessagesLoading, inputTouched } = useMessageStore();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   
 
@@ -19,8 +20,6 @@ const MessageContainer = memo(() => {
       }
     }
   }, [messages]);
-
-  
 
 
   return (
