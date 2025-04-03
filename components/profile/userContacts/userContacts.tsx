@@ -12,7 +12,7 @@ const UserContacts = ({myContacts, onlineContacts, handleRemoveContacts, dummyCo
           {contact.profileImage ? (
             <div className="size-18 bg-base-100 p-2 rounded-full flex items-center justify-center relative">
               <div className="absolute  h-full w-full border-3  border-primary  rounded-full opacity-0 group-hover:opacity-75 transition-all"></div>
-              {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-0 left-9 border-[1px] border-green-300'></span>}
+              {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-3 -right-[1px] border-[1px] border-green-300'></span>}
             <img
               src={contact.profileImage}
               alt=""
