@@ -42,7 +42,6 @@ const PrivacyOption = ({privacyTitle, privacyValue }:{privacyTitle:string, priva
             console.log(error);
         }
     }
-    
 
   return (
     <div className="flex items-center  px-2">

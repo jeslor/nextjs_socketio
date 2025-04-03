@@ -9,7 +9,7 @@ const UserContacts = ({myContacts, onlineContacts, handleRemoveContacts, dummyCo
       <div className="flex items-center justify-start gap-5 flex-wrap">
       { myContacts.map((contact: any) => (
         <div key={contact._id} className="flex flex-col items-center justify-center relative group border-[1px] border-black/5  w-[200px] h-[200px] bg-white/10 rounded-[10px] p-2">
-          {contact.profileImage ? (
+          {(contact.profileImage && !contact.privacySettings.hideProfilePhoto) ? (
             <div className="size-18 bg-base-100 p-2 rounded-full flex items-center justify-center relative">
               <div className="absolute  h-full w-full border-3  border-primary  rounded-full opacity-0 group-hover:opacity-75 transition-all"></div>
               {onlineContacts.includes(contact._id) && <span className='absolute h-3 w-3 rounded-full bg-green-700 top-3 -right-[1px] border-[1px] border-green-300'></span>}

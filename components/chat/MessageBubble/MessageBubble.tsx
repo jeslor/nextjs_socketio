@@ -15,7 +15,7 @@ const MessageBubble = ({ message }: any) => {
     >
       <div className="chat-image avatar">
         <div className="w-10 rounded-full bg-primary/40">
-          {message.sender._id == currentUser._id ? (
+          {message.sender._id === currentUser._id ? (
             currentUser.profileImage ? (
               <img src={currentUser.profileImage} alt="user" />
             ) : (
@@ -26,7 +26,7 @@ const MessageBubble = ({ message }: any) => {
               />
             </div>
             )
-          ) : message.sender.profileImage ? (
+          ) : (message.sender.profileImage && !message.sender.privacySettings.hideProfilePhoto) ? (
             <img src={message.sender.profileImage} alt="user" />
           ) : (
             <div className="bg-primary/20 h-full w-full flex items-center justify-center rounded-full">
