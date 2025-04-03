@@ -14,9 +14,9 @@ const PrivacyOption = ({privacyTitle, privacyValue }:{privacyTitle:string, priva
             setIsChecked(currentUser.privacySettings[privacyValue]? currentUser.privacySettings[privacyValue] : false);
         }
     }
-    , [currentUser, privacyValue]);
+    , [currentUser?.privacySettings, privacyValue]);
 
-    const handleSeetingChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSettingChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name } = e.target;
         setIsChecked(!isChecked);
         const updatedUser = {
@@ -46,7 +46,7 @@ const PrivacyOption = ({privacyTitle, privacyValue }:{privacyTitle:string, priva
 
   return (
     <div className="flex items-center  px-2">
-      <input onChange={handleSeetingChange} type="checkbox" className="toggle toggle-md" checked ={isChecked} name={privacyValue} />
+      <input onChange={handleSettingChange} type="checkbox" className="toggle toggle-md" checked ={isChecked} name={privacyValue} />
       <label className="ml-2" htmlFor="public">
         {privacyTitle}
       </label>

@@ -151,47 +151,11 @@ const page = () => {
                   Privacy settings
                 </h3>
                 <div className="flex flex-col items-start gap-y-7 mt-3 justify-between w-full">
-                  <PrivacyOption />
-                  <div className="flex items-center  px-2">
-                    <input
-                      type="checkbox"
-                      
-                      className="toggle toggle-md"
-                    />
-                    <label className="ml-2" htmlFor="private">
-                      Show online status
-                    </label>
-                  </div>
-                  <div className="flex items-center  px-2">
-                    <input
-                      type="checkbox"
-                      
-                      className="toggle toggle-md"
-                    />
-                    <label className="ml-2" htmlFor="private">
-                      Show my last seen
-                    </label>
-                  </div>
-                  <div className="flex items-center  px-2">
-                    <input
-                      type="checkbox"
-                      
-                      className="toggle toggle-md"
-                    />
-                    <label className="ml-2" htmlFor="private">
-                      Find me by my email
-                    </label>
-                  </div>
-                  <div className="flex items-center  px-2">
-                    <input
-                      type="checkbox"
-                      defaultChecked
-                      className="toggle toggle-md checked:bg-primary"
-                    />
-                    <label className="ml-2" htmlFor="private">
-                      Hide other contacts
-                    </label>
-                  </div>
+                  <PrivacyOption privacyTitle="Hide my profile photo" privacyValue="hideProfilePhoto" />
+                  <PrivacyOption privacyTitle="Hide online status" privacyValue="hideOnlineStatus" />
+                  <PrivacyOption privacyTitle="Hide last seen" privacyValue="hideLastSeen" />
+                  <PrivacyOption privacyTitle="Do not find me by search" privacyValue="noFindingMe" />
+                  <PrivacyOption privacyTitle="Show only my contacts" privacyValue="hideOtherContacts" />
                 </div>
               </div>
             </div>
