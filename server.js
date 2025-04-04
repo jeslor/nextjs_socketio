@@ -9,7 +9,7 @@ const dev = process.env.NODE_ENV !== "production";
 const hostname =
   process.env.NODE_ENV !== "production"
     ? "localhost"
-    : "nextsocket.netlify.app";
+    : "next-chat-app-5npg.onrender.com";
 const port = dev ? 3000 : process.env.PORT;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
@@ -22,7 +22,10 @@ app.prepare().then(() => {
 
   const io = new Server(httpServer, {
     cors: {
-      origin: ["http://localhost:3000", "https://nextsocket.netlify.app"],
+      origin: [
+        "http://localhost:3000",
+        "https://next-chat-app-5npg.onrender.com",
+      ],
       methods: ["GET", "POST"],
     },
   });

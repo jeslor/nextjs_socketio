@@ -13,10 +13,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const Router = useRouter();
-  const { data: session }:any = useSession();
-  const { setCurrentUser, currentUser, setContacts, contacts,selectedUser, setSelectedUser } = useCurrentUserStore();
-    const { mySocket } = useCurrentUserStore();
-    const {  setMessages, listenToMesages, unsubscribeToMessages,setNotifications } = useMessageStore();
+  const { data: session }: any = useSession();
+  const {
+    setCurrentUser,
+    currentUser,
+    setContacts,
+    contacts,
+    selectedUser,
+    setSelectedUser,
+  } = useCurrentUserStore();
+  const { mySocket } = useCurrentUserStore();
+  const {
+    setMessages,
+    listenToMesages,
+    unsubscribeToMessages,
+    setNotifications,
+  } = useMessageStore();
 
   useEffect(() => {
     if (!session) {
@@ -24,13 +36,14 @@ export default function RootLayout({
     }
   }, []);
 
-
   useEffect(() => {
     if (session) {
       let user = session.user;
-      if(user && user.email){
-        setCurrentUser(session.user.email);
-      }else{
+      if (user) {
+        if (user.email) {
+          setCurrentUser(user.email);
+        }
+      } else {
         Router.push("/login");
       }
     }
@@ -43,48 +56,48 @@ export default function RootLayout({
   }, [currentUser?._id]);
 
   useEffect(() => {
-    if(currentUser){
+    if (currentUser) {
       setNotifications(currentUser);
     }
   }, [currentUser?._id]);
 
   useEffect(() => {
-   if(typeof window !== "undefined" && contacts.length > 0){
-    let selectedUser = localStorage.getItem("selectedUser");
-    if (selectedUser) {
-      selectedUser = JSON.parse(selectedUser);
-      setSelectedUser(selectedUser);
-    } else {
-      setSelectedUser(contacts[0]); 
-    }
-   }
-  }
-  ,[contacts])
-
-    useEffect(() => {
-      if (currentUser && selectedUser) {
-        setMessages(currentUser._id, selectedUser._id);
+    if (typeof window !== "undefined" && contacts.length > 0) {
+      let selectedUser = localStorage.getItem("selectedUser");
+      if (selectedUser) {
+        selectedUser = JSON.parse(selectedUser);
+        setSelectedUser(selectedUser);
+      } else {
+        setSelectedUser(contacts[0]);
       }
-    }, [selectedUser?._id]);
+    }
+  }, [contacts]);
 
-    useEffect(() => {
-        if (currentUser) {
-          setNotifications(currentUser);
-        }
-      }, [mySocket]);
+  useEffect(() => {
+    if (currentUser && selectedUser) {
+      setMessages(currentUser._id, selectedUser._id);
+    }
+  }, [selectedUser?._id]);
 
+  useEffect(() => {
+    if (currentUser) {
+      setNotifications(currentUser);
+    }
+  }, [mySocket]);
 
-      useEffect(() => {
-        listenToMesages();
-        return () => {
-          unsubscribeToMessages();
-        };
-      }, [mySocket]);
-
+  useEffect(() => {
+    listenToMesages();
+    return () => {
+      unsubscribeToMessages();
+    };
+  }, [mySocket]);
 
   return (
-    <main className="h-screen w-screen overflow-y-hidden flex pb-[50px]  tablet:pb-0" data-theme={currentUser?.theme}>
-    <NavSide />
+    <main
+      className="h-screen w-screen overflow-y-hidden flex pb-[50px]  tablet:pb-0"
+      data-theme={currentUser?.theme}
+    >
+      <NavSide />
       {children}
     </main>
   );
