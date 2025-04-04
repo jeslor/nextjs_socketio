@@ -6,54 +6,49 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = process.env.NODE_ENV !== "production" ? "localhost" : "next-chat-app-5npg.onrender.com";
+const hostname =
+  process.env.NODE_ENV !== "production"
+    ? "localhost"
+    : "nextsocket.netlify.app";
 const port = dev ? 3000 : process.env.PORT;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
-
 app.prepare().then(() => {
   console.log(hostname);
-  
 
   const httpServer = createServer(handler);
 
-   const io = new Server(httpServer,{
+  const io = new Server(httpServer, {
     cors: {
-      origin: ["http://localhost:3000", "https://next-chat-app-5npg.onrender.com"],
+      origin: ["http://localhost:3000", "https://nextsocket.netlify.app"],
       methods: ["GET", "POST"],
-    }
-    
+    },
   });
 
   const connectedUsersMap = {};
-  
-
 
   io.on("connection", (socket) => {
     console.log(`> Socket connected: ${socket.id}`);
-    const {userId} = socket.handshake.query;
+    const { userId } = socket.handshake.query;
     connectedUsersMap[userId] = socket.id;
     io.emit("connectedUsers", Object.keys(connectedUsersMap));
 
-    socket.on('newMessage', (data) => {
-      "kept-alive"
-      
-      const {receiver} = data;
+    socket.on("newMessage", (data) => {
+      "kept-alive";
+
+      const { receiver } = data;
       const receiverSocketId = connectedUsersMap[receiver._id];
-      io.to(receiverSocketId).emit('newMessage', data);
-     });
+      io.to(receiverSocketId).emit("newMessage", data);
+    });
 
     socket.on("disconnect", () => {
       console.log(`> Socket disconnected: ${socket.id}`);
       delete connectedUsersMap[userId];
       io.emit("connectedUsers", Object.keys(connectedUsersMap));
     });
-    
   });
-
- 
 
   httpServer
     .once("error", (err) => {
