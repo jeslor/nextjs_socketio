@@ -2,13 +2,17 @@
 
 Next_chat_app is a **real-time chat app** built with **Next.js**, **Tailwind CSS**, and **Socket IO** for instant messaging and seamless user interactions! 🚀⚡
 
+## 🌐 Live Demo
+
+Check it out here: [Demo URL](https://nextjssocketio-production.up.railway.app)
+
 ## 🚀 Features
 
 ✅ **Live Messaging** – Instant real-time chat powered by Socket IO.  
 ✅ **Typing Indicators** – Know when someone is typing.  
 ✅ **User Presence** – See who is online.  
 ✅ **Modern UI** – Styled with Tailwind CSS for a sleek look.  
-✅ **Scalable & Fast** – Built with Next.js for optimal performance.  
+✅ **Scalable & Fast** – Built with Next.js for optimal performance.
 
 ## 🛠 Tech Stack
 
@@ -56,7 +60,3 @@ npm run dev  # or yarn dev
 ```
 
 Your app will be running at `http://localhost:3000`.
-
-## 📜 License
-
-This project is **open-source** and available under the [MIT License](LICENSE).
