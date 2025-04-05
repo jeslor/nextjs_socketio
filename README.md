@@ -4,7 +4,7 @@ Next_chat_app is a **real-time chat app** built with **Next.js**, **Tailwind CSS
 
 ## 🌐 Live Demo
 
-Check it out here: [Demo URL](https://nextjssocketio-production.up.railway.app)
+Check it out here: [Demo](https://nextjssocketio-production.up.railway.app)
 
 ## 🚀 Features
 
