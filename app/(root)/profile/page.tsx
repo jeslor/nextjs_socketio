@@ -1,4 +1,5 @@
 "use client";
+import PasswordChange from "@/components/password/passwordChange";
 import PrivacyOption from "@/components/profile/privacyOption/privacyOption";
 import UserContacts from "@/components/profile/userContacts/userContacts";
 import { useCurrentUserStore } from "@/components/providers/userProvider";
@@ -14,6 +15,7 @@ const page = () => {
     useCurrentUserStore();
   const [myContacts, setMyContacts] = useState<any[]>([]);
   const [isSavingImage, setIsSavingImage] = useState(false);
+  const [changePassword, setChangePassword] = useState(true);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const proFileImageRef = useRef<any>(null);
 
@@ -84,8 +86,18 @@ const page = () => {
     }
   };
 
+  const handleOpenChangePassword = () => {
+    setChangePassword(true);
+  };
+  const handleCloseChangePassword = () => {
+    setChangePassword(false);
+  };
+
   return (
     <div className=" w-full py-10 overflow-y-scroll noScrollBar h-screen">
+      {changePassword && (
+        <PasswordChange handleCloseChangePassword={handleCloseChangePassword} />
+      )}
       <div className="max-w-[1000px] w-full flex flex-col items-start justify-start pl-10 pt-8 pr-4 pb-8 h-fit ">
         {currentUser && (
           <div>
@@ -187,7 +199,10 @@ const page = () => {
                   Account settings
                 </h3>
                 <div className="flex flex-col items-start gap-y-7 mt-3 justify-between w-full">
-                  <button className="mainBtn min-w-[240px]">
+                  <button
+                    onClick={handleOpenChangePassword}
+                    className="bg-primary/65 text-white font-bold py-3 px-4  rounded-full hover:bg-primary transition duration-200 cursor-pointer min-w-[240px]"
+                  >
                     change password
                   </button>
                   <button className="mainBtn cursor-pointer bg-red-600 hover:bg-red-700 min-w-[240px]">

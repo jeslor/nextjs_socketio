@@ -23,6 +23,7 @@
     "cloudinary": "^2.6.0",
     "clsx": "^2.1.1",
     "config": "^3.3.12",
+    "crypto-js": "^4.2.0",
     "daisyui": "^5.0.4",
     "dotenv": "^16.4.7",
     "lucide-react": "^0.479.0",
