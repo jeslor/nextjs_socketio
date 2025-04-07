@@ -187,8 +187,10 @@ const page = () => {
                   Account settings
                 </h3>
                 <div className="flex flex-col items-start gap-y-7 mt-3 justify-between w-full">
-                  <button className="mainBtn">change password</button>
-                  <button className="mainBtn cursor-pointer bg-red-600 hover:bg-red-700">
+                  <button className="mainBtn min-w-[240px]">
+                    change password
+                  </button>
+                  <button className="mainBtn cursor-pointer bg-red-600 hover:bg-red-700 min-w-[240px]">
                     Delete Account
                   </button>
                 </div>

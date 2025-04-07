@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const Router = useRouter();
-  const { data: session }: any = useSession();
+  const { data: session, status: sessionStatus }: any = useSession();
   const {
     setCurrentUser,
     currentUser,
@@ -37,7 +37,17 @@ export default function RootLayout({
   }, []);
 
   useEffect(() => {
-    if (session) {
+    // if (session) {
+    //   let user = session.user;
+    //   if (user) {
+    //     if (user.email) {
+    //       setCurrentUser(user.email);
+    //     }
+    //   } else {
+    //     Router.push("/login");
+    //   }
+    // }
+    if (sessionStatus === "authenticated") {
       let user = session.user;
       if (user) {
         if (user.email) {
@@ -47,7 +57,7 @@ export default function RootLayout({
         Router.push("/login");
       }
     }
-  }, [session?.user?.email]);
+  }, [sessionStatus]);
 
   useEffect(() => {
     if (currentUser) {
