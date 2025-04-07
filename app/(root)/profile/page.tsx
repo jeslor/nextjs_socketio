@@ -10,9 +10,10 @@ import toast from "react-hot-toast";
 const dummyContacts = Array.from({ length: 7 });
 
 const page = () => {
-  const { currentUser, setNewProfilePhoto, onlineContacts, updateCurrentUser } = useCurrentUserStore();
-  const [myContacts, setMyContacts] = useState<any[]>([])
-  const[isSavingImage, setIsSavingImage] = useState(false);
+  const { currentUser, setNewProfilePhoto, onlineContacts, updateCurrentUser } =
+    useCurrentUserStore();
+  const [myContacts, setMyContacts] = useState<any[]>([]);
+  const [isSavingImage, setIsSavingImage] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const proFileImageRef = useRef<any>(null);
 
@@ -45,39 +46,43 @@ const page = () => {
           } else {
             throw new Error("Error updating profile image");
           }
-        }
-        );
+        });
       }
     } catch (error) {
       alert("Error saving profile image");
-    }finally {
+    } finally {
       setIsSavingImage(false);
     }
-  
   };
 
   useEffect(() => {
     if (currentUser) {
       setMyContacts(currentUser.contacts);
     }
-  }
-  , [currentUser]);
+  }, [currentUser]);
 
-  const handleRemoveContacts = async (contact:any) => {
+  const handleRemoveContacts = async (contact: any) => {
     try {
-      const updatedCurrUser = {...currentUser, contacts: currentUser.contacts.filter((c:any) => c._id !== contact._id) }
+      const updatedCurrUser = {
+        ...currentUser,
+        contacts: currentUser.contacts.filter(
+          (c: any) => c._id !== contact._id
+        ),
+      };
       updateCurrentUser(updatedCurrUser);
-      const updatedUser = await updateUser(currentUser._id, { contacts: updatedCurrUser });
-      if(updatedUser.status === 200){
-       toast.success("Contact removed successfully");
+      const updatedUser = await updateUser(currentUser._id, {
+        contacts: updatedCurrUser,
+      });
+      if (updatedUser.status === 200) {
+        toast.success("Contact removed successfully");
       }
     } catch (error) {
       console.log("Error removing contact", error);
       alert("Error removing contact");
-    } finally{     
+    } finally {
       setMyContacts((prev) => prev.filter((c) => c._id !== contact._id));
     }
-  }
+  };
 
   return (
     <div className=" w-full py-10 overflow-y-scroll noScrollBar h-screen">
@@ -85,7 +90,6 @@ const page = () => {
         {currentUser && (
           <div>
             <div className="flex items-center justify-start gap-x-5 w-full">
-              
               <div className=" h-[200px] w-[200px] rounded-[10px] bg-gray-600 flex flex-col items-center justify-center relative">
                 <input
                   ref={proFileImageRef}
@@ -114,17 +118,17 @@ const page = () => {
                   </div>
                 )}
               </div>
-              {
-                profileImage && (
-                  <button onClick={saveProfileImage} className="bg-primary/50 hover:bg-primary/75 p-2 rounded-md text-[13px] text-[#fff] cursor-pointer flex items-center justify-center">
+              {profileImage && (
+                <button
+                  onClick={saveProfileImage}
+                  className="bg-primary/50 hover:bg-primary/75 p-2 rounded-md text-[13px] text-[#fff] cursor-pointer flex items-center justify-center"
+                >
                   save profile image
-                  {isSavingImage&&(
+                  {isSavingImage && (
                     <span className="ml-2 h-4 w-4 rounded-full animate-spin border-2 border-base border-t-transparent "></span>
                   )}
                 </button>
-                )
-              }
-           
+              )}
             </div>
             <div className="flex flex-col items-start justify-center mt-5">
               <div className="flex flex-col gay-y-2 items-start justify-center">
@@ -145,17 +149,48 @@ const page = () => {
                 Your contacts
                 <span className="ml-1">({myContacts.length})</span>
               </h3>
-              <UserContacts myContacts={myContacts} onlineContacts={onlineContacts} handleRemoveContacts={handleRemoveContacts} dummyContacts={dummyContacts} />
+              <UserContacts
+                myContacts={myContacts}
+                onlineContacts={onlineContacts}
+                handleRemoveContacts={handleRemoveContacts}
+                dummyContacts={dummyContacts}
+              />
               <div className="flex flex-col items-start justify-start w-full px-4">
                 <h3 className="text-lg font-bold text-[25px] mt-7 pb-1">
                   Privacy settings
                 </h3>
                 <div className="flex flex-col items-start gap-y-7 mt-3 justify-between w-full">
-                  <PrivacyOption privacyTitle="Hide my profile photo" privacyValue="hideProfilePhoto" />
-                  <PrivacyOption privacyTitle="Hide online status" privacyValue="hideOnlineStatus" />
-                  <PrivacyOption privacyTitle="Hide last seen" privacyValue="hideLastSeen" />
-                  <PrivacyOption privacyTitle="Do not find me by search" privacyValue="noFindingMe" />
-                  <PrivacyOption privacyTitle="Show only my contacts" privacyValue="hideOtherContacts" />
+                  <PrivacyOption
+                    privacyTitle="Hide my profile photo"
+                    privacyValue="hideProfilePhoto"
+                  />
+                  <PrivacyOption
+                    privacyTitle="Hide online status"
+                    privacyValue="hideOnlineStatus"
+                  />
+                  <PrivacyOption
+                    privacyTitle="Hide last seen"
+                    privacyValue="hideLastSeen"
+                  />
+                  <PrivacyOption
+                    privacyTitle="Do not find me by search"
+                    privacyValue="noFindingMe"
+                  />
+                  <PrivacyOption
+                    privacyTitle="Show only my contacts"
+                    privacyValue="hideOtherContacts"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col items-start justify-start w-full px-4 mt-10">
+                <h3 className="text-lg font-bold text-[25px] mt-7 pb-1">
+                  Account settings
+                </h3>
+                <div className="flex flex-col items-start gap-y-7 mt-3 justify-between w-full">
+                  <button className="mainBtn">change password</button>
+                  <button className="mainBtn cursor-pointer bg-red-600 hover:bg-red-700">
+                    Delete Account
+                  </button>
                 </div>
               </div>
             </div>
