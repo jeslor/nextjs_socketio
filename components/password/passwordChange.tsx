@@ -101,9 +101,13 @@ const PasswordChange = ({ handleCloseChangePassword }: Props) => {
             onClick={handleCloseChangePassword}
           />
         </button>
-        <h3 className="font-semibold text-[1.3rem]">Change Password</h3>
+        <h3 className="font-semibold text-[1.3rem] text-primary">
+          Change Password
+        </h3>
         <div className="flex flex-col items-start gap-y-2 justify-center mt-5 ">
-          <label htmlFor="currentPassword">Your current Password</label>
+          <label htmlFor="currentPassword text-primary/60">
+            Your current Password
+          </label>
           <div className="h-fit w-full relative">
             <Input
               placeholder="Current Password"
