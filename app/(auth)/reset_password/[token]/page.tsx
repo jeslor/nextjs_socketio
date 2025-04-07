@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Form } from "@/components/ui/form";
 import PasswordField from "@/components/password/passwordField";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { resetPasswordValidator } from "@/lib/validators/restPasswordValidator";
 
@@ -27,6 +27,36 @@ const page = ({
   const { token } = params;
   const [currentUserEmail, setCurrentUserEmail] = useState("");
   const [isValidToken, setIsValidToken] = useState(true);
+
+  const fetchEmail = useCallback(async () => {
+    try {
+      const response: any = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify_token`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token,
+          }),
+        }
+      );
+      const res = await response.json();
+      if (res.status === 200) {
+        setCurrentUserEmail(res.email);
+        setIsValidToken(true);
+      } else {
+        setIsValidToken(false);
+      }
+    } catch (error: any) {
+      setIsValidToken(false);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    fetchEmail();
+  }, [fetchEmail]);
 
   const form = useForm({
     resolver: zodResolver(resetPasswordValidator),

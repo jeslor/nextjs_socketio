@@ -83,7 +83,7 @@ export async function POST(request: Request) {
         }
         await UserModel.findByIdAndUpdate(user._id, {
           passwordToken,
-          passwordTokenExpiry,
+          passwordTokenExpiration: passwordTokenExpiry,
         }).then(() => {
           return NextResponse.json({
             message: "Reset password link sent to your email",
@@ -95,7 +95,7 @@ export async function POST(request: Request) {
         console.error(err);
         await UserModel.findByIdAndUpdate(user._id, {
           passwordToken: "",
-          passwordTokenExpiry: "",
+          passwordTokenExpiration: "",
         }).then(() => {
           return NextResponse.json({
             message: "Failed to send email",
