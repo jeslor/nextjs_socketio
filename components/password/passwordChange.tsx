@@ -30,57 +30,64 @@ const PasswordChange = ({ handleCloseChangePassword }: Props) => {
   });
 
   const checkCurrentPassword = async () => {
-    const email: string = currentUser.email;
-
-    const response: any = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkpassword`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password: currPassword }),
+    try {
+      const email: string = currentUser.email;
+      const response: any = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkpassword`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password: currPassword }),
+        }
+      );
+      const isPasswordValid = await response.json();
+      if (isPasswordValid.status === 200) {
+        if (isPasswordValid.confirmedPassword) {
+          setIsCurrentPassword(true);
+          toast.success(isPasswordValid.message);
+        }
+        if (!isPasswordValid.confirmedPassword) {
+          setIsCurrentPassword(false);
+          throw new Error(isPasswordValid.message);
+        }
       }
-    );
-    const isPasswordValid = await response.json();
-    if (isPasswordValid.status === 200) {
-      if (isPasswordValid.confirmedPassword) {
-        setIsCurrentPassword(true);
-        toast.success(isPasswordValid.message);
-      }
-      if (!isPasswordValid.confirmedPassword) {
-        setIsCurrentPassword(false);
+      if (isPasswordValid.status !== 200) {
         toast.error(isPasswordValid.message);
       }
-    }
-    if (isPasswordValid.status !== 200) {
-      toast.error(isPasswordValid.message);
+    } catch (error: any) {
+      toast.error("Error checking password", error.message);
     }
   };
 
   const onSubmit = async (data: any) => {
-    const email: string = currentUser.email;
+    try {
+      const email: string = currentUser.email;
 
-    const response: any = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/confirmresetpassword`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password: data.password,
-          confirmPassword: data.confirmPassword,
-        }),
+      const response: any = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/confirmresetpassword`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password: data.password,
+            confirmPassword: data.confirmPassword,
+          }),
+        }
+      );
+      const res = await response.json();
+      if (res.status === 200) {
+        toast.success(res.message);
+        handleCloseChangePassword();
+      } else {
+        throw new Error(res.message);
       }
-    );
-    const res = await response.json();
-    if (res.status === 200) {
-      toast.success(res.message);
-      handleCloseChangePassword();
-    } else {
-      toast.error(res.message);
+    } catch (error: any) {
+      toast.error("Error changing password", error.message);
     }
   };
 

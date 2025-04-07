@@ -68,8 +68,6 @@ export const getOtherUsers = async (userId: string) => {
 
 export const updateUser = async (userId: string, data: any) => {
   try {
-    console.log("Updating user", userId, data);
-
     await ConnectToDB();
     const user = await UserModel.findByIdAndUpdate(userId, data, {
       new: true,

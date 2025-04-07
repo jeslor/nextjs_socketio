@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 const passwordResetValidator = z.object({
   email: z.string().email("Invalid email address"),
@@ -25,8 +26,38 @@ const page = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof passwordResetValidator>) => {
-    // Handle password reset logic here
-    console.log("Password reset email sent to:", values.email);
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/forgot_password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 200) {
+            toast.success("Password reset link sent to your email");
+            form.reset();
+          } else {
+            throw new Error(res.message);
+          }
+        });
+    } catch (error: any) {
+      toast.error(error.message, {
+        style: {
+          boxShadow: "0 4px 12px 0 rgba(0,0,0,0.05)",
+          padding: "16px",
+          color: "#8e0707",
+          fontSize: "13px",
+          fontWeight: "500",
+        },
+        iconTheme: {
+          primary: "#713200",
+          secondary: "#FFFAEE",
+        },
+      });
+    }
   };
 
   return (
