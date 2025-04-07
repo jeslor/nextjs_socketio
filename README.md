@@ -56,7 +56,7 @@ PORT=your port
 Start the development server:
 
 ```bash
-npm run dev  # or yarn dev
+npm run dev-socket  # or yarn dev-socket
 ```
 
 Your app will be running at `http://localhost:3000`.
