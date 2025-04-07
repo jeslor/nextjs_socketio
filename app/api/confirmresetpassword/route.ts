@@ -24,6 +24,8 @@ export async function POST(request: Request) {
 
     const hashedPassword = await hash(password, 10);
     user.password = hashedPassword;
+    user.passwordToken = undefined;
+    user.passwordTokenExpiration = undefined;
     await user.save();
 
     return NextResponse.json({
