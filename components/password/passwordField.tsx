@@ -29,7 +29,7 @@ const PasswordField = <T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <FormItem>
           {label && <FormLabel className="opacity-90">{label}</FormLabel>}
           <FormControl>
@@ -48,7 +48,9 @@ const PasswordField = <T extends FieldValues>({
               </span>
             </div>
           </FormControl>
-          <FormMessage className="text-red-600 text-xs" />
+          <FormMessage className="text-red-600 text-xs">
+            {fieldState.error?.message}
+          </FormMessage>
         </FormItem>
       )}
     />

@@ -18,7 +18,7 @@ interface Props {
 const PasswordChange = ({ handleCloseChangePassword }: Props) => {
   const { currentUser } = useCurrentUserStore();
 
-  const [isCurrentPassword, setIsCurrentPassword] = useState(true);
+  const [isCurrentPassword, setIsCurrentPassword] = useState(false);
   const [currPassword, setCurrPassword] = useState("");
 
   const form = useForm({
@@ -33,7 +33,7 @@ const PasswordChange = ({ handleCloseChangePassword }: Props) => {
     const email: string = currentUser.email;
 
     const response: any = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/check_password`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkpassword`,
       {
         method: "POST",
         headers: {
@@ -59,7 +59,7 @@ const PasswordChange = ({ handleCloseChangePassword }: Props) => {
   };
 
   const onSubmit = async (data: any) => {
-    const email: string = currentUser.email;
+    console.log(data);
   };
 
   return (
