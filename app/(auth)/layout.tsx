@@ -9,22 +9,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const Router = useRouter();
   const { data: session, status: sessionStatus } = useSession();
-
-  useEffect(() => {
-    if (sessionStatus === "unauthenticated") {
-      Router.push("/login");
-    }
-    if (sessionStatus === "authenticated") {
-      const user = session.user;
-      if (user) {
-        if (user.email) {
-          Router.push("/chat");
-        }
-      }
-    }
-  }, [sessionStatus]);
 
   if (sessionStatus === "loading") {
     return (

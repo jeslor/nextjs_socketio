@@ -31,7 +31,9 @@ const PasswordField = <T extends FieldValues>({
       name={name}
       render={({ field, fieldState }) => (
         <FormItem>
-          {label && <FormLabel className="opacity-90">{label}</FormLabel>}
+          {label && (
+            <FormLabel className="opacity-90 text-primary">{label}</FormLabel>
+          )}
           <FormControl>
             <div className="relative">
               <Input

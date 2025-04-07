@@ -62,12 +62,13 @@ const page = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
-      <div className="w-full max-w-sm bg-white p-8 rounded-lg shadow-lg">
+      <div className="w-full max-w-[600px] bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-semibold text-center text-gray-800">
           Forgot Password
         </h1>
-        <p className="mt-4 text-center text-gray-500">
-          Please enter your email to reset your password.
+        <p className="mt-4 text-center text-gray-500 text-[12px] font-bold">
+          Please enter your email to reset your password.A reset link will be
+          sent to your email, check spam emails if not found in inbox.
         </p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -78,7 +79,12 @@ const page = () => {
                 <FormItem>
                   <FormLabel className="opacity-90">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email" type="email" {...field} />
+                    <Input
+                      className="max-w-[300px]"
+                      placeholder="Email"
+                      type="email"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage className="text-red-600 text-[9px]" />
