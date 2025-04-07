@@ -59,7 +59,29 @@ const PasswordChange = ({ handleCloseChangePassword }: Props) => {
   };
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    const email: string = currentUser.email;
+
+    const response: any = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/confirmresetpassword`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+        }),
+      }
+    );
+    const res = await response.json();
+    if (res.status === 200) {
+      toast.success(res.message);
+      handleCloseChangePassword();
+    } else {
+      toast.error(res.message);
+    }
   };
 
   return (

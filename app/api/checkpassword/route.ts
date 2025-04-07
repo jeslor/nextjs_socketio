@@ -1,7 +1,7 @@
 import UserModel from "@/lib/models/user.model";
 import { ConnectToDB } from "@/lib/mongoose";
 import { NextResponse } from "next/server";
-import { compare, hash } from "bcryptjs";
+import { compare } from "bcryptjs";
 
 export async function POST(request: Request) {
   const { email, password } = await request.json();
