@@ -15,7 +15,7 @@ const page = () => {
     useCurrentUserStore();
   const [myContacts, setMyContacts] = useState<any[]>([]);
   const [isSavingImage, setIsSavingImage] = useState(false);
-  const [changePassword, setChangePassword] = useState(true);
+  const [changePassword, setChangePassword] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const proFileImageRef = useRef<any>(null);
 
