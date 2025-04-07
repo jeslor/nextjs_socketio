@@ -21,8 +21,8 @@ export async function POST(request: Request) {
         status: 401,
       });
     }
-    const hashedPassword = await hash(password, 10);
-    const isPasswordValid = await compare(hashedPassword, user.password);
+    const isPasswordValid = await compare(password, user.password);
+
     if (!isPasswordValid) {
       return NextResponse.json({
         message: "Password incorrect",
@@ -32,6 +32,8 @@ export async function POST(request: Request) {
     }
 
     if (isPasswordValid) {
+      console.log("Password is correct");
+
       return NextResponse.json({
         message: "Password is correct",
         confirmedPassword: true,
