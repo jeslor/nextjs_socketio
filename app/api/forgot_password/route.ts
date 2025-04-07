@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    const { resetToken, passwordToken, passwordTokenExpiry } =
+    const { resetToken, passwordToken, passwordTokenExpiration } =
       user.generateResetToken();
     const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset_password/${resetToken}`;
 
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
         }
         await UserModel.findByIdAndUpdate(user._id, {
           passwordToken,
-          passwordTokenExpiration: passwordTokenExpiry,
+          passwordTokenExpiration: Date.now() + 3600000,
         }).then(() => {
           return NextResponse.json({
             message: "Reset password link sent to your email",

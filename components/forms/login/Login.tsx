@@ -18,6 +18,7 @@ import { loginValidator } from "@/lib/validators/loginValidator";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const LoginForm = () => {
   const Router = useRouter();
@@ -50,7 +51,6 @@ const LoginForm = () => {
               secondary: "#FFFAEE",
             },
           });
-          form.reset();
         }
         if (!res?.error) {
           toast.success("Logged out successfully");
@@ -102,7 +102,12 @@ const LoginForm = () => {
                   </Link>
                 </div>
                 <FormControl>
-                  <Input placeholder="password" {...field} type="password" />
+                  <Input
+                    id="loginPassword"
+                    placeholder="password"
+                    {...field}
+                    type="password"
+                  />
                 </FormControl>
 
                 <FormMessage className="text-red-600 text-[9px]" />

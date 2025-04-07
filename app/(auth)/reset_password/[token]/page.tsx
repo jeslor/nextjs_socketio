@@ -5,26 +5,14 @@ import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Form } from "@/components/ui/form";
 import PasswordField from "@/components/password/passwordField";
-import { Input } from "@/components/ui/input";
-import { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { resetPasswordValidator } from "@/lib/validators/restPasswordValidator";
+import { useRouter } from "next/navigation";
 
-interface Props {
-  handleCloseChangePassword: () => void;
-}
-
-const page = ({
-  params,
-}: {
-  params: {
-    token: string;
-  };
-  searchParams: {
-    email: string;
-  };
-}) => {
-  const { token } = params;
+const page = ({ params }: { params: Promise<{ token: string }> }) => {
+  const Router = useRouter();
+  const { token } = React.use(params);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
   const [isValidToken, setIsValidToken] = useState(true);
 
@@ -44,7 +32,7 @@ const page = ({
       );
       const res = await response.json();
       if (res.status === 200) {
-        setCurrentUserEmail(res.email);
+        setCurrentUserEmail(res.userEmail);
         setIsValidToken(true);
       } else {
         setIsValidToken(false);
@@ -85,6 +73,7 @@ const page = ({
       const res = await response.json();
       if (res.status === 200) {
         toast.success(res.message);
+        Router.push("/login");
       } else {
         throw new Error(res.message);
       }

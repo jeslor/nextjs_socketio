@@ -13,11 +13,14 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const passwordResetValidator = z.object({
   email: z.string().email("Invalid email address"),
 });
 const page = () => {
+  const Router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(passwordResetValidator),
     defaultValues: {
@@ -40,23 +43,14 @@ const page = () => {
             toast.success("Password reset link sent to your email");
             form.reset();
           } else {
-            throw new Error(res.message);
+            toast.success(res.message);
+            setTimeout(() => {
+              Router.push("/login");
+            }, 2000);
           }
         });
     } catch (error: any) {
-      toast.error(error.message, {
-        style: {
-          boxShadow: "0 4px 12px 0 rgba(0,0,0,0.05)",
-          padding: "16px",
-          color: "#8e0707",
-          fontSize: "13px",
-          fontWeight: "500",
-        },
-        iconTheme: {
-          primary: "#713200",
-          secondary: "#FFFAEE",
-        },
-      });
+      toast.error("Something went wrong");
     }
   };
 

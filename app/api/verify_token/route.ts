@@ -19,7 +19,6 @@ export async function POST(request: Request) {
       passwordToken: hashedToken,
       passwordTokenExpiration: { $gt: Date.now() },
     });
-    console.log("User found:", user);
 
     if (!user) {
       return NextResponse.json({
