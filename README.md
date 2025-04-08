@@ -49,6 +49,10 @@ CLOUDINARY_API_SECRET=cloudinary secret
 CLOUDINARY_URL=cloudinary:cloudinary url
 NEXT_PUBLIC_BASE_URL=next auth public url
 PORT=your port
+MJ_APIKEY_PUBLIC=your mail jet API Key
+MJ_APIKEY_PRIVATE=your mail jet secrete key
+MJ_FROM_NAME=Name of app
+MJ_FROM_EMAIL=your sender email
 ```
 
 ## 🚀 Running the App
