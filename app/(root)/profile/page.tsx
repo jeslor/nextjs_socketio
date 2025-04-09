@@ -28,6 +28,11 @@ const page = () => {
   const handleSetProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
+    const maxSizeInBytes = 1 * 1024 * 1024;
+    if (file.size > maxSizeInBytes) {
+      alert("Image size must be 1MB or less.");
+      return;
+    }
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -107,6 +112,7 @@ const page = () => {
                   ref={proFileImageRef}
                   type="file"
                   onChange={handleSetProfileImage}
+                  accept=".jpg,.jpeg,.webp,.gif,.png"
                   className="hidden"
                 />
                 <button
