@@ -16,8 +16,6 @@ const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
 app.prepare().then(() => {
-  console.log(hostname);
-
   const httpServer = createServer(handler);
 
   const io = new Server(httpServer, {
