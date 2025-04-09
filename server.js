@@ -11,7 +11,6 @@ const hostname =
     ? "localhost"
     : "next-chat-app-5npg.onrender.com";
 const port = dev ? 3000 : process.env.PORT;
-// when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
