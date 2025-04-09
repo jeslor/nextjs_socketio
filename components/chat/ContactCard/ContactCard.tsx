@@ -48,7 +48,7 @@ const ContactCard = memo(({ contact, expand }: any) => {
           <img
             src={contact.profileImage}
             alt="profile"
-            className="h-[85%] w-[85%] object-cover object-center rounded-full object-cover object-top"
+            className="h-[85%] w-[85%] rounded-full object-cover object-top"
           />
         ) : (
           <Icon
