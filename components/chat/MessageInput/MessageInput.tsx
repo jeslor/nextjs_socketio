@@ -1,7 +1,6 @@
 "use client";
 import { useCurrentUserStore } from "@/components/providers/userProvider";
 import { useMessageStore } from "@/components/providers/messageProvider";
-import { newMessage } from "@/lib/actions/message.actions";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { memo, useEffect, useRef, useState } from "react";
 

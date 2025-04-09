@@ -112,7 +112,7 @@ const page = () => {
                   ref={proFileImageRef}
                   type="file"
                   onChange={handleSetProfileImage}
-                  accept=".jpg,.jpeg,.webp,.gif,.png"
+                  accept=".jpg,.jpeg,.webp,.gif,.png,.heic"
                   className="hidden"
                 />
                 <button
@@ -121,11 +121,11 @@ const page = () => {
                 >
                   <Icon icon="bx:edit" className="text-[#fff] h-6 w-6" />
                 </button>
-                {currentUser.profileImage || profileImage ? (
+                {profileImage || currentUser.profileImage ? (
                   <img
-                    src={currentUser.profileImage || profileImage}
+                    src={profileImage || currentUser.profileImage}
                     alt=""
-                    className="w-full h-full object-cover rounded-[10px]"
+                    className="w-full h-full object-cover rounded-[10px] object-top"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
