@@ -43,7 +43,6 @@ app.prepare().then(() => {
     });
 
     socket.on("disconnect", () => {
-      console.log(`> Socket disconnected: ${socket.id}`);
       delete connectedUsersMap[userId];
       io.emit("connectedUsers", Object.keys(connectedUsersMap));
     });
