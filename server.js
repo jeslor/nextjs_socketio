@@ -33,7 +33,6 @@ app.prepare().then(() => {
   const connectedUsersMap = {};
 
   io.on("connection", (socket) => {
-    console.log(`> Socket connected: ${socket.id}`);
     const { userId } = socket.handshake.query;
     connectedUsersMap[userId] = socket.id;
     io.emit("connectedUsers", Object.keys(connectedUsersMap));
